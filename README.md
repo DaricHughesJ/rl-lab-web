@@ -1,4 +1,17 @@
-# React + Vite
+# MechLab Web
+
+Marketing site, beta onboarding, Supabase authentication, and player dashboard for MechLab.
+
+## Account setup
+
+1. Create or select a Supabase project and enable Email authentication.
+2. Add the local and production website URLs under Authentication → URL Configuration.
+3. Copy `.env.example` to `.env.local` and fill in the project URL and **publishable** browser key.
+4. Run `pnpm install` and `pnpm dev`.
+
+The browser must never receive a Supabase secret or `service_role` key. Beta profile fields are stored as user metadata for onboarding and display only; they are not used for authorization.
+
+## Development
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 

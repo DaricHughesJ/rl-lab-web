@@ -1,16 +1,32 @@
-import { supabase } from '../lib/supabase'
+import { useEffect, useState } from 'react'
+import { getBetaProfile, supabase } from '../lib/supabase'
+import { BETA_DOWNLOAD_URL, BETA_RELEASE_PAGE, BETA_VERSION } from '../lib/release'
 
-const activity = [82, 88, 84, 91, 89, 94, 92]
 export default function UserDashboard({ user, onExit }) {
   const meta = user.user_metadata || {}
-  const name = meta.display_name || user.email?.split('@')[0] || 'Player'
+  const [profile, setProfile] = useState(null)
+  const [profileError, setProfileError] = useState('')
+  const name = profile?.display_name || meta.display_name || user.email?.split('@')[0] || 'Player'
+  const approved = profile?.beta_access === true
+
+  useEffect(() => {
+    let active = true
+    getBetaProfile()
+      .then((data) => active && setProfile(data))
+      .catch(() => active && setProfileError('We could not refresh your beta status. Try signing in again.'))
+    return () => { active = false }
+  }, [])
+
   return <main className="account-shell">
-    <aside className="account-sidebar"><Logo/><div><button className="active">⌁ <span>Overview</span></button><button>◎ <span>Mechanics</span></button><button>⌗ <span>Sessions</span></button><button>◇ <span>Profile</span></button></div><button onClick={async () => { await supabase.auth.signOut(); onExit() }}>↪ <span>Sign out</span></button></aside>
-    <section className="account-main"><header><div><p>PLAYER DASHBOARD</p><h1>Welcome back, {name}.</h1></div><div className="account-user"><span>{name.slice(0,2).toUpperCase()}</span><div><b>{name}</b><small>{meta.rocket_league_rank || 'Beta player'}</small></div></div></header>
-      <div className="beta-banner"><i>✦</i><div><b>Beta access requested</b><span>Your profile is ready. We’ll notify you as soon as your build is available.</span></div><em>{meta.beta_status === 'accepted' ? 'ACCESS GRANTED' : 'IN REVIEW'}</em></div>
-      <div className="account-metrics"><article><span>OVERALL SCORE</span><strong>92<small>/100</small></strong><b>↗ 7.4% this month</b></article><article><span>TOTAL REPS</span><strong>1,248</strong><b>+86 this week</b></article><article><span>TRAINING STREAK</span><strong>16<small> days</small></strong><b>Personal best</b></article><article><span>TOP MECHANIC</span><strong>94</strong><b>Fast aerial</b></article></div>
-      <div className="account-grid"><article className="performance-card"><header><div><span>PERFORMANCE TREND</span><b>Last 7 sessions</b></div><strong>+12.4% <small>↗ improving</small></strong></header><div className="activity-chart">{activity.map((value,index)=><i key={index} style={{height:`${value-35}%`}}><span>{value}</span></i>)}</div><footer>{['S1','S2','S3','S4','S5','S6','NOW'].map(x=><span key={x}>{x}</span>)}</footer></article><article className="focus-card"><span>NEXT FOCUS</span><i>✦</i><h3>Second-jump timing</h3><p>Release pitch 40ms earlier to improve fast-aerial acceleration.</p><div><span>IMPACT</span><b>HIGH</b></div><button>Open training plan →</button></article></div>
-      <div className="recent-card"><header><div><span>MECHANIC PROGRESS</span><h3>Your strongest mechanics</h3></div><button>View all →</button></header>{[['Fast aerial','94','+6%'],['Half flip','91','+4%'],['Speed flip','87','+12%']].map(x=><div className="mechanic-row" key={x[0]}><i>{x[0][0]}</i><b>{x[0]}<small>Consistency improving</small></b><span><i style={{width:`${x[1]}%`}}/></span><strong>{x[1]}<small>{x[2]}</small></strong></div>)}</div>
+    <aside className="account-sidebar"><Logo/><div><button className="active">⌁ <span>Overview</span></button><button disabled>◎ <span>Mechanics</span></button><button disabled>⌗ <span>Sessions</span></button><button disabled>◇ <span>Profile</span></button></div><button onClick={async () => { await supabase.auth.signOut(); onExit() }}>↪ <span>Sign out</span></button></aside>
+    <section className="account-main"><header><div><p>PLAYER DASHBOARD</p><h1>Welcome, {name}.</h1></div><div className="account-user"><span>{name.slice(0,2).toUpperCase()}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Beta player'}</small></div></div></header>
+      <div className={`beta-banner ${approved ? 'approved' : ''}`}><i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Beta access requested'}</b><span>{approved ? 'Download the Windows app, sign in, and begin with Training Lab.' : profileError || (profile ? 'Your account is in the approval queue. We’ll email you when access is granted.' : 'Checking your access…')}</span></div>{approved ? <a href={BETA_DOWNLOAD_URL}>Download for Windows ↓</a> : <em>IN REVIEW</em>}</div>
+      <div className="beta-setup">
+        <article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows beta build above.' : 'The download unlocks after your beta account is approved.'}</p></div></article>
+        <article><span>02</span><div><b>Sign in</b><p>Use this same email and password in the desktop app.</p></div></article>
+        <article><span>03</span><div><b>Open Training Lab</b><p>Start with the bundled offline trainer; BakkesMod is optional.</p></div></article>
+      </div>
+      <article className="dashboard-empty"><span>YOUR TRAINING DATA</span><i>◇</i><h2>No sessions synced yet</h2><p>Your real mechanic scores, reps, and progress will appear here after you complete and sync your first training session.</p>{approved && <a href={BETA_RELEASE_PAGE}>Read install notes and known beta limits →</a>}</article>
     </section>
   </main>
 }

@@ -36,3 +36,29 @@
   .steps{grid-template-columns:1fr 1fr;gap:30px 12px;margin-top:42px}.steps article{padding:0 5px}.steps article>i{width:58px;height:58px}.steps h3{font-size:14px}.steps p{font-size:10px}
   .profilebox{gap:34px}.badges{gap:6px}.badges span{flex:1;min-width:0;height:68px}.badges b{font-size:5px}
 }
+
+/* Account dashboard uses live account state; no sample performance data. */
+.beta-banner.approved{border-color:#718e48;background:linear-gradient(90deg,#192014,#11131b)}
+.beta-banner>div span{color:#a1a2ad}
+.beta-banner em,.beta-banner>a{margin-left:auto;font:7px var(--mono);color:var(--lime);border:1px solid #caff4a36;padding:9px 11px;text-decoration:none;font-style:normal}
+.beta-banner>a{background:#caff4a;color:#11160a;font-weight:800}
+.beta-setup{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.beta-setup article{display:flex;gap:14px;background:#11131c;border:1px solid var(--line);padding:20px}
+.beta-setup article>span{font:8px var(--mono);color:var(--purple)}
+.beta-setup article div{display:grid;gap:7px}
+.beta-setup b{font-size:11px}
+.beta-setup p{margin:0;color:#858692;font-size:9px;line-height:1.6}
+.dashboard-empty{min-height:330px;margin-top:12px;border:1px solid var(--line);background:radial-gradient(circle at 50% 20%,#4c2c6828,transparent 40%),#10121a;display:grid;place-items:center;align-content:center;text-align:center;padding:40px}
+.dashboard-empty>span{font:7px var(--mono);letter-spacing:.13em;color:#737481}
+.dashboard-empty>i{font-style:normal;font-size:34px;color:var(--purple);margin:20px}
+.dashboard-empty h2{font-size:22px;margin:0}
+.dashboard-empty p{max-width:520px;color:#858692;font-size:10px;line-height:1.7}
+.dashboard-empty a{color:var(--lime);font:8px var(--mono);text-decoration:none;margin-top:8px}
+.account-sidebar button:disabled{opacity:.45;cursor:not-allowed}
+
+@media(max-width:700px){
+  .beta-banner{align-items:flex-start;flex-wrap:wrap}
+  .beta-banner>a{width:100%;margin:4px 0 0;text-align:center}
+  .beta-setup{grid-template-columns:1fr}
+  .dashboard-empty{min-height:280px;padding:28px 20px}
+}

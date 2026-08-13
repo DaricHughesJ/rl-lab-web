@@ -24,3 +24,13 @@ export async function signIn({ email, password }) {
   if (!supabase) throw new Error('Account services are not configured yet.')
   return supabase.auth.signInWithPassword({ email, password })
 }
+
+export async function getBetaProfile() {
+  if (!supabase) throw new Error('Account services are not configured yet.')
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('display_name, rank_bucket, beta_access')
+    .single()
+  if (error) throw error
+  return data
+}

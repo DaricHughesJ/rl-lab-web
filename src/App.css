@@ -14,3 +14,25 @@
 
 /* Keep the mobile close compact: the CTA already carries its own visual weight. */
 @media(max-width:700px){.pricing{min-height:0;padding:64px 20px 48px}.sitefooter{padding:42px 28px 20px;gap:26px}.sitefooter>div:first-child p{margin-bottom:0}.copyright{margin:4px 0 0;padding-top:16px}}
+
+/* Phone layout is a distinct touch experience, not a compressed desktop grid. */
+.mobile-menu-login{display:none}
+@media(max-width:700px){
+  nav{padding:0 20px;background:#090a10e8;backdrop-filter:blur(18px);position:fixed;width:100%}
+  nav .brand{font-size:11px}.navright .nav-login{display:none}.nav-beta{font-size:9px!important;padding:9px 11px!important}.menu-button{font-size:20px!important;padding:6px!important}
+  .links{position:fixed;top:68px;padding:18px 20px 22px;gap:0;border-bottom:1px solid var(--line);box-shadow:0 20px 50px #000b}
+  .links a,.mobile-menu-login{width:100%;padding:14px 4px;border:0;border-bottom:1px solid #ffffff0d;background:none;color:#d4d1da;text-align:left;font-size:13px;text-decoration:none}
+  .mobile-menu-login{display:block}
+  .hero{min-height:0;padding:108px 20px 46px;gap:24px}.hero-copy{max-width:350px}.pill{font-size:7px;white-space:nowrap}.hero h1{font-size:46px;line-height:.96;margin:24px 0}.lede{font-size:14px;line-height:1.65}.actions{margin:28px 0;gap:16px}.trust{margin-top:30px}.trust small{line-height:1.4}
+  .visual{margin:8px -10px 0;padding:5px}.window{height:330px;transform:none;border-radius:7px}.dash{padding:15px}.dash h3{font-size:15px}.metrics{margin:15px 0 8px}.metrics span{font-size:6px}.metrics strong{font-size:17px}.chartcard{height:175px}.chartcard .chart{height:105px;margin-top:12px}.float{display:none}
+  .stats{padding:18px 20px;overflow:auto}.stats div{display:flex;width:max-content;gap:28px}.stats span{font-size:7px;white-space:nowrap}
+  .section{padding:68px 20px}.heading h2{font-size:36px}.heading>p:last-child{font-size:13px;line-height:1.65}.eyebrow{font-size:8px}
+  .telemetry,.cards,.scorerow{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;gap:12px;margin-inline:-20px;padding:0 20px 14px;scrollbar-width:none}
+  .telemetry::-webkit-scrollbar,.cards::-webkit-scrollbar,.scorerow::-webkit-scrollbar{display:none}
+  .telemetry{margin-top:38px}.telemetry .panel{flex:0 0 88%;min-height:370px;scroll-snap-align:center}.controller{width:260px;margin-top:38px}.timeline .events{margin-top:45px}
+  .cards{margin-top:38px}.cards article{flex:0 0 84%;min-height:320px;scroll-snap-align:center}.cards p{font-size:12px;min-height:42px}.cards a{font-size:8px}
+  .insights{gap:30px}.copy li{font-size:12px}.insightcard{padding:22px}.insightcard h3{font-size:21px}.compare{gap:12px;padding:14px}
+  .analyticsbox{margin-top:34px}.analyticsbox>.chart{height:185px}.scorerow{margin-top:12px}.scorerow>div{flex:0 0 72%;scroll-snap-align:center}
+  .steps{grid-template-columns:1fr 1fr;gap:30px 12px;margin-top:42px}.steps article{padding:0 5px}.steps article>i{width:58px;height:58px}.steps h3{font-size:14px}.steps p{font-size:10px}
+  .profilebox{gap:34px}.badges{gap:6px}.badges span{flex:1;min-width:0;height:68px}.badges b{font-size:5px}
+}

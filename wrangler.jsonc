@@ -4,8 +4,7 @@
   "main": "./src/worker.js",
   "compatibility_date": "2026-08-12",
   "vars": {
-    "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co",
-    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_QUVWe0mGWXqoM2TtHzmXjw_ysmkJ8mF"
+    "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co"
   },
   "r2_buckets": [
     {

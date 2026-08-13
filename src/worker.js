@@ -44,7 +44,7 @@ function bearerToken(value) {
 
 async function supabaseJson(url, env, token) {
   const response = await fetch(url, {
-    headers: { apikey: env.SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${token}` },
+      headers: { apikey: env.SUPABASE_KEY_SECRET, Authorization: `Bearer ${token}` },
   })
   if (!response.ok) return null
   return response.json()

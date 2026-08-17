@@ -23,3 +23,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local secrets / project config — use .env.example as the template.
+# Even though VITE_* vars are public by build design, keeping this untracked
+# means the day a service-role key lands here it does not reach the repo.
+.env

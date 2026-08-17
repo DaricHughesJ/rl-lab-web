@@ -25,6 +25,7 @@ export default function UserDashboard({ user, onExit }) {
   }
 
   return <main className="account-shell">
+    <style>{dashboardNavCss}</style>
     <aside className="account-sidebar">
       <Logo/>
       <div>
@@ -60,6 +61,23 @@ export default function UserDashboard({ user, onExit }) {
     </section>
   </main>
 }
+
+const dashboardNavCss = `
+.account-nav-link{border:0;background:none;color:#737583;text-align:left;padding:12px;font-size:11px;display:flex;gap:13px;text-decoration:none}
+.account-nav-link:hover{color:#fff}
+.account-header-actions{display:flex;align-items:center;gap:10px}
+.account-menu-button,.account-mobile-menu{display:none}
+@media(max-width:700px){
+  .account-sidebar{display:none!important}
+  .account-main{padding-bottom:28px!important}
+  .account-main>header{position:relative;gap:12px}
+  .account-header-actions{margin-left:auto}
+  .account-menu-button{display:grid;width:42px;height:42px;place-items:center;border:1px solid #30323d;background:#11131c;color:#f5f2fa;font-size:20px;line-height:1;cursor:pointer}
+  .account-mobile-menu{display:grid;position:absolute;z-index:40;top:54px;right:0;width:min(260px,calc(100vw - 30px));background:#0d0f16;border:1px solid #343641;box-shadow:0 18px 50px #000c;padding:8px}
+  .account-mobile-menu button,.account-mobile-menu a{display:block;width:100%;padding:14px 12px;border:0;border-bottom:1px solid #ffffff0d;background:none;color:#d8d5de;text-decoration:none;text-align:left;font:11px var(--mono);cursor:pointer}
+  .account-mobile-menu .signout{border-bottom:0;color:#ff9cae}
+}
+`
 
 async function downloadBeta() {
   const { data } = await supabase.auth.getSession()

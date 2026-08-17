@@ -6,6 +6,7 @@ export default function UserDashboard({ user, onExit }) {
   const meta = user.user_metadata || {}
   const [profile, setProfile] = useState(null)
   const [profileError, setProfileError] = useState('')
+  const [mobileMenu, setMobileMenu] = useState(false)
   const name = profile?.display_name || meta.display_name || user.email?.split('@')[0] || 'Player'
   const approved = profile?.beta_access === true
 
@@ -17,9 +18,38 @@ export default function UserDashboard({ user, onExit }) {
     return () => { active = false }
   }, [])
 
+  const signOut = async () => {
+    setMobileMenu(false)
+    await supabase.auth.signOut()
+    onExit()
+  }
+
   return <main className="account-shell">
-    <aside className="account-sidebar"><Logo/><div><button className="active">⌁ <span>Overview</span></button><button disabled>◎ <span>Mechanics</span></button><button disabled>⌗ <span>Sessions</span></button><button disabled>◇ <span>Profile</span></button></div><button onClick={async () => { await supabase.auth.signOut(); onExit() }}>↪ <span>Sign out</span></button></aside>
-    <section className="account-main"><header><div><p>PLAYER DASHBOARD</p><h1>Welcome, {name}.</h1></div><div className="account-user"><span>{name.slice(0,2).toUpperCase()}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Beta player'}</small></div></div></header>
+    <aside className="account-sidebar">
+      <Logo/>
+      <div>
+        <button className="active" aria-current="page">⌁ <span>Overview</span></button>
+        <button disabled>◎ <span>Mechanics</span></button>
+        <button disabled>⌗ <span>Sessions</span></button>
+        <a className="account-nav-link" href="/">⌂ <span>Website</span></a>
+      </div>
+      <button onClick={signOut}>↪ <span>Sign out</span></button>
+    </aside>
+
+    <section className="account-main">
+      <header>
+        <div><p>PLAYER DASHBOARD</p><h1>Welcome, {name}.</h1></div>
+        <div className="account-header-actions">
+          <div className="account-user"><span>{name.slice(0,2).toUpperCase()}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Beta player'}</small></div></div>
+          <button className="account-menu-button" aria-label="Open account menu" aria-expanded={mobileMenu} onClick={() => setMobileMenu((open) => !open)}>{mobileMenu ? '×' : '☰'}</button>
+        </div>
+        {mobileMenu && <div className="account-mobile-menu">
+          <button onClick={() => setMobileMenu(false)}>⌁ Overview</button>
+          <a href="/">⌂ Main website</a>
+          <button className="signout" onClick={signOut}>↪ Sign out</button>
+        </div>}
+      </header>
+
       <div className={`beta-banner ${approved ? 'approved' : ''}`}><i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Beta access requested'}</b><span>{approved ? 'Download the Windows app, sign in, and begin with Training Lab.' : profileError || (profile ? 'Your account is in the approval queue. We’ll email you when access is granted.' : 'Checking your access…')}</span></div>{approved ? <button onClick={downloadBeta}>Download for Windows ↓</button> : <em>IN REVIEW</em>}</div>
       <div className="beta-setup">
         <article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows beta build above.' : 'The download unlocks after your beta account is approved.'}</p></div></article>

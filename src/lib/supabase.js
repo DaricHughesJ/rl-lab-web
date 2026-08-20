@@ -25,6 +25,14 @@ export async function signUpForBeta({ name, email, password, rank, platform }) {
   })
 }
 
+export async function resendSignupConfirmation(email) {
+  return requireSupabase().auth.resend({
+    type: 'signup',
+    email,
+    options: { emailRedirectTo: `${window.location.origin}/` },
+  })
+}
+
 export async function signIn({ email, password }) {
   return requireSupabase().auth.signInWithPassword({ email, password })
 }

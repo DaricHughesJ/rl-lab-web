@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import InstallWizard from './InstallWizard'
 import {
   changePassword,
   getBetaProfile,
@@ -8,7 +9,7 @@ import {
   updateProfile,
   updateUserSettings,
 } from '../lib/supabase'
-import { BETA_DOWNLOAD_URL, BETA_VERSION } from '../lib/release'
+import { BETA_DOWNLOAD_URL, BETA_FILE_NAME, BETA_VERSION } from '../lib/release'
 
 const tabs = [
   ['overview', '⌁', 'Overview'],
@@ -97,7 +98,7 @@ function Overview({ profile, dashboard, approved, onDownload }) {
   return <>
     <div className={`beta-banner ${approved ? 'approved' : ''}`}>
       <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Beta access requested'}</b><span>{approved ? 'Download the Windows beta, sign in with this account, then sync your first training session.' : 'Your account is in the approval queue. We’ll email you when access is granted.'}</span></div>
-      {approved ? <button onClick={onDownload}>Download for Windows ↓</button> : <em>IN REVIEW</em>}
+      {approved ? <button onClick={onDownload}>Download {BETA_FILE_NAME} ↓</button> : <em>IN REVIEW</em>}
     </div>
 
     <div className="account-metrics live-metrics">
@@ -112,7 +113,7 @@ function Overview({ profile, dashboard, approved, onDownload }) {
       <article className="focus-card live-card"><span>NEXT STEP</span><i>✦</i><h3>{summary.weakest ? prettyMechanic(summary.weakest.mechanic) : 'Complete a session'}</h3><p>{summary.weakest ? `Your current average is ${Math.round(summary.weakest.mean_score)}/100. Use the desktop coach to focus your next block.` : 'Start with Training Lab and sync your results to unlock progress tracking here.'}</p><div><span>DATA SOURCE</span><b>YOUR SYNCED REPS</b></div></article>
     </div>}
 
-    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Beta setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows beta build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Train + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
+    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Install wizard</h2><p>Use the same account and machine all the way through first launch.</p></div><InstallWizard approved={approved} onDownload={onDownload} userEmail={user?.email || ''} compact /></section>
     {profile && <p className="account-footnote">Windows 10/11 · Beta build may trigger SmartScreen · BakkesMod telemetry is optional and intended for supported offline/freeplay workflows.</p>}
   </>
 }

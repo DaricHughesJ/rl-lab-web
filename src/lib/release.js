@@ -1,3 +1,6 @@
 export const BETA_VERSION = '0.2.0 Beta 1'
+export const BETA_RELEASE_VERSION = '0.2.0b1'
 export const BETA_FILE_NAME = 'MechLab.exe'
+export const BETA_OBJECT_KEY = 'releases/v0.2.0-beta.1/MechLab.exe'
 export const BETA_DOWNLOAD_URL = '/api/beta-download'
+export const BETA_LATEST_URL = '/api/latest'

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import AuthModal from './components/AuthModal'
+import DevelopmentRoadmap from './components/DevelopmentRoadmap'
 import InstallWizard from './components/InstallWizard'
 import UserDashboard from './components/UserDashboard'
 import { supabase } from './lib/supabase'
@@ -20,14 +21,8 @@ const Chart = ({ lime }) => (
       </linearGradient>
     </defs>
     <path className="grid" d="M0 30H500M0 75H500M0 120H500" />
-    <path
-      fill={`url(#${lime ? 'l' : 'p'})`}
-      d="M0 125C45 117 53 87 95 101s69-50 110-29 69-28 111-13 49-5 80-24 65 7 104-20v135H0z"
-    />
-    <path
-      className={lime ? 'cl' : 'cp'}
-      d="M0 125C45 117 53 87 95 101s69-50 110-29 69-28 111-13 49-5 80-24 65 7 104-20"
-    />
+    <path fill={`url(#${lime ? 'l' : 'p'})`} d="M0 125C45 117 53 87 95 101s69-50 110-29 69-28 111-13 49-5 80-24 65 7 104-20v135H0z" />
+    <path className={lime ? 'cl' : 'cp'} d="M0 125C45 117 53 87 95 101s69-50 110-29 69-28 111-13 49-5 80-24 65 7 104-20" />
   </svg>
 )
 
@@ -44,10 +39,7 @@ function authResult() {
   const e = h.get('error_description') || q.get('error_description')
   if (e) return { type: 'error', message: e.replaceAll('+', ' ') }
   if (h.get('access_token') || q.get('code')) {
-    return {
-      type: 'success',
-      message: 'Your email is confirmed. You can return to MechLab and sign in.',
-    }
+    return { type: 'success', message: 'Your email is confirmed. You can return to MechLab and sign in.' }
   }
   return null
 }
@@ -58,30 +50,17 @@ function Dashboard() {
       <div className="window">
         <aside><Logo /><i>⌁</i><i>⌗</i><i>◫</i><span>DH</span></aside>
         <div className="dash">
-          <header>
-            <div><small>PRODUCT PREVIEW</small><h3>Training ground</h3></div>
-            <b>DEMO</b>
-          </header>
+          <header><div><small>PRODUCT PREVIEW</small><h3>Training ground</h3></div><b>DEMO</b></header>
           <div className="metrics">
             {[
               ['SESSION SCORE', '92', 'EXAMPLE'],
               ['ATTEMPTS', '48', 'REPS'],
               ['CONSISTENCY', '89%', 'EXAMPLE'],
-            ].map((x) => (
-              <div key={x[0]}><span>{x[0]}</span><strong>{x[1]}</strong><small>{x[2]}</small></div>
-            ))}
+            ].map((x) => <div key={x[0]}><span>{x[0]}</span><strong>{x[1]}</strong><small>{x[2]}</small></div>)}
           </div>
           <div className="dashgrid">
-            <div className="chartcard">
-              <label>INPUT PRECISION <b>PREVIEW</b></label>
-              <Chart />
-              <footer>0s　　5s　　10s　　15s</footer>
-            </div>
-            <div className="repcard">
-              <label>EXAMPLE ATTEMPT</label>
-              <div className="ring"><b>94</b><small>SCORE</small></div>
-              <p>FAST AERIAL</p>
-            </div>
+            <div className="chartcard"><label>INPUT PRECISION <b>PREVIEW</b></label><Chart /><footer>0s　　5s　　10s　　15s</footer></div>
+            <div className="repcard"><label>EXAMPLE ATTEMPT</label><div className="ring"><b>94</b><small>SCORE</small></div><p>FAST AERIAL</p></div>
           </div>
         </div>
       </div>
@@ -153,8 +132,8 @@ function App() {
             <a href="#product" onClick={() => setMenu(false)}>Product</a>
             <a href="#mechanics" onClick={() => setMenu(false)}>Mechanics</a>
             <a href="#autolearn" onClick={() => setMenu(false)}>AutoLearn</a>
-            <a href="#workflow" onClick={() => setMenu(false)}>How it works</a>
-            <a href="#pricing" onClick={() => setMenu(false)}>Pricing</a>
+            <a href="#mobile" onClick={() => setMenu(false)}>Mobile</a>
+            <a href="#roadmap" onClick={() => setMenu(false)}>Roadmap</a>
             <button className="mobile-menu-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Log in</button>
           </div>
           <div className="navright">
@@ -166,11 +145,7 @@ function App() {
 
         {result && (
           <section className={'auth ' + result.type}>
-            <div>
-              <b>ACCOUNT STATUS</b>
-              <h2>{result.type === 'success' ? 'Email confirmed' : 'That link did not work'}</h2>
-              <p>{result.message}</p>
-            </div>
+            <div><b>ACCOUNT STATUS</b><h2>{result.type === 'success' ? 'Email confirmed' : 'That link did not work'}</h2><p>{result.message}</p></div>
             <button onClick={() => { history.replaceState(null, '', '/'); setResult(null) }}>Dismiss</button>
           </section>
         )}
@@ -179,28 +154,25 @@ function App() {
           <div className="hero-copy">
             <p className="pill">●　PERFORMANCE INTELLIGENCE FOR ROCKET LEAGUE</p>
             <h1>Every input.<br /><em>Made intentional.</em></h1>
-            <p className="lede">MechLab measures the rep, explains what went wrong, gives you one correction to test next, and learns from whether that correction actually worked.</p>
-            <div className="actions">
-              <button className="button" onClick={() => setAuthMode('signup')}>Join the beta　→</button>
-              <a href="#product">◉　See it in action</a>
-            </div>
-            <p className="trust"><span>DH</span><span>RL</span><span>GC</span><b>Built around evidence, not guesswork<small>Personal learning is local · Shared training is opt-in</small></b></p>
+            <p className="lede">MechLab measures the rep on desktop, explains what went wrong, gives you one correction to test next, and now carries your synced progress into a native mobile companion.</p>
+            <div className="actions"><button className="button" onClick={() => setAuthMode('signup')}>Join the beta　→</button><a href="#mobile">◉　See where mobile is now</a></div>
+            <p className="trust"><span>PC</span><span>iOS</span><span>WEB</span><b>One connected training system<small>Desktop capture · cloud sync · mobile review</small></b></p>
           </div>
           <Dashboard />
         </section>
 
         <section className="stats">
-          <p>MEASURE WHAT MATTERS</p>
+          <p>CURRENT PRODUCT STATE</p>
           <div>
-            <span><b>120</b> HZ INPUT CAPTURE</span>
-            <span><b>5</b> MECHANICS SCORED</span>
-            <span><b>2</b> AUTOLEARN LOOPS</span>
-            <span><b>1</b> CORRECTION AT A TIME</span>
+            <span><b>120</b> HZ DESKTOP INPUT</span>
+            <span><b>LIVE</b> WEB ACCOUNTS</span>
+            <span><b>PRIVATE</b> iPHONE BUILD</span>
+            <span><b>NEXT</b> ANDROID PACKAGE</span>
           </div>
         </section>
 
         <section className="section" id="product">
-          <Heading n="01" tag="LIVE TELEMETRY" title={<>See the mechanic.<br /><em>Not just the outcome.</em></>} text="MechLab captures every movement at 120 Hz, revealing the split-second inputs that separate almost from automatic." />
+          <Heading n="01" tag="LIVE TELEMETRY" title={<>See the mechanic.<br /><em>Not just the outcome.</em></>} text="MechLab captures every movement at 120 Hz on the desktop app, revealing the split-second inputs that separate almost from automatic." />
           <div className="telemetry reveal">
             <div className="panel controller-card">
               <label>CONTROLLER INPUT <b>● LIVE</b></label>
@@ -222,8 +194,7 @@ function App() {
             {mechanics.map((m, i) => (
               <article className="reveal" style={{ '--d': i + '00ms' }} key={m[0]}>
                 <header><span>PREVIEW 0{i + 1}</span><div className="score"><b>{m[2]}</b></div></header>
-                <h3>{m[0]}</h3><p>{m[1]}</p><div className="bars"><i /><i /><i /><i /><i /></div>
-                <a href="#insights">Explore scoring　→</a>
+                <h3>{m[0]}</h3><p>{m[1]}</p><div className="bars"><i /><i /><i /><i /><i /></div><a href="#insights">Explore scoring　→</a>
               </article>
             ))}
           </div>
@@ -259,22 +230,16 @@ function App() {
               ['Founder bootstrap', 'With training contribution enabled, the first shared model can start from 40 usable founder reps across 4 separate sessions, validated by holding out whole sessions.'],
               ['Evidence gate', 'Every six hours AutoLearn checks new consented evidence. Weak candidates and regressions are rejected automatically instead of replacing the last good model.'],
               ['Broader model', 'At 80 usable samples, 3 contributors, and 8 sessions, validation switches to held-out players so the bootstrap model can be replaced by evidence that generalizes better.'],
-            ].map((s, i) => (
-              <article className="reveal" key={s[0]}>
-                <span>0{i + 1}</span><i>{['⌁', '◎', '✓', '↗'][i]}</i><h3>{s[0]}</h3><p>{s[1]}</p>
-              </article>
-            ))}
+            ].map((s, i) => <article className="reveal" key={s[0]}><span>0{i + 1}</span><i>{['⌁', '◎', '✓', '↗'][i]}</i><h3>{s[0]}</h3><p>{s[1]}</p></article>)}
           </div>
         </section>
 
         <section className="section analytics">
-          <Heading n="05" tag="PROGRESS ANALYTICS · PRODUCT PREVIEW" title={<>Your progress,<br /><em>made visible.</em></>} text="The signed-in dashboard uses your synced Supabase session and mechanic data. The chart below is illustrative preview data." />
+          <Heading n="05" tag="PROGRESS ANALYTICS · PRODUCT PREVIEW" title={<>Your progress,<br /><em>made visible.</em></>} text="The signed-in web dashboard and mobile companion use synced Supabase session and mechanic data. The chart below is illustrative preview data." />
           <div className="analyticsbox reveal">
             <header>PRODUCT PREVIEW　 OVERVIEW　　MECHANICS　　SESSIONS <b>EXAMPLE RANGE</b></header>
             <label>EXAMPLE PERFORMANCE TREND</label><strong>+14.2% <small>illustrative</small></strong><Chart />
-            <div className="scorerow">
-              {mechanics.map((m) => <div key={m[0]}><span>{m[0]} <b>EXAMPLE</b></span><strong>{m[2]}<small>/100</small></strong><i><b style={{ width: m[2] + '%' }} /></i></div>)}
-            </div>
+            <div className="scorerow">{mechanics.map((m) => <div key={m[0]}><span>{m[0]} <b>EXAMPLE</b></span><strong>{m[2]}<small>/100</small></strong><i><b style={{ width: m[2] + '%' }} /></i></div>)}</div>
           </div>
         </section>
 
@@ -282,14 +247,16 @@ function App() {
           <Heading center n="06" tag="THE TRAINING LOOP" title={<>Practice smarter.<br /><em>Improve on purpose.</em></>} />
           <div className="steps">
             {[
-              ['Connect', 'Plug in your controller and launch Rocket League. Nothing to configure.'],
-              ['Play', 'Train in freeplay or offline. MechLab detects every attempt.'],
-              ['Understand', 'See what happened, why it matters, and the one correction to test next.'],
-              ['Improve', 'Apply the change. MechLab measures whether the outcome actually got better.'],
+              ['Connect', 'Plug in your controller and launch Rocket League. Desktop is where measurement happens.'],
+              ['Play', 'Train in freeplay or offline. MechLab detects and scores supported attempts.'],
+              ['Understand', 'Review what happened, why it matters, and the one correction to test next.'],
+              ['Carry it', 'Synced sessions and mechanic progress stay available on web and the mobile companion.'],
             ].map((s, i) => <article className="reveal" key={s[0]}><span>0{i + 1}</span><i>{['⌁', '▶', '◎', '↗'][i]}</i><h3>{s[0]}</h3><p>{s[1]}</p></article>)}
           </div>
-          <div className="reveal install-wizard-marketing"><InstallWizard approved={false} onDownload={() => setAuthMode('signup')} compact ctaLabel="Preview install flow" /></div>
+          <div className="reveal install-wizard-marketing"><InstallWizard approved={false} onDownload={() => setAuthMode('signup')} compact ctaLabel="Preview desktop install flow" /></div>
         </section>
+
+        <DevelopmentRoadmap onJoin={() => setAuthMode('signup')} />
 
         <section className="section profile">
           <div className="profilebox reveal">
@@ -300,7 +267,7 @@ function App() {
               <div className="heatmap">{Array.from({ length: 72 }, (_, i) => <i className={i % 7 < 3 && i % 4 ? 'hot' : ''} key={i} />)}</div>
             </div>
             <div>
-              <Heading tag="PRODUCT PREVIEW" title={<>A future home for<br /><em>your training history.</em></>} text="This progression card is a concept preview, not a promise that levels, streaks, badges, or milestones are already in the beta. The live account dashboard currently focuses on synced sessions and mechanic progress." />
+              <Heading tag="PRODUCT PREVIEW" title={<>A future home for<br /><em>your training history.</em></>} text="The live account dashboard currently focuses on synced sessions and mechanic progress. Progression systems will only move beyond concept status where they reinforce deliberate practice." />
               <div className="badges"><span>◇<b>EXAMPLE BADGE</b></span><span>↗<b>PREVIEW</b></span><span>✦<b>CONCEPT</b></span></div>
             </div>
           </div>
@@ -308,9 +275,10 @@ function App() {
 
         <section className="section pricing" id="pricing">
           <div className="reveal">
-            <Heading center tag="START YOUR NEXT REP" title={<>Your mechanics aren’t random.<br /><em>Your training shouldn’t be either.</em></>} text="Start measuring what matters. Create your beta account and help turn the founder bootstrap into a broader evidence-backed model." />
+            <Heading center tag="START YOUR NEXT REP" title={<>Your mechanics aren’t random.<br /><em>Your training shouldn’t be either.</em></>} text="The current beta starts on Windows. The native iPhone companion is in private device testing, and mobile access will widen as distribution and device QA mature." />
             <button className="button" onClick={() => setAuthMode('signup')}>Create beta account　→</button>
             <small>FREE DURING BETA · WINDOWS 10/11 · NO CREDIT CARD</small>
+            <small>iPHONE COMPANION: PRIVATE BUILD / DEVICE TESTING · ANDROID: RELEASE PACKAGING NEXT</small>
             <small>PERSONAL AUTOLEARN RUNS LOCALLY · SHARED MODEL CONTRIBUTION IS OPTIONAL AND REQUIRES EXPLICIT CONSENT</small>
             <small>BETA 1 IS NOT CODE-SIGNED, SO WINDOWS MAY WARN ON FIRST RUN · FREEPLAY AND OFFLINE TRAINING ARE THE SUPPORTED WORKFLOWS · FLIP-RESET SCORING NEEDS THE OPTIONAL BAKKESMOD TELEMETRY PLUGIN</small>
             <small>SCORING THRESHOLDS ARE PROVISIONAL DURING BETA — HOW YOUR SCORES MOVE BETWEEN SESSIONS IS EXACT, THE ABSOLUTE FIGURES WILL SHIFT AS THEY ARE TUNED TO REAL REPS</small>
@@ -319,9 +287,10 @@ function App() {
 
         <footer className="sitefooter">
           <div><Logo /><p>Performance intelligence for Rocket League players.</p></div>
-          <div><b>PRODUCT</b><a href="#product">Live telemetry</a><a href="#mechanics">Scoring</a><a href="#insights">Corrective coaching</a><a href="#autolearn">AutoLearn</a></div>
-          <div><b>BETA</b><button onClick={() => setAuthMode('signup')}>Request access</button><button onClick={() => setAuthMode('login')}>Tester sign in</button><a href="mailto:support@mechlab.gg">Support</a><a href="/privacy">Privacy</a><a href="/terms">Beta terms</a></div>
-          <p className="copyright">© 2026 MECHLAB　 ·　 Not affiliated with Psyonix or Epic Games.　 ·　 <b>● SYSTEMS OPERATIONAL</b></p>
+          <div><b>PRODUCT</b><a href="#product">Live telemetry</a><a href="#mechanics">Scoring</a><a href="#insights">Corrective coaching</a><a href="#autolearn">AutoLearn</a><a href="#mobile">Mobile companion</a></div>
+          <div><b>BUILD</b><a href="#roadmap">Roadmap</a><a href="#devlog">Dev log</a><a href="#workflow">Training loop</a><button onClick={() => setAuthMode('signup')}>Request beta access</button></div>
+          <div><b>LEGAL + SUPPORT</b><button onClick={() => setAuthMode('login')}>Tester sign in</button><a href="mailto:support@mechlab.gg">Support</a><a href="/privacy">Privacy</a><a href="/terms">Beta terms</a></div>
+          <p className="copyright">© 2026 MECHLAB　 ·　 Not affiliated with Psyonix or Epic Games.　 ·　 <b>● ACTIVE DEVELOPMENT</b></p>
         </footer>
       </main>
       {authMode && <AuthModal initialMode={authMode} onClose={() => setAuthMode(null)} />}

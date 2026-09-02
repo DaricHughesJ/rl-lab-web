@@ -2,6 +2,7 @@ import {
   BETA_DOWNLOAD_URL,
   BETA_FILE_NAME,
   BETA_LATEST_URL,
+  BETA_METADATA_KEY,
   BETA_OBJECT_KEY,
   BETA_RELEASE_VERSION,
   BETA_VERSION,
@@ -13,11 +14,19 @@ export default {
 
     if (url.pathname === BETA_LATEST_URL) {
       if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405, { Allow: 'GET' })
+      const release = await releaseMetadata(env)
+      const version = release?.version || BETA_RELEASE_VERSION
+      const displayVersion = release?.version ? `MechLab ${release.version}` : BETA_VERSION
       return json(
         {
-          version: BETA_RELEASE_VERSION,
+          version,
+          tag: release?.tag || null,
+          sha256: release?.sha256 || null,
+          size: release?.size || null,
+          commit: release?.commit || null,
+          published_at: release?.published_at || null,
           url: `${url.origin}/`,
-          notes: `${BETA_VERSION} is available. Sign in with your approved MechLab beta account to download ${BETA_FILE_NAME}.`,
+          notes: `${displayVersion} is available. Sign in with your approved MechLab beta account to download ${BETA_FILE_NAME}.`,
         },
         200,
         { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' },
@@ -42,24 +51,39 @@ export default {
       return json({ error: 'Beta access required' }, 403)
     }
 
-    const object = await env.BETA_DOWNLOADS.get(BETA_OBJECT_KEY)
+    const [object, release] = await Promise.all([
+      env.BETA_DOWNLOADS.get(BETA_OBJECT_KEY),
+      releaseMetadata(env),
+    ])
     if (!object) return json({ error: 'Beta build unavailable' }, 503)
 
-    return new Response(object.body, {
-      headers: {
-        'Content-Type': 'application/vnd.microsoft.portable-executable',
-        'Content-Disposition': `attachment; filename="${BETA_FILE_NAME}"`,
-        'Content-Length': String(object.size),
-        'Cache-Control': 'private, no-store',
-        'X-Content-Type-Options': 'nosniff',
-      },
-    })
+    const headers = {
+      'Content-Type': 'application/vnd.microsoft.portable-executable',
+      'Content-Disposition': `attachment; filename="${BETA_FILE_NAME}"`,
+      'Content-Length': String(object.size),
+      'Cache-Control': 'private, no-store',
+      'X-Content-Type-Options': 'nosniff',
+    }
+    if (release?.version) headers['X-MechLab-Version'] = release.version
+    if (release?.sha256) headers['X-MechLab-SHA256'] = release.sha256
+
+    return new Response(object.body, { headers })
   },
 }
 
 function bearerToken(value) {
   const match = /^Bearer\s+(.+)$/i.exec(value || '')
   return match?.[1] || null
+}
+
+async function releaseMetadata(env) {
+  const object = await env.BETA_DOWNLOADS.get(BETA_METADATA_KEY)
+  if (!object) return null
+  try {
+    return JSON.parse(await object.text())
+  } catch {
+    return null
+  }
 }
 
 async function supabaseJson(url, env, token) {

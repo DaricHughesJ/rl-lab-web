@@ -24,6 +24,7 @@ export default {
           sha256: release?.sha256 || null,
           size: release?.size || null,
           commit: release?.commit || null,
+          build_run_id: release?.build_run_id || null,
           published_at: release?.published_at || null,
           url: `${url.origin}/`,
           notes: `${displayVersion} is available. Sign in with your approved MechLab beta account to download ${BETA_FILE_NAME}.`,
@@ -51,10 +52,9 @@ export default {
       return json({ error: 'Beta access required' }, 403)
     }
 
-    const [object, release] = await Promise.all([
-      env.BETA_DOWNLOADS.get(BETA_OBJECT_KEY),
-      releaseMetadata(env),
-    ])
+    const release = await releaseMetadata(env)
+    const objectKey = safeReleaseObjectKey(release?.object_key) || BETA_OBJECT_KEY
+    const object = await env.BETA_DOWNLOADS.get(objectKey)
     if (!object) return json({ error: 'Beta build unavailable' }, 503)
 
     const headers = {
@@ -66,6 +66,7 @@ export default {
     }
     if (release?.version) headers['X-MechLab-Version'] = release.version
     if (release?.sha256) headers['X-MechLab-SHA256'] = release.sha256
+    if (release?.commit) headers['X-MechLab-Commit'] = release.commit
 
     return new Response(object.body, { headers })
   },
@@ -74,6 +75,12 @@ export default {
 function bearerToken(value) {
   const match = /^Bearer\s+(.+)$/i.exec(value || '')
   return match?.[1] || null
+}
+
+function safeReleaseObjectKey(value) {
+  if (typeof value !== 'string') return null
+  if (!/^releases\/v\d+\.\d+\.\d+-beta\.\d+\/MechLab\.exe$/.test(value)) return null
+  return value
 }
 
 async function releaseMetadata(env) {

@@ -1,0 +1,39 @@
+name: Engineering work
+description: Scoped implementation, refactor, hardening, or architecture work
+title: "eng: "
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Required outcome
+      description: State the observable result, not just a preferred implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and constraints
+      description: Link relevant ADRs, product contracts, incidents, or dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance gates
+      description: Define what must be proven before this is done.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundary review
+      options:
+        - label: I checked whether this changes architecture or requires an ADR.
+        - label: I checked auth/RLS/Worker trust implications.
+        - label: I checked public URLs/API/release compatibility.
+        - label: I checked privacy/consent implications.
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Failure and rollback
+      description: Explain material failure modes and rollback/containment where relevant.

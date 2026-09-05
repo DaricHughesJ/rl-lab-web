@@ -1,36 +1,57 @@
 # Environment Contract
 
-Status: initial baseline; values/secrets are intentionally not duplicated here.
+Status: W1 baseline verified from `.env.example`, `wrangler.jsonc`, and current Worker/browser source. Values/secrets are intentionally not duplicated here except the non-secret project URL already committed in Wrangler configuration.
 
-## Rules
+## Rule
 
-Environment variables are classified by trust level. Documentation records names and purpose, never secret values.
+Every environment value/binding has an owning runtime and trust classification. Documentation records names and purpose, never secret values.
 
-### Browser-safe
+## Browser build
 
-Values compiled into or directly available to the browser must be safe to disclose publicly. Typical examples include the Supabase project URL and publishable browser key.
+| Name | Classification | Purpose |
+| --- | --- | --- |
+| `VITE_SUPABASE_URL` | PUBLIC CONFIG | Supabase project URL consumed by the browser client. |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | PUBLIC/PUBLISHABLE CREDENTIAL | Supabase browser key. It is not a service-role secret and is expected to be visible in the built frontend. |
 
-### Worker/server-only
+`.env.example` exposes only these browser-safe names. A privileged key must never be introduced with a `VITE_*` prefix.
 
-Privileged credentials and service secrets exist only in Cloudflare Worker/server environments. They must never use Vite public-variable prefixes, appear in frontend source, be committed, be emitted to client logs, or be returned by APIs.
+## Cloudflare Worker
 
-## Current known bindings
+| Name/binding | Classification | Purpose/source |
+| --- | --- | --- |
+| `SUPABASE_URL` | PUBLIC CONFIG | Worker Supabase base URL. Currently configured in `wrangler.jsonc`. |
+| `SUPABASE_KEY_SECRET` | SECRET | Worker credential used for Supabase Auth/REST requests. Referenced by source; must be provided through Cloudflare secret storage, not committed configuration. |
+| `BETA_DOWNLOADS` | SERVER-ONLY R2 BINDING | Private beta release objects and release metadata. Configured in `wrangler.jsonc`. |
+| `ASSETS` | SERVER RUNTIME BINDING | Static asset binding generated/configured by Wrangler. Worker delegates non-API requests to it. |
 
-| Name/binding | Runtime | Classification | Purpose |
-| --- | --- | --- | --- |
-| `SUPABASE_URL` | Worker | Public identifier/config | Supabase project API base URL. |
-| `SUPABASE_KEY_SECRET` | Worker secret | SECRET | Worker credential used when validating/querying protected Supabase resources. Never expose to browser. |
-| `BETA_DOWNLOADS` | Worker R2 binding | Server-only binding | Private beta release objects and release metadata. |
-| Supabase browser URL/key from `.env.example` | Browser build | Browser-safe only if publishable key | Browser auth/data client. Must never be service-role credentials. |
+Current Wrangler routing runs Worker code first for `/api/*` and otherwise allows static asset handling with SPA fallback.
+
+## Local files
+
+- `.env.example` is committed and contains names/placeholders only.
+- `.env`, `.env.*`, and `*.local` are ignored, with `.env.example` explicitly allowed.
+- Developers must not place service-role, Worker, signing, webhook, or other privileged secrets in frontend environment variables.
+
+## Target environment separation
+
+The production architecture requires explicit environment ownership for:
+
+- local development;
+- pull-request/preview deployments;
+- staging;
+- production.
+
+Each environment must define its Cloudflare/Supabase/R2 targets intentionally. Production data and privileged production credentials must not be the default development target.
 
 ## Enforcement requirements
 
-- CI should detect obvious secret files/credential patterns where practical.
-- `.env.local` and equivalent local secret files remain ignored.
-- Production secrets are managed through platform secret storage, not repository files.
-- Worker logs must never include bearer tokens, API keys, refresh tokens, or signed credentials.
-- Every new environment variable must be added to this contract with runtime and trust classification.
+- CI should detect obvious committed secret/credential patterns where practical.
+- Production secrets use platform secret storage.
+- Worker logs never include bearer tokens, refresh tokens, API keys, passwords, or signed credentials.
+- New environment variables require an update to this contract in the same change.
+- Secret rotation must not require source-code edits.
+- Preview/staging deployments must make the selected environment obvious enough to prevent accidental production mutation.
 
-## Pending audit
+## Remaining W1 validation
 
-W0-W1 inventory must enumerate `.env.example`, deployment workflows, and Cloudflare configuration to confirm all names and remove ambiguity between browser-safe and privileged credentials.
+The repository does not encode the actual Cloudflare secret value or the authoritative Supabase RLS configuration, as expected. W5/W10 must verify deployed environment configuration and RLS through the relevant platform configuration rather than guessing from application source.

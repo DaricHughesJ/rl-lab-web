@@ -19,3 +19,4 @@ Do not use ADRs as task lists. Implementation status belongs in GitHub issues/PR
 
 - [ADR 0001 — Web platform stack](0001-web-platform-stack.md)
 - [ADR 0002 — Authentication, relational data, and artifact boundaries](0002-auth-data-and-artifact-boundaries.md)
+- [ADR 0003 — Routing and rendering: React Router v8 on Cloudflare Workers](0003-routing-and-rendering.md)

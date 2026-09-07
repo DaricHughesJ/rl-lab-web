@@ -1,0 +1,10 @@
+# Default ownership
+* @DaricHughesJ
+
+# Security/trust/release boundaries
+/src/worker* @DaricHughesJ
+/workers/ @DaricHughesJ
+/wrangler.jsonc @DaricHughesJ
+/docs/adr/ @DaricHughesJ
+/docs/operations/ @DaricHughesJ
+/.github/workflows/ @DaricHughesJ

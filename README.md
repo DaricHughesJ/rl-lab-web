@@ -1,29 +1,60 @@
 # MechLab Web
 
-Marketing site, beta onboarding, Supabase authentication, and player dashboard for MechLab.
+Production web platform for MechLab: public product site, beta onboarding, Supabase authentication, authenticated player dashboard, and protected release delivery.
 
-## Account setup
+## Architecture
 
-1. Create or select a Supabase project and enable Email authentication.
-2. Add the local and production website URLs under Authentication → URL Configuration.
-3. Copy `.env.example` to `.env.local` and fill in the project URL and **publishable** browser key.
-4. Run `pnpm install` and `pnpm dev`.
+Canonical architecture documentation:
 
-The browser must never receive a Supabase secret or `service_role` key. Beta profile fields are stored as user metadata for onboarding and display only; they are not used for authorization.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md)
+- [`docs/architecture/target-architecture.md`](docs/architecture/target-architecture.md)
+- [`docs/architecture/migration-plan.md`](docs/architecture/migration-plan.md)
+- [`docs/adr/`](docs/adr/)
 
-## Development
+The current implementation is being migrated incrementally. Working React/Vite, Cloudflare Worker/R2, and Supabase behavior is preserved while responsibilities are separated and production code moves to TypeScript.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Current stack
 
-Currently, two official plugins are available:
+- React + Vite
+- Supabase Auth/Postgres/RLS
+- Cloudflare Workers
+- Cloudflare R2 private release storage
+- Oxlint
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Local development
 
-## React Compiler
+1. Copy `.env.example` to `.env.local`.
+2. Provide only browser-safe Supabase configuration in frontend environment variables.
+3. Install dependencies using the repository lockfile.
+4. Run the development server.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm ci
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+Build and lint:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm run build
+npm run lint
+```
+
+## Security rules
+
+- Never expose Supabase service-role or other privileged keys to browser code.
+- UI visibility is not authorization. Protected data/actions require RLS and/or trusted Worker enforcement.
+- Private release artifacts are retrieved through authorized Worker flows; do not make the R2 beta bucket public.
+- Do not commit `.env.local`, credentials, tokens, downloaded builds, or runtime data.
+
+See [`docs/operations/environment-contract.md`](docs/operations/environment-contract.md).
+
+## Repository/project management rules
+
+- Durable architecture decisions belong in `docs/adr/`.
+- Current architecture belongs in `docs/architecture/`.
+- Operational procedures belong in `docs/operations/`.
+- Implementation work/TODO status belongs in GitHub issues and pull requests, not new ad-hoc roadmap files.
+- Do not delete or rewrite production behavior during migration without parity evidence and a rollback path.
+
+The umbrella migration program is tracked in GitHub issue #6.

@@ -1,1 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');:root{font-family:Manrope,sans-serif;color:#f7f4fb;background:#07080d;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px}a{color:inherit}button{font:inherit;cursor:pointer}
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#071018;
+  --panel:#0f1a24;
+  --line:#243240;
+  --muted:#8496a7;
+  --accent:#2ec8c0;
+  --accent-hi:#6ee7df;
+  --lime:#57e8a3;
+  --purple:var(--accent);
+  --mono:'Geist Mono',ui-monospace,monospace;
+  font-family:'Geist',system-ui,sans-serif;
+  color:#f4f7fa;
+  background:var(--bg);
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:320px}
+a{color:inherit}
+button{font:inherit;cursor:pointer}

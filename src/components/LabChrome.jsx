@@ -23,7 +23,7 @@ export default function LabChrome({ active, children }) {
     <main className="marketing-v2 lab-page" id="top">
       <nav className="v2-nav">
         <Brand />
-        <div className={`v2-links${menu ? ' open' : ''}`}>
+        <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
           <a href="/#app" onClick={() => setMenu(false)}>Instruments</a>
           <a href="/#mechanics" onClick={() => setMenu(false)}>Protocols</a>
           <a
@@ -41,16 +41,18 @@ export default function LabChrome({ active, children }) {
             Dev blog
           </a>
           <a className="v2-mobile-login" href="/signin" onClick={() => setMenu(false)}>Sign in</a>
+          <a className="v2-mobile-login" href="/signup" onClick={() => setMenu(false)}>Request bench access</a>
         </div>
         <div className="v2-nav-actions">
           <a className="v2-login" href="/signin">Sign in</a>
           <a className="v2-button compact" href="/signup">Request bench access</a>
           <button
-            className="v2-menu"
             type="button"
+            className="v2-menu"
             aria-label={menu ? 'Close navigation' : 'Open navigation'}
             aria-expanded={menu}
-            onClick={() => setMenu(!menu)}
+            aria-controls="v2-mobile-nav"
+            onClick={() => setMenu((open) => !open)}
           >
             {menu ? '×' : '☰'}
           </button>

@@ -122,15 +122,8 @@
 .v2-mechanic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .v2-mechanic{border-radius:16px;overflow:hidden;background:rgba(10,20,30,.72);border:1px solid var(--ml-hair);transition:transform .35s ease,border-color .35s ease}
 .v2-mechanic:hover{transform:translateY(-5px);border-color:rgba(46,200,192,.28)}
-.v2-mechanic-art{height:168px;position:relative;overflow:hidden}
-.v2-mechanic-art::before{content:"";position:absolute;inset:0;pointer-events:none}
-.v2-mechanic-art.art-1{background:radial-gradient(circle at 68% 28%,rgba(255,143,90,.45),transparent 28%),linear-gradient(135deg,#13253a 0%,#1a3d4a 48%,#c45a2e 100%)}
-.v2-mechanic-art.art-1::before{background:linear-gradient(28deg,transparent 40%,rgba(110,231,223,.35) 41% 42%,transparent 43%);animation:v2-scan 12s linear infinite}
-.v2-mechanic-art.art-2{background:radial-gradient(circle at 24% 62%,rgba(46,200,192,.35),transparent 26%),linear-gradient(135deg,#102436 0%,#1f4a5c 55%,#2ec8c0 100%)}
-.v2-mechanic-art.art-2::before{background:repeating-linear-gradient(105deg,transparent 0 18px,rgba(255,255,255,.04) 18px 19px);transform:rotate(-8deg) scale(1.4);animation:v2-scan 14s linear infinite}
-.v2-mechanic-art.art-3{background:radial-gradient(circle at 72% 30%,rgba(255,203,114,.28),transparent 24%),linear-gradient(135deg,#1a2038 0%,#3a4568 52%,#d07a3a 100%)}
-.v2-mechanic-art.art-3::before{background:conic-gradient(from 210deg at 50% 55%,transparent 0 70%,rgba(255,255,255,.12) 70% 78%,transparent 78%);animation:v2-spin-slow 16s linear infinite}
-.v2-mechanic-label{position:absolute;left:16px;bottom:14px;z-index:2;font:600 10px 'Geist Mono';letter-spacing:.12em;color:rgba(255,255,255,.86)}
+.v2-mechanic-art{height:168px;position:relative;overflow:hidden;background:#0a1520}
+.v2-mechanic-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .v2-mechanic-copy{padding:20px 18px 22px}
 .v2-mechanic-copy h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin:0 0 8px}
 .v2-mechanic-copy p{font-size:13px;line-height:1.6;color:var(--ml-body);margin:0}

@@ -9,9 +9,9 @@ import homeScreen from './assets/mechlab-home.webp'
 import trainScreen from './assets/mechlab-train.webp'
 
 const mechanics = [
-  { name: 'Fast Aerial', description: 'Get to the ball faster. Improve timing, angle, and consistency.', art: 'art-1' },
-  { name: 'Wave Dash', description: 'Master the movement. Build speed and control.', art: 'art-2' },
-  { name: 'Half Flip', description: 'Turn around faster. Clean execution and recovery.', art: 'art-3' },
+  { name: 'Fast Aerial', description: 'Get to the ball faster. Improve timing, angle, and consistency.', image: '/mechanics/fast-aerial.svg' },
+  { name: 'Wave Dash', description: 'Master the movement. Build speed and control.', image: '/mechanics/wave-dash.svg' },
+  { name: 'Half Flip', description: 'Turn around faster. Clean execution and recovery.', image: '/mechanics/half-flip.svg' },
 ]
 
 const current = [
@@ -178,8 +178,8 @@ function App() {
           <div className="v2-mechanic-grid">
             {mechanics.map((m) => (
               <article className="v2-mechanic" key={m.name}>
-                <div className={`v2-mechanic-art ${m.art}`} role="img" aria-label={`${m.name} visual`}>
-                  <span className="v2-mechanic-label">{m.name}</span>
+                <div className="v2-mechanic-art">
+                  <img src={m.image} alt={`${m.name} training visual`} loading="lazy" />
                 </div>
                 <div className="v2-mechanic-copy">
                   <h3>{m.name}</h3>

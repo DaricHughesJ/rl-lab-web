@@ -200,7 +200,7 @@
 .v2-status-block header div{display:flex;flex-direction:column;gap:2px}
 .v2-status-block header b{font:600 10px var(--mono);letter-spacing:.12em}
 .v2-status-block header small{font:500 10px var(--mono);color:#6a7d8c}
-.v2-status-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.v2-status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
 .v2-status-block article{padding:18px}
 .v2-status-block article+article{border-left:1px solid rgba(160,200,210,.08)}
 .v2-status-block h3{font:600 11px var(--mono);letter-spacing:.06em;margin:0 0 8px;color:#d5e0e8}

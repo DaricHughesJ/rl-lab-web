@@ -76,7 +76,7 @@ export default function RoadmapPage() {
         <div className="v2-heading">
           <p>02 / HORIZONS</p>
           <h2>Order of attack.</h2>
-          <span>H1 before H2 before H3. We widen the mechanic rack only after the first three protocols hold up.</span>
+          <span>H1 before H2 before H3 before H4. We widen the mechanic rack only after the first three protocols hold up.</span>
         </div>
         <div className="lab-horizon-grid">
           {horizons.map((h) => (

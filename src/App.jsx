@@ -96,21 +96,24 @@ function App() {
       <main className="marketing-v2" id="top">
         <nav className="v2-nav">
           <Brand />
-          <div className={`v2-links${menu ? ' open' : ''}`}>
+          <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
             <a href="#app" onClick={() => setMenu(false)}>Instruments</a>
             <a href="#mechanics" onClick={() => setMenu(false)}>Protocols</a>
             <a href="/roadmap" onClick={() => setMenu(false)}>Roadmap</a>
             <a href="/blog" onClick={() => setMenu(false)}>Dev blog</a>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Sign in</button>
+            <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Request bench access</button>
           </div>
           <div className="v2-nav-actions">
             <button className="v2-login" onClick={() => setAuthMode('login')}>Sign in</button>
             <button className="v2-button compact" onClick={() => setAuthMode('signup')}>Request bench access</button>
             <button
+              type="button"
               className="v2-menu"
               aria-label={menu ? 'Close navigation' : 'Open navigation'}
               aria-expanded={menu}
-              onClick={() => setMenu(!menu)}
+              aria-controls="v2-mobile-nav"
+              onClick={() => setMenu((open) => !open)}
             >
               {menu ? '×' : '☰'}
             </button>

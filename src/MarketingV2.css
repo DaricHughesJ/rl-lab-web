@@ -45,8 +45,13 @@
 .marketing-v2 button:focus-visible,.marketing-v2 a:focus-visible{outline:1px solid var(--ml-accent-hi);outline-offset:3px}
 
 .marketing-v2 .v2-nav{
-  position:relative;z-index:20;width:min(1240px,calc(100% - 32px));height:64px;margin:14px auto 0;padding:0 16px 0 14px;
+  position:relative;z-index:40;width:min(1240px,calc(100% - 32px));height:64px;margin:14px auto 0;padding:0 16px 0 14px;
   display:flex;align-items:center;justify-content:space-between;
+  background:transparent;border:0;overflow:visible;
+}
+/* Clip the panel chrome only — not the mobile dropdown (clip-path on the nav itself hid the menu). */
+.marketing-v2 .v2-nav::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:var(--ml-panel);border:1px solid var(--ml-hair);
   clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
 }
@@ -248,14 +253,19 @@
   .v2-brand-word{height:30px}
   .v2-hero-brand{width:min(280px,78vw);margin-bottom:18px}
   .marketing-v2 .v2-links{
-    display:none;position:absolute;left:0;right:0;top:66px;padding:12px;
-    background:rgba(5,8,12,.97);border:1px solid var(--ml-hair);flex-direction:column;align-items:stretch;gap:0;
+    display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:50;padding:12px;
+    background:rgba(5,8,12,.98);border:1px solid var(--ml-hair);flex-direction:column;align-items:stretch;gap:0;
+    box-shadow:0 18px 40px rgba(0,0,0,.45);
   }
-  .marketing-v2 .v2-links a,.v2-mobile-login{padding:12px 4px;border-bottom:1px solid rgba(160,200,210,.08);text-align:left}
+  .marketing-v2 .v2-links a,.v2-mobile-login{padding:14px 8px;border-bottom:1px solid rgba(160,200,210,.08);text-align:left}
   .marketing-v2 .v2-links.open{display:flex}
-  .v2-mobile-login{display:block}
+  .v2-mobile-login{display:block;width:100%;color:#9aabba}
   .v2-login{display:none}
-  .v2-menu{display:block;font-size:18px}
+  .v2-menu{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:44px;height:44px;margin:-8px -6px -8px 0;font-size:22px;line-height:1;
+    -webkit-tap-highlight-color:transparent;
+  }
   .v2-hero{min-height:min(86vh,720px)}
   .v2-hero-copy{margin:0 14px;padding:96px 0 56px}
   .marketing-v2 .v2-hero h1{font-size:clamp(28px,8vw,36px)}

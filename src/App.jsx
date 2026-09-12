@@ -5,6 +5,7 @@ import './ReplayCoach.css'
 import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
 import { supabase } from './lib/supabase'
+import { shipped as current, underTest as validation, queued as next } from './lib/labQueue'
 import homeScreen from './assets/mechlab-home.webp'
 import trainScreen from './assets/mechlab-train.webp'
 
@@ -27,25 +28,6 @@ const mechanics = [
     description: 'Flip cancel, recover, face upfield. We time the turn and the first useful input after.',
     image: '/mechanics/half-flip.svg',
   },
-]
-
-const current = [
-  ['BENCH STATUS', 'Home shows whether the engine, controller, Rocket League, overlay, and replay store are up.'],
-  ['SPECIMEN PICK', 'Train lists the mechanics that are wired today and starts a session for the one you choose.'],
-  ['BIND CHECK', 'We read your real Rocket League binds before we trust any timing numbers.'],
-  ['OVERLAY', 'Start and stop the overlay from the desktop app. No second launcher.'],
-]
-
-const validation = [
-  ['REP DETECTOR', 'The path that finds and scores a rep is in. Still needs messy real-world reps before we call it solid.'],
-  ['COACH NOTES', 'Feedback can fire. Whether those notes are actually useful is still an open question.'],
-  ['SESSION LOG', 'We can capture and save a session. The full train → save → reopen loop is still getting stress-tested.'],
-]
-
-const next = [
-  ['REPLAY BENCH', 'Review UI exists. Full coaching + measurement workflow is still unfinished.'],
-  ['PROGRESS LEDGER', 'Route is there. History only matters once sessions are reliable.'],
-  ['3D TRACE', '3D review foundation is in. Drawing, compare, and polish are not.'],
 ]
 
 function Brand() {
@@ -117,8 +99,8 @@ function App() {
           <div className={`v2-links${menu ? ' open' : ''}`}>
             <a href="#app" onClick={() => setMenu(false)}>Instruments</a>
             <a href="#mechanics" onClick={() => setMenu(false)}>Protocols</a>
-            <a href="#status" onClick={() => setMenu(false)}>Lab notes</a>
-            <a href="#next" onClick={() => setMenu(false)}>Queue</a>
+            <a href="/roadmap" onClick={() => setMenu(false)}>Roadmap</a>
+            <a href="/blog" onClick={() => setMenu(false)}>Dev blog</a>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Sign in</button>
           </div>
           <div className="v2-nav-actions">
@@ -330,6 +312,8 @@ function App() {
           <p>Desktop lab for Rocket League mechanics.</p>
           <div>
             <button onClick={() => setAuthMode('login')}>Tester sign in</button>
+            <a href="/roadmap">Roadmap</a>
+            <a href="/blog">Dev blog</a>
             <a href="mailto:support@mechlab.gg">Support</a>
             <a href="/privacy">Privacy</a>
             <a href="/terms">Beta terms</a>

@@ -1,0 +1,194 @@
+/* Extra chrome for /roadmap and /blog — sits on MarketingV2 tokens. */
+
+.lab-page .v2-links a.active{color:var(--ml-accent-hi)}
+
+.lab-hero{
+  width:min(760px,calc(100% - 40px));
+  margin:0 auto;
+  padding:72px 0 28px;
+}
+.lab-hero h1{
+  font-size:clamp(34px,5vw,56px);
+  font-weight:600;
+  letter-spacing:-.045em;
+  line-height:1.08;
+  margin:0 0 18px;
+  color:#e8eef2;
+  text-wrap:balance;
+}
+.lab-hero h1 em{font-style:normal;color:var(--ml-accent-hi)}
+.lab-lede{
+  margin:0;
+  max-width:560px;
+  font-size:15px;
+  line-height:1.65;
+  color:var(--ml-body);
+}
+.lab-updated{
+  margin:18px 0 0;
+  font:500 10px var(--mono);
+  letter-spacing:.12em;
+  color:var(--ml-dim);
+}
+.lab-updated a{color:var(--ml-accent);text-decoration:none}
+.lab-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.lab-tags span{
+  font:600 9px var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#041412;
+  background:var(--ml-accent);
+  padding:4px 7px;
+}
+
+.lab-queue .v2-status-block{margin-top:0}
+.lab-queue .v2-status-split{margin-top:14px}
+
+.lab-horizon-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.lab-horizon{
+  padding:20px 18px 22px;
+  background:rgba(8,14,20,.85);
+  border:1px solid var(--ml-hair);
+}
+.lab-horizon>p{
+  margin:0 0 10px;
+  font:600 10px var(--mono);
+  letter-spacing:.16em;
+  color:var(--ml-accent);
+}
+.lab-horizon h3{
+  margin:0 0 10px;
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.lab-horizon>span{
+  display:block;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--ml-body);
+  margin-bottom:16px;
+}
+.lab-horizon ul{
+  list-style:none;
+  margin:0;
+  padding:16px 0 0;
+  border-top:1px solid var(--ml-hair);
+  display:grid;
+  gap:10px;
+}
+.lab-horizon li{
+  position:relative;
+  padding-left:14px;
+  font-size:12px;
+  line-height:1.5;
+  color:#c5d2dc;
+}
+.lab-horizon li::before{
+  content:"";
+  position:absolute;
+  left:0;top:.55em;
+  width:6px;height:1px;
+  background:var(--ml-accent);
+}
+
+.lab-cta{margin-top:0}
+
+.lab-blog-list{padding-top:24px}
+.lab-post-index{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:12px;
+}
+.lab-post-index a{
+  display:block;
+  padding:22px 20px;
+  text-decoration:none;
+  color:inherit;
+  background:rgba(8,14,20,.85);
+  border:1px solid var(--ml-hair);
+  transition:border-color .2s ease,transform .25s ease;
+}
+.lab-post-index a:hover{
+  border-color:rgba(47,212,200,.35);
+  transform:translateY(-2px);
+}
+.lab-post-index a>div{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.lab-post-index time{
+  font:500 10px var(--mono);
+  letter-spacing:.12em;
+  color:var(--ml-dim);
+}
+.lab-post-index .lab-tags{margin:0}
+.lab-post-index .lab-tags span{
+  background:transparent;
+  color:var(--ml-accent);
+  border:1px solid rgba(47,212,200,.35);
+  padding:3px 6px;
+}
+.lab-post-index h2{
+  margin:0 0 8px;
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:-.03em;
+  color:#eef3f6;
+}
+.lab-post-index p{
+  margin:0;
+  font-size:14px;
+  line-height:1.55;
+  color:var(--ml-body);
+}
+
+.lab-post{padding-bottom:40px}
+.lab-post-body{
+  width:min(720px,calc(100% - 40px));
+  margin:0 auto;
+  display:grid;
+  gap:18px;
+}
+.lab-post-body p{
+  margin:0;
+  font-size:15px;
+  line-height:1.75;
+  color:#c2d0da;
+}
+.lab-post-foot{
+  width:min(720px,calc(100% - 40px));
+  margin:40px auto 0;
+  padding-top:20px;
+  border-top:1px solid var(--ml-hair);
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.lab-post-foot a{
+  font:500 11px var(--mono);
+  color:#7a8b99;
+  text-decoration:none;
+}
+.lab-post-foot a:hover{color:var(--ml-accent-hi)}
+
+@media(max-width:1050px){
+  .lab-horizon-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .lab-hero{width:calc(100% - 28px);padding:56px 0 20px}
+  .lab-hero h1{font-size:clamp(30px,8vw,40px)}
+  .lab-post-body,.lab-post-foot{width:calc(100% - 28px)}
+  .lab-post-index h2{font-size:18px}
+}

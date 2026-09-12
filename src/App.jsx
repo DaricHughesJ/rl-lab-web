@@ -51,8 +51,13 @@ const next = [
 function Brand() {
   return (
     <a className="v2-brand" href="#top" aria-label="MechLab home">
-      mech<span>|</span>lab
-      <small>MECHANICS LABORATORY</small>
+      <img
+        className="v2-brand-word"
+        src="/brand/mechlab-wordmark-nav.webp"
+        alt="mechlab"
+        width="155"
+        height="56"
+      />
     </a>
   )
 }
@@ -96,7 +101,7 @@ function App() {
   if (loading) {
     return (
       <div className="app-loading">
-        <span className="v2-loading-mark">mech|lab</span>
+        <img className="v2-loading-mark" src="/brand/mechlab-wordmark-nav.webp" alt="mechlab" width="155" height="56" />
         <i />
       </div>
     )
@@ -148,7 +153,13 @@ function App() {
           </div>
           <div className="v2-hero-copy">
             <p className="v2-specimen">SPECIMEN LOG · WINDOWS ALPHA</p>
-            <p className="v2-hero-brand">mech<span>|</span>lab</p>
+            <img
+              className="v2-hero-brand"
+              src="/brand/mechlab-wordmark.webp"
+              alt="mechlab"
+              width="664"
+              height="240"
+            />
             <h1>Mechanics under glass.<br /><em>Stop guessing the miss.</em></h1>
             <p className="v2-lede">
               MechLab is a desktop lab for Rocket League mechanics. You run a protocol, we record the rep, then you look at what actually happened—timing, inputs, path—not a vibes score.
@@ -237,12 +248,12 @@ function App() {
           <figure className="v2-replay-shot">
             <img
               src="/replay-coach-product-v1.webp"
-              alt="Replay Coach preview with trajectory, timeline, and camera controls."
+              alt="Replay Coach bench preview with protocol trace, readouts, and timeline."
               loading="lazy"
-              width="1672"
-              height="941"
+              width="1600"
+              height="900"
             />
-            <figcaption>Replay Coach · design preview</figcaption>
+            <figcaption>Replay bench · lab preview</figcaption>
           </figure>
         </section>
 

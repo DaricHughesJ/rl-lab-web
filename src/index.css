@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 :root{
-  --bg:#071018;
-  --panel:#0f1a24;
+  --bg:#05080c;
+  --panel:#0f1820;
   --line:#243240;
   --muted:#8496a7;
-  --accent:#2ec8c0;
-  --accent-hi:#6ee7df;
-  --lime:#57e8a3;
+  --accent:#2fd4c8;
+  --accent-hi:#7aefe6;
+  --lime:#4ade9a;
   --purple:var(--accent);
-  --mono:'Geist Mono',ui-monospace,monospace;
-  font-family:'Geist',system-ui,sans-serif;
-  color:#f4f7fa;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  color:#e8eef2;
   background:var(--bg);
   font-synthesis:none;
   text-rendering:optimizeLegibility;

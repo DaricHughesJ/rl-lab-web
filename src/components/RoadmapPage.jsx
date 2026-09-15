@@ -96,11 +96,11 @@ export default function RoadmapPage() {
 
       <section className="v2-cta lab-cta">
         <div>
-          <p>ALPHA COHORT</p>
+          <p>ALPHA</p>
           <h2>Help us reorder this list.</h2>
-          <span>Broken sessions beat opinions. If a queued item is blocking you harder than something under test, say so.</span>
+          <span>If something queued is blocking you more than something under test, tell us. Send the broken sessions.</span>
         </div>
-        <a className="v2-button primary" href="/signup">Request access <span>→</span></a>
+        <a className="v2-button primary" href="/waitlist">Get early access <span>→</span></a>
       </section>
     </LabChrome>
   )

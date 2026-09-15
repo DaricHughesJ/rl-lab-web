@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import '../MarketingV2.css'
 import '../LabPages.css'
+import { withUtms } from '../lib/utm'
+import { track } from '../lib/waitlist'
 
 function Brand() {
   return (
@@ -16,36 +18,57 @@ function Brand() {
   )
 }
 
-export default function LabChrome({ active, children }) {
+const LINKS = [
+  { href: '/#how', label: 'How it works', id: 'how' },
+  { href: '/#mechanics', label: 'Mechanics', id: 'mechanics' },
+  { href: '/pricing', label: 'Pricing', id: 'pricing' },
+  { href: '/compare', label: 'Compare', id: 'compare' },
+  { href: '/faq', label: 'FAQ', id: 'faq' },
+  { href: '/roadmap', label: 'Roadmap', id: 'roadmap' },
+  { href: '/blog', label: 'Blog', id: 'blog' },
+]
+
+export default function LabChrome({ active, children, onSignIn }) {
   const [menu, setMenu] = useState(false)
+
+  function go(href) {
+    setMenu(false)
+    track('cta_click', { href, place: 'nav' })
+  }
+
+  const early = withUtms('/waitlist')
 
   return (
     <main className="marketing-v2 lab-page" id="top">
       <nav className="v2-nav">
         <Brand />
         <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
-          <a href="/#app" onClick={() => setMenu(false)}>Instruments</a>
-          <a href="/#mechanics" onClick={() => setMenu(false)}>Protocols</a>
-          <a
-            className={active === 'roadmap' ? 'active' : undefined}
-            href="/roadmap"
-            onClick={() => setMenu(false)}
-          >
-            Roadmap
-          </a>
-          <a
-            className={active === 'blog' ? 'active' : undefined}
-            href="/blog"
-            onClick={() => setMenu(false)}
-          >
-            Dev blog
-          </a>
-          <a className="v2-mobile-login" href="/signin" onClick={() => setMenu(false)}>Sign in</a>
-          <a className="v2-mobile-login" href="/signup" onClick={() => setMenu(false)}>Request bench access</a>
+          {LINKS.map((l) => (
+            <a
+              key={l.id}
+              className={active === l.id ? 'active' : undefined}
+              href={l.href}
+              onClick={() => go(l.href)}
+            >
+              {l.label}
+            </a>
+          ))}
+          {onSignIn ? (
+            <button className="v2-mobile-login" type="button" onClick={() => { setMenu(false); onSignIn() }}>Sign in</button>
+          ) : (
+            <a className="v2-mobile-login" href="/signin" onClick={() => go('/signin')}>Sign in</a>
+          )}
+          <a className="v2-mobile-login" href={early} onClick={() => go(early)}>Get early access</a>
         </div>
         <div className="v2-nav-actions">
-          <a className="v2-login" href="/signin">Sign in</a>
-          <a className="v2-button compact" href="/signup">Request bench access</a>
+          {onSignIn ? (
+            <button className="v2-login" type="button" onClick={onSignIn}>Sign in</button>
+          ) : (
+            <a className="v2-login" href="/signin">Sign in</a>
+          )}
+          <a className="v2-button compact" href={early} onClick={() => track('cta_click', { href: early, place: 'nav_cta' })}>
+            Get early access
+          </a>
           <button
             type="button"
             className="v2-menu"
@@ -63,15 +86,19 @@ export default function LabChrome({ active, children }) {
 
       <footer className="v2-footer">
         <Brand />
-        <p>Desktop lab for Rocket League mechanics.</p>
+        <p>Windows app for Rocket League mechanics.</p>
         <div>
+          <a href="/pricing">Pricing</a>
+          <a href="/compare">Compare</a>
+          <a href="/faq">FAQ</a>
+          <a href={early}>Waitlist</a>
           <a href="/roadmap">Roadmap</a>
-          <a href="/blog">Dev blog</a>
+          <a href="/blog">Blog</a>
           <a href="mailto:support@mechlab.gg">Support</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Beta terms</a>
         </div>
-        <small>© 2026 MECHLAB · Not affiliated with Psyonix or Epic Games · ACTIVE DEVELOPMENT</small>
+        <small>© 2026 MechLab · Not affiliated with Psyonix or Epic Games · Active development</small>
       </footer>
     </main>
   )

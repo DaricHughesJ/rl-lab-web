@@ -26,7 +26,7 @@ export default function AuthPage({ path }) {
   return <>
     <div className="auth-page-shell">
       <a className="brand" href="/" aria-label="Back to MechLab home"><i/><b>MECH<span>LAB</span></b></a>
-      <p>Performance intelligence for Rocket League players.</p>
+      <p>Windows app for Rocket League mechanics.</p>
     </div>
     <AuthModal initialMode={mode} onClose={() => { window.location.href = path === '/account' ? '/' : '/' }}/>
   </>

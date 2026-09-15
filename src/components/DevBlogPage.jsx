@@ -8,10 +8,10 @@ export default function DevBlogPage({ slug }) {
     return (
       <LabChrome active="blog">
         <header className="lab-hero">
-          <p className="v2-specimen">LAB LOG · 404</p>
-          <h1>Entry not found.</h1>
-          <p className="lab-lede">That post isn’t in the log. It may have been renamed or never published.</p>
-          <p className="lab-updated"><a href="/blog">← All entries</a></p>
+          <p className="v2-specimen">BLOG · 404</p>
+          <h1>Post not found.</h1>
+          <p className="lab-lede">That post is missing. It may have been renamed or never published.</p>
+          <p className="lab-updated"><a href="/blog">← All posts</a></p>
         </header>
       </LabChrome>
     )
@@ -22,7 +22,7 @@ export default function DevBlogPage({ slug }) {
       <LabChrome active="blog">
         <article className="lab-post">
           <header className="lab-hero">
-            <p className="v2-specimen">LAB LOG · {formatDate(post.date)}</p>
+            <p className="v2-specimen">BLOG · {formatDate(post.date)}</p>
             <h1>{post.title}</h1>
             <p className="lab-lede">{post.summary}</p>
             <div className="lab-tags">
@@ -37,7 +37,7 @@ export default function DevBlogPage({ slug }) {
             ))}
           </div>
           <footer className="lab-post-foot">
-            <a href="/blog">← All entries</a>
+            <a href="/blog">← All posts</a>
             <a href="/roadmap">View roadmap →</a>
           </footer>
         </article>
@@ -48,10 +48,10 @@ export default function DevBlogPage({ slug }) {
   return (
     <LabChrome active="blog">
       <header className="lab-hero">
-        <p className="v2-specimen">LAB LOG · PUBLIC</p>
-        <h1>Dev blog.<br /><em>Notes from the bench.</em></h1>
+        <p className="v2-specimen">BLOG</p>
+        <h1>Dev blog.<br /><em>What we are building.</em></h1>
         <p className="lab-lede">
-          Short write-ups on what we’re building, what broke, and what we changed. No launch theater.
+          Short posts on what we shipped, what broke, and what changed.
         </p>
       </header>
 

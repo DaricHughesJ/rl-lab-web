@@ -1,4 +1,4 @@
-export const BETA_VERSION = 'Latest Windows beta'
+export const BETA_VERSION = 'Latest Windows alpha'
 export const BETA_RELEASE_VERSION = '0.2.0b1'
 export const BETA_FILE_NAME = 'MechLab.exe'
 export const BETA_OBJECT_KEY = 'releases/v0.2.0-beta.1/MechLab.exe'

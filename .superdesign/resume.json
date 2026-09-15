@@ -58,12 +58,12 @@
       ],
       "drafts": {
         "5a60c1fd-a29f-428d-a3f1-ee632d7ce844": {
-          "title": "MechLab — Mechanics Debugger",
+          "title": "MechLab \u2014 Mechanics Debugger",
           "visualDirection": "mechanics-debugger-forensics-conversion-home",
           "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-15T17:50:00.000Z"
+      "updatedAt": "2026-09-15T17:54:51.000Z"
     },
     "/pricing": {
       "targetKind": "new-ui",
@@ -111,7 +111,7 @@
       ],
       "drafts": {
         "a3252e50-18f2-40fe-83d7-919c1e3c6dde": {
-          "title": "Pricing — Free / Pro / Founders",
+          "title": "Pricing \u2014 Free / Pro / Founders",
           "visualDirection": "mechanics-debugger-pricing",
           "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
           "currentVersion": 1
@@ -159,7 +159,7 @@
       ],
       "drafts": {
         "dee943d8-c73d-482c-bfb7-6fada3741b6f": {
-          "title": "Compare — Debugger vs AI coach",
+          "title": "Compare \u2014 Debugger vs AI coach",
           "visualDirection": "honest-comparison-table",
           "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
           "currentVersion": 1
@@ -174,7 +174,9 @@
       "sourceTarget": "/",
       "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
       "designSystemPath": ".superdesign/design-system.md",
-      "referenceIds": ["public-brand-mechlab-wordmark-nav.webp"],
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
       "brandAssets": {
         "logo": {
           "assetKey": "public-brand-mechlab-wordmark-nav.webp",
@@ -204,53 +206,8 @@
       ],
       "drafts": {
         "45f0033e-bffa-4f7a-b0e5-53166a020f77": {
-          "title": "FAQ — Platform & trust",
+          "title": "FAQ \u2014 Platform & trust",
           "visualDirection": "trust-faq",
-          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
-          "currentVersion": 1
-        }
-      },
-      "updatedAt": "2026-09-15T17:50:00.000Z"
-    },
-    "/signup": {
-      "targetKind": "existing-ui",
-      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
-      "activeDraftId": "00d2b773-ef38-4dbc-b62f-976a3abfa688",
-      "sourceTarget": "/",
-      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
-      "designSystemPath": ".superdesign/design-system.md",
-      "referenceIds": ["public-brand-mechlab-wordmark-nav.webp"],
-      "brandAssets": {
-        "logo": {
-          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
-          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
-          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
-        }
-      },
-      "contextFiles": [
-        ".superdesign/design-system.md",
-        ".superdesign/init/theme.md",
-        "src/MarketingV2.css",
-        "src/components/LabChrome.jsx"
-      ],
-      "fingerprints": {
-        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
-        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
-        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
-        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
-      },
-      "components": [
-        {
-          "name": "NavBar",
-          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
-          "sourcePath": "src/components/LabChrome.jsx",
-          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
-        }
-      ],
-      "drafts": {
-        "00d2b773-ef38-4dbc-b62f-976a3abfa688": {
-          "title": "Waitlist / Get early access",
-          "visualDirection": "debugger-waitlist-signup",
           "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
           "currentVersion": 1
         }
@@ -264,7 +221,9 @@
       "sourceTarget": "/",
       "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
       "designSystemPath": ".superdesign/design-system.md",
-      "referenceIds": ["public-brand-mechlab-wordmark-nav.webp"],
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
       "brandAssets": {
         "logo": {
           "assetKey": "public-brand-mechlab-wordmark-nav.webp",
@@ -298,7 +257,7 @@
       ],
       "drafts": {
         "56396256-bd82-4819-9b3a-0df323da0880": {
-          "title": "Roadmap — restyled",
+          "title": "Roadmap \u2014 restyled",
           "visualDirection": "debugger-roadmap",
           "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
           "currentVersion": 1
@@ -313,7 +272,9 @@
       "sourceTarget": "/",
       "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
       "designSystemPath": ".superdesign/design-system.md",
-      "referenceIds": ["public-brand-mechlab-wordmark-nav.webp"],
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
       "brandAssets": {
         "logo": {
           "assetKey": "public-brand-mechlab-wordmark-nav.webp",
@@ -343,13 +304,385 @@
       ],
       "drafts": {
         "3454fe8e-4116-4f33-832f-7b6f8d84d6d1": {
-          "title": "Blog — restyled index",
+          "title": "Blog \u2014 restyled index",
           "visualDirection": "debugger-blog-index",
           "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
           "currentVersion": 1
         }
       },
       "updatedAt": "2026-09-15T17:50:00.000Z"
+    },
+    "/waitlist": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "00d2b773-ef38-4dbc-b62f-976a3abfa688",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp",
+        "public-brand-mechlab-wordmark.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "00d2b773-ef38-4dbc-b62f-976a3abfa688": {
+          "title": "Waitlist / Get early access",
+          "visualDirection": "waitlist-optional-fields-utm",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 2
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/signin": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "aed0fb48-189f-4628-8ef0-24882b871036",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "aed0fb48-189f-4628-8ef0-24882b871036": {
+          "title": "Sign in",
+          "visualDirection": "auth-signin",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/signup": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "5f5a4e80-e13c-4d7d-827b-2d430494a927",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "5f5a4e80-e13c-4d7d-827b-2d430494a927": {
+          "title": "Join alpha / Sign up",
+          "visualDirection": "auth-signup",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/thanks": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "2049eb45-aabb-4c8d-89f7-2c167b016a87",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "2049eb45-aabb-4c8d-89f7-2c167b016a87": {
+          "title": "Thanks \u2014 post-waitlist",
+          "visualDirection": "waitlist-thanks",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/blog/:slug": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "54fa7f30-933c-41ea-a1b2-50f391c8f8bd",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "54fa7f30-933c-41ea-a1b2-50f391c8f8bd": {
+          "title": "Blog post \u2014 autopsy template",
+          "visualDirection": "blog-autopsy-template",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/privacy": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "6cc0b9af-c339-4d1b-95ee-b2e02ac34b47",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "6cc0b9af-c339-4d1b-95ee-b2e02ac34b47": {
+          "title": "Privacy",
+          "visualDirection": "legal-privacy",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
+    },
+    "/terms": {
+      "targetKind": "new-ui",
+      "projectId": "ba254583-283e-45a5-b8b6-6f45f5a6de51",
+      "activeDraftId": "bb1eaef1-e2c4-4210-9e7e-03db2da913ff",
+      "sourceTarget": "/",
+      "sourceDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-brand-mechlab-wordmark-nav.webp"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-brand-mechlab-wordmark-nav.webp",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/ba254583-283e-45a5-b8b6-6f45f5a6de51/brand-assets/public-brand-mechlab-wordmark-nav.webp/mechlab-wordmark-nav.webp",
+          "sourcePath": "public/brand/mechlab-wordmark-nav.webp"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/MarketingV2.css",
+        "src/components/LabChrome.jsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0fb2000cd69782c5ccbbb9f8b3bff3c1c906ba737bf3dcaa723d7205b6f4168b",
+        ".superdesign/init/theme.md": "e01ad3766381bcd06db20df63542ff5fc7312ec42fff41c699231b0ac54955b0",
+        "src/MarketingV2.css": "d0718832e248d534cbd97f4a30f1ecf05e1957195ae5f37a57f29aad124c5cb9",
+        "src/components/LabChrome.jsx": "a3cace9c814508a8a7358993d03ba9a9e79eab8bcc64ae2f7c9da4e39607cc7d"
+      },
+      "components": [
+        {
+          "name": "NavBar",
+          "id": "c48581b2-4404-47d5-a8f9-bf1d646f0523",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "d4773deb-9fdc-4331-a659-4e9f35f7a074",
+          "sourcePath": "src/components/LabChrome.jsx",
+          "logoAssetKey": "public-brand-mechlab-wordmark-nav.webp"
+        }
+      ],
+      "drafts": {
+        "bb1eaef1-e2c4-4210-9e7e-03db2da913ff": {
+          "title": "Beta terms",
+          "visualDirection": "legal-beta-terms",
+          "parentDraftId": "5a60c1fd-a29f-428d-a3f1-ee632d7ce844",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-15T17:54:51.000Z"
     }
   }
 }

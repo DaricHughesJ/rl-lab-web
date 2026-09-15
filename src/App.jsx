@@ -13,7 +13,7 @@ const mechanics = [
   {
     id: 'FA-01',
     name: 'Fast Aerial',
-    description: 'Jump, boost, air roll. We clock the launch window and how clean the path stays.',
+    description: 'Jump, boost, air roll. We measure launch timing and how clean the flight path stays.',
     image: '/mechanics/fast-aerial.svg',
   },
   {
@@ -97,16 +97,16 @@ function App() {
         <nav className="v2-nav">
           <Brand />
           <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
-            <a href="#app" onClick={() => setMenu(false)}>Instruments</a>
-            <a href="#mechanics" onClick={() => setMenu(false)}>Protocols</a>
+            <a href="#app" onClick={() => setMenu(false)}>The app</a>
+            <a href="#mechanics" onClick={() => setMenu(false)}>Mechanics</a>
             <a href="/roadmap" onClick={() => setMenu(false)}>Roadmap</a>
-            <a href="/blog" onClick={() => setMenu(false)}>Dev blog</a>
+            <a href="/blog" onClick={() => setMenu(false)}>Blog</a>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Sign in</button>
-            <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Request bench access</button>
+            <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Join alpha</button>
           </div>
           <div className="v2-nav-actions">
             <button className="v2-login" onClick={() => setAuthMode('login')}>Sign in</button>
-            <button className="v2-button compact" onClick={() => setAuthMode('signup')}>Request bench access</button>
+            <button className="v2-button compact" onClick={() => setAuthMode('signup')}>Join alpha</button>
             <button
               type="button"
               className="v2-menu"
@@ -137,7 +137,7 @@ function App() {
             <div className="v2-hero-shade" />
           </div>
           <div className="v2-hero-copy">
-            <p className="v2-specimen">SPECIMEN LOG · WINDOWS ALPHA</p>
+            <p className="v2-specimen">WINDOWS DESKTOP · ALPHA</p>
             <img
               className="v2-hero-brand"
               src="/brand/mechlab-wordmark.webp"
@@ -145,50 +145,50 @@ function App() {
               width="664"
               height="240"
             />
-            <h1>Mechanics under glass.<br /><em>Stop guessing the miss.</em></h1>
+            <h1>Train mechanics.<br /><em>See what actually happened.</em></h1>
             <p className="v2-lede">
-              MechLab is a desktop lab for Rocket League mechanics. You run a protocol, we record the rep, then you look at what actually happened—timing, inputs, path—not a vibes score.
+              MechLab is a Windows app for Rocket League mechanics. You run a drill, we record the rep, then you review timing, inputs, and path.
             </p>
             <div className="v2-actions">
               <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
-                Get on the bench <span>→</span>
+                Join the alpha <span>→</span>
               </button>
-              <a href="#app">Open the instruments <span>↓</span></a>
+              <a href="#app">See the app <span>↓</span></a>
             </div>
             <dl className="v2-readouts">
-              <div><dt>PLATFORM</dt><dd>Win 10/11</dd></div>
-              <div><dt>STACK</dt><dd>Tauri desktop</dd></div>
-              <div><dt>STATE</dt><dd>Alpha · open notes</dd></div>
+              <div><dt>PLATFORM</dt><dd>Windows 10/11</dd></div>
+              <div><dt>APP</dt><dd>Desktop</dd></div>
+              <div><dt>STATUS</dt><dd>Alpha</dd></div>
             </dl>
           </div>
         </section>
 
         <section className="v2-section v2-app-section" id="app">
           <div className="v2-heading">
-            <p>01 / INSTRUMENT BENCH</p>
-            <h2>This is the app.<br /><em>Not a mock.</em></h2>
-            <span>Screenshots from the current Tauri build. No fake charts, no sample ranks.</span>
+            <p>01 / THE APP</p>
+            <h2>Real screens from the build.</h2>
+            <span>Screenshots from the current Windows desktop app. No fake charts. No sample ranks.</span>
           </div>
           <div className="v2-screen-grid">
             <figure className="v2-app-shot">
-              <div className="v2-windowbar"><i /><i /><i /><span>HOME · HEALTH + LAUNCH</span></div>
+              <div className="v2-windowbar"><i /><i /><i /><span>HOME · STATUS + LAUNCH</span></div>
               <img src={homeScreen} alt="Current MechLab Home screen" loading="lazy" />
               <figcaption>Home: system checks and overlay control.</figcaption>
             </figure>
             <figure className="v2-app-shot">
-              <div className="v2-windowbar"><i /><i /><i /><span>TRAIN · PROTOCOL SELECT</span></div>
+              <div className="v2-windowbar"><i /><i /><i /><span>TRAIN · PICK A MECHANIC</span></div>
               <img src={trainScreen} alt="Current MechLab Train screen" loading="lazy" />
-              <figcaption>Train: pick a mechanic after bind calibration.</figcaption>
+              <figcaption>Train: pick a mechanic after bind check.</figcaption>
             </figure>
           </div>
         </section>
 
         <section className="v2-section v2-mechanics" id="mechanics">
           <div className="v2-heading centered">
-            <p>PROTOCOLS · ACTIVE</p>
-            <h2>Three mechanics on the rack.<br /><em>More in prep.</em></h2>
+            <p>MECHANICS · LIVE NOW</p>
+            <h2>Three drills to start.<br /><em>More later.</em></h2>
             <span>
-              Each protocol is a repeatable test: same mechanic, same capture, numbers you can compare between sessions.
+              Each drill is a repeatable test: same mechanic, same capture, numbers you can compare between sessions.
             </span>
           </div>
           <div className="v2-mechanic-grid">
@@ -205,27 +205,27 @@ function App() {
               </article>
             ))}
           </div>
-          <p className="v2-mechanics-note">n = 3 protocols live · additional protocols in development</p>
+          <p className="v2-mechanics-note">3 mechanics live · more in development</p>
         </section>
 
         <section className="v2-section v2-replay" id="replay">
           <div className="v2-replay-copy">
-            <p>01A / REVIEW SCOPE</p>
-            <h2>Replay the trial.<br /><em>Keep the gaps honest.</em></h2>
+            <p>REPLAY</p>
+            <h2>Review the session.<br /><em>See where it broke.</em></h2>
             <span>
-              Replay Coach lines up inputs, telemetry, and notes on one clock. You scrub a finished attempt, mark where it broke, and take one change into the next run.
+              Replay Coach lines up inputs, telemetry, and notes on one timeline. Scrub a finished attempt, mark the miss, and take one change into the next run.
             </span>
             <ul className="v2-replay-points">
               <li>
                 <b>Honest playback</b>
-                <span>Missing frames stay missing. We don’t invent motion between samples.</span>
+                <span>Missing frames stay missing. We do not invent motion between samples.</span>
               </li>
               <li>
-                <b>One scope</b>
-                <span>Timeline, cameras, and notes stay on the same surface.</span>
+                <b>One place to look</b>
+                <span>Timeline, cameras, and notes stay together.</span>
               </li>
               <li>
-                <b>Offline OK</b>
+                <b>Works offline</b>
                 <span>Saved reports open without Rocket League running.</span>
               </li>
             </ul>
@@ -233,27 +233,27 @@ function App() {
           <figure className="v2-replay-shot">
             <img
               src="/replay-coach-product-v1.webp"
-              alt="Replay Coach bench preview with protocol trace, readouts, and timeline."
+              alt="Replay Coach preview with path, readouts, and timeline."
               loading="lazy"
               width="1600"
               height="900"
             />
-            <figcaption>Replay bench · lab preview</figcaption>
+            <figcaption>Replay Coach preview</figcaption>
           </figure>
         </section>
 
         <section className="v2-section v2-status" id="status">
           <div className="v2-heading">
-            <p>02 / LAB NOTES</p>
-            <h2>What’s wired.<br /><em>What’s still wet.</em></h2>
-            <span>Alpha means unfinished. We’d rather label that than dress it up.</span>
+            <p>02 / STATUS</p>
+            <h2>What works now.<br /><em>What is still unfinished.</em></h2>
+            <span>This is alpha. Unfinished features stay labeled unfinished.</span>
           </div>
           <div className="v2-status-block live">
             <header>
               <span>●</span>
               <div>
-                <b>ON THE BENCH NOW</b>
-                <small>shipping in the desktop UI</small>
+                <b>SHIPPING NOW</b>
+                <small>in the desktop app</small>
               </div>
             </header>
             <div className="v2-status-grid">
@@ -271,7 +271,7 @@ function App() {
                 <span>◆</span>
                 <div>
                   <b>BUILT · UNDER TEST</b>
-                  <small>don’t treat as finished</small>
+                  <small>do not treat as finished</small>
                 </div>
               </header>
               {validation.map(([title, text]) => (
@@ -285,7 +285,7 @@ function App() {
               <header>
                 <span>○</span>
                 <div>
-                  <b>QUEUE · NOT DONE</b>
+                  <b>NOT DONE YET</b>
                   <small>planned or incomplete</small>
                 </div>
               </header>
@@ -301,9 +301,9 @@ function App() {
 
         <section className="v2-cta">
           <div>
-            <p>ALPHA COHORT</p>
-            <h2>Need players who’ll break it.</h2>
-            <span>Run sessions, tell us where the numbers lie, help us harden the loop: launch → train → detect → score → save → review.</span>
+            <p>ALPHA</p>
+            <h2>Need players who will break it.</h2>
+            <span>Run sessions and tell us where the numbers are wrong. We are still hardening launch, train, detect, score, save, and review.</span>
           </div>
           <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
             Request access <span>→</span>
@@ -312,16 +312,16 @@ function App() {
 
         <footer className="v2-footer">
           <Brand />
-          <p>Desktop lab for Rocket League mechanics.</p>
+          <p>Windows app for Rocket League mechanics.</p>
           <div>
-            <button onClick={() => setAuthMode('login')}>Tester sign in</button>
+            <button onClick={() => setAuthMode('login')}>Sign in</button>
             <a href="/roadmap">Roadmap</a>
-            <a href="/blog">Dev blog</a>
+            <a href="/blog">Blog</a>
             <a href="mailto:support@mechlab.gg">Support</a>
             <a href="/privacy">Privacy</a>
-            <a href="/terms">Beta terms</a>
+            <a href="/terms">Alpha terms</a>
           </div>
-          <small>© 2026 MECHLAB · Not affiliated with Psyonix or Epic Games · ACTIVE DEVELOPMENT</small>
+          <small>© 2026 MechLab · Not affiliated with Psyonix or Epic Games · Active development</small>
         </footer>
       </main>
       {authMode && <AuthModal initialMode={authMode} onClose={() => setAuthMode(null)} />}

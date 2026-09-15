@@ -28,3 +28,6 @@ dist-ssr
 # Even though VITE_* vars are public by build design, keeping this untracked
 # means the day a service-role key lands here it does not reach the repo.
 .env
+
+# Superdesign temp templates
+.superdesign/tmp/

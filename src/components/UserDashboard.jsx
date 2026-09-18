@@ -70,7 +70,7 @@ export default function UserDashboard({ user, onExit }) {
       <header className="account-topbar">
         <div><p>PLAYER DASHBOARD</p><h1>{tab === 'overview' ? `Welcome, ${name}.` : tabs.find(x => x[0] === tab)?.[2]}</h1></div>
         <div className="account-header-actions">
-          <div className="account-user"><span>{initials(name)}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Beta player'}</small></div></div>
+          <div className="account-user"><span>{initials(name)}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Alpha player'}</small></div></div>
           <button className="account-menu-button" aria-label="Open account menu" aria-expanded={mobileMenu} onClick={() => setMobileMenu(v => !v)}>{mobileMenu ? '×' : '☰'}</button>
         </div>
         {mobileMenu && <div className="account-mobile-menu">
@@ -87,7 +87,7 @@ export default function UserDashboard({ user, onExit }) {
         {tab === 'sessions' && <Sessions sessions={dashboard.sessions}/>} 
         {tab === 'profile' && <Profile user={user} profile={profile} settings={settings} onProfile={setProfile} onSettings={setSettings}/>} 
       </>}
-      <footer className="account-legal"><a href="/privacy">Privacy</a><a href="/terms">Beta Terms</a><span>© 2026 MechLab</span></footer>
+      <footer className="account-legal"><a href="/privacy">Privacy</a><a href="/terms">Alpha Terms</a><span>© 2026 MechLab</span></footer>
     </section>
   </main>
 }
@@ -96,24 +96,24 @@ function Overview({ profile, dashboard, approved, onDownload }) {
   const summary = useMemo(() => summarize(dashboard), [dashboard])
   return <>
     <div className={`beta-banner ${approved ? 'approved' : ''}`}>
-      <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Beta access requested'}</b><span>{approved ? 'Download the Windows beta, sign in with this account, then sync your first training session.' : 'Your account is in the approval queue. We’ll email you when access is granted.'}</span></div>
+      <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Alpha access requested'}</b><span>{approved ? 'Download the Windows alpha, sign in with this account, then sync your first training session.' : "Your account is in the approval queue. We'll email you when access is granted."}</span></div>
       {approved ? <button onClick={onDownload}>Download for Windows ↓</button> : <em>IN REVIEW</em>}
     </div>
 
     <div className="account-metrics live-metrics">
       <Metric label="SYNCED SESSIONS" value={summary.sessions}/>
       <Metric label="TOTAL ATTEMPTS" value={summary.attempts}/>
-      <Metric label="AVG MECHANIC SCORE" value={summary.average == null ? '—' : Math.round(summary.average)} suffix={summary.average == null ? '' : '/100'}/>
-      <Metric label="BEST SCORE" value={summary.best == null ? '—' : Math.round(summary.best)} suffix={summary.best == null ? '' : '/100'}/>
+      <Metric label="AVG MECHANIC SCORE" value={summary.average == null ? '-' : Math.round(summary.average)} suffix={summary.average == null ? '' : '/100'}/>
+      <Metric label="BEST SCORE" value={summary.best == null ? '-' : Math.round(summary.best)} suffix={summary.best == null ? '' : '/100'}/>
     </div>
 
     {dashboard.sessions.length === 0 ? <Empty title="No sessions synced yet" text="Your real mechanic scores, reps, and progress will appear here after the desktop app syncs your first training session."/> : <div className="account-grid live-grid">
       <article className="performance-card live-card"><header><div><span>RECENT ACTIVITY</span><b>Last {Math.min(7, dashboard.sessions.length)} sessions</b></div><strong>{summary.attempts}<small> attempts</small></strong></header><SessionBars sessions={dashboard.sessions.slice(0, 7).reverse()}/></article>
-      <article className="focus-card live-card"><span>NEXT STEP</span><i>✦</i><h3>{summary.weakest ? prettyMechanic(summary.weakest.mechanic) : 'Complete a session'}</h3><p>{summary.weakest ? `Your current average is ${Math.round(summary.weakest.mean_score)}/100. Use the desktop coach to focus your next block.` : 'Start with Training Lab and sync your results to unlock progress tracking here.'}</p><div><span>DATA SOURCE</span><b>YOUR SYNCED REPS</b></div></article>
+      <article className="focus-card live-card"><span>NEXT STEP</span><i>✦</i><h3>{summary.weakest ? prettyMechanic(summary.weakest.mechanic) : 'Complete a session'}</h3><p>{summary.weakest ? `Your current average is ${Math.round(summary.weakest.mean_score)}/100. Use the desktop app to focus your next session.` : 'Open the desktop Train screen, run a session, then sync to see progress here.'}</p><div><span>DATA SOURCE</span><b>YOUR SYNCED REPS</b></div></article>
     </div>}
 
-    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Beta setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows beta build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Train + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
-    {profile && <p className="account-footnote">Windows 10/11 · Beta build may trigger SmartScreen · BakkesMod telemetry is optional and intended for supported offline/freeplay workflows.</p>}
+    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Alpha setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows alpha build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Train + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
+    {profile && <p className="account-footnote">Windows 10/11 · Alpha build may trigger SmartScreen · BakkesMod telemetry is optional and intended for supported offline/freeplay workflows.</p>}
   </>
 }
 
@@ -164,9 +164,9 @@ function Profile({ user, profile, settings, onProfile, onSettings }) {
 
   return <section className="dashboard-section no-top profile-layout">
     {(message || failure) && <div className={`profile-message ${failure ? 'error' : ''}`}>{failure || message}</div>}
-    <article className="settings-card"><div className="section-title compact"><span>IDENTITY</span><h2>Player profile</h2></div><form onSubmit={saveProfile}><label>DISPLAY NAME<input name="display_name" required maxLength="40" defaultValue={profile?.display_name || ''}/></label><label>RANK<select name="rank_bucket" defaultValue={profile?.rank_bucket || 'Champion'}><option>Bronze–Gold</option><option>Platinum</option><option>Diamond</option><option>Champion</option><option>Grand Champion</option><option>Supersonic Legend</option></select></label><label>ACCOUNT EMAIL<input value={user.email || ''} disabled/></label><button className="button" disabled={profileBusy}>{profileBusy ? 'Saving…' : 'Save profile'}</button></form></article>
+    <article className="settings-card"><div className="section-title compact"><span>IDENTITY</span><h2>Player profile</h2></div><form onSubmit={saveProfile}><label>DISPLAY NAME<input name="display_name" required maxLength="40" defaultValue={profile?.display_name || ''}/></label><label>RANK<select name="rank_bucket" defaultValue={profile?.rank_bucket || 'Champion'}><option>Bronze-Gold</option><option>Platinum</option><option>Diamond</option><option>Champion</option><option>Grand Champion</option><option>Supersonic Legend</option></select></label><label>ACCOUNT EMAIL<input value={user.email || ''} disabled/></label><button className="button" disabled={profileBusy}>{profileBusy ? 'Saving...' : 'Save profile'}</button></form></article>
 
-    <article className="settings-card"><div className="section-title compact"><span>SECURITY</span><h2>Change password</h2></div><form onSubmit={savePassword}><label>NEW PASSWORD<input name="password" type="password" minLength="8" autoComplete="new-password" required/></label><label>CONFIRM PASSWORD<input name="confirm" type="password" minLength="8" autoComplete="new-password" required/></label><button className="button" disabled={passwordBusy}>{passwordBusy ? 'Updating…' : 'Update password'}</button></form></article>
+    <article className="settings-card"><div className="section-title compact"><span>SECURITY</span><h2>Change password</h2></div><form onSubmit={savePassword}><label>NEW PASSWORD<input name="password" type="password" minLength="8" autoComplete="new-password" required/></label><label>CONFIRM PASSWORD<input name="confirm" type="password" minLength="8" autoComplete="new-password" required/></label><button className="button" disabled={passwordBusy}>{passwordBusy ? 'Updating...' : 'Update password'}</button></form></article>
 
     <article className="settings-card wide"><div className="section-title compact"><span>PRIVACY + DATA</span><h2>Sync preferences</h2></div><div className="setting-list"><Toggle title="Cloud progress sync" text="Sync session summaries and mechanic progress to your account." checked={settings?.cloud_progress_sync ?? true} onChange={() => toggleSetting('cloud_progress_sync')}/><Toggle title="Usage analytics" text="Allow product usage events that help improve MechLab." checked={settings?.usage_analytics ?? false} onChange={() => toggleSetting('usage_analytics')}/><Toggle title="Contribute training data" text="Opt in to contributing eligible training samples for model and scoring improvements." checked={settings?.contribute_training_data ?? false} onChange={() => toggleSetting('contribute_training_data')}/></div></article>
   </section>
@@ -175,7 +175,7 @@ function Profile({ user, profile, settings, onProfile, onSettings }) {
 function Toggle({ title, text, checked, onChange }) { return <button className="setting-toggle" type="button" onClick={onChange}><div><b>{title}</b><small>{text}</small></div><i className={checked ? 'on' : ''}><span/></i></button> }
 function Metric({ label, value, suffix = '' }) { return <article><span>{label}</span><strong>{value}<small>{suffix}</small></strong></article> }
 function Empty({ title, text }) { return <article className="dashboard-empty dashboard-empty-v2"><span>YOUR TRAINING DATA</span><i>◇</i><h2>{title}</h2><p>{text}</p></article> }
-function DashboardLoading() { return <div className="dashboard-loading"><i/><p>Loading your account…</p></div> }
+function DashboardLoading() { return <div className="dashboard-loading"><i/><p>Loading your account...</p></div> }
 function SessionBars({ sessions }) { const max = Math.max(...sessions.map(x => x.total_attempts || 0), 1); return <div className="activity-chart live-bars">{sessions.map(x => <i key={x.id} style={{ height: `${Math.max(12, (x.total_attempts || 0) / max * 100)}%` }}><span>{x.total_attempts || 0}</span></i>)}</div> }
 
 function latestMechanics(progress) {
@@ -195,9 +195,9 @@ function summarize({ sessions, progress }) {
   }
 }
 function prettyMechanic(value = '') { return value.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase()) }
-function formatPct(v) { const n = Number(v); if (!Number.isFinite(n)) return '—'; return `${Math.round(n <= 1 ? n * 100 : n)}%` }
-function formatTrend(v) { const n = Number(v); if (!Number.isFinite(n) || Math.abs(n) < .01) return '—'; return `${n > 0 ? '+' : ''}${n.toFixed(1)}` }
-function formatDate(v) { return v ? new Date(v).toLocaleDateString() : '—' }
+function formatPct(v) { const n = Number(v); if (!Number.isFinite(n)) return '-'; return `${Math.round(n <= 1 ? n * 100 : n)}%` }
+function formatTrend(v) { const n = Number(v); if (!Number.isFinite(n) || Math.abs(n) < .01) return '-'; return `${n > 0 ? '+' : ''}${n.toFixed(1)}` }
+function formatDate(v) { return v ? new Date(v).toLocaleDateString() : '-' }
 function formatDateTime(v) { return v ? new Date(v).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : 'Unknown date' }
 function formatDuration(seconds = 0) { const total = Math.max(0, Math.round(seconds)); const m = Math.floor(total / 60); const s = total % 60; return m ? `${m}m ${s}s` : `${s}s` }
 function clamp(v) { return Math.max(0, Math.min(100, Number(v) || 0)) }
@@ -209,7 +209,7 @@ async function downloadBeta() {
   if (!token) return
   const response = await fetch(BETA_DOWNLOAD_URL, { headers: { Authorization: `Bearer ${token}` } })
   if (!response.ok) {
-    window.alert(response.status === 403 ? 'Your account does not have beta download access yet.' : 'The beta download is temporarily unavailable. Please try again shortly.')
+    window.alert(response.status === 403 ? 'Your account does not have alpha download access yet.' : 'The alpha download is temporarily unavailable. Please try again shortly.')
     return
   }
   const blob = await response.blob()

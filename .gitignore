@@ -29,6 +29,5 @@ dist-ssr
 # means the day a service-role key lands here it does not reach the repo.
 .env
 
-# Superdesign local design context
-.superdesign/
-.superdesign/
+# Superdesign temp templates
+.superdesign/tmp/

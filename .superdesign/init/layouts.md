@@ -1,3 +1,11 @@
+# Shared Layouts
+
+## LabChrome (nav + footer shell for /roadmap, /blog, legal)
+
+- Path: `src/components/LabChrome.jsx`
+- Description: Marketing chrome reused by secondary pages. Props: `active` (`roadmap` | `blog`), `children`.
+
+```jsx
 import { useState } from 'react'
 import '../MarketingV2.css'
 import '../LabPages.css'
@@ -76,3 +84,11 @@ export default function LabChrome({ active, children }) {
     </main>
   )
 }
+```
+
+## Home page nav/footer (inline in App.jsx)
+
+Home (`src/App.jsx`) duplicates the same `v2-nav` / `v2-footer` pattern with in-page `#app` / `#mechanics` anchors and auth modal buttons instead of `/signin` `/signup` links.
+
+Nav links: The app, Mechanics, Roadmap, Blog · Actions: Sign in, Join alpha  
+Footer: Brand wordmark, tagline, Sign in / Roadmap / Blog / Support / Privacy / Alpha terms, copyright.

@@ -27,7 +27,7 @@ export default {
           build_run_id: release?.build_run_id || null,
           published_at: release?.published_at || null,
           url: `${url.origin}/`,
-          notes: `${displayVersion} is available. Sign in with your approved MechLab beta account to download ${BETA_FILE_NAME}.`,
+          notes: `${displayVersion} is available. Sign in with your approved MechLab alpha account to download ${BETA_FILE_NAME}.`,
         },
         200,
         { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=60' },
@@ -49,13 +49,13 @@ export default {
       token,
     )
     if (!Array.isArray(profiles) || profiles[0]?.beta_access !== true) {
-      return json({ error: 'Beta access required' }, 403)
+      return json({ error: 'Alpha access required' }, 403)
     }
 
     const release = await releaseMetadata(env)
     const objectKey = safeReleaseObjectKey(release?.object_key) || BETA_OBJECT_KEY
     const object = await env.BETA_DOWNLOADS.get(objectKey)
-    if (!object) return json({ error: 'Beta build unavailable' }, 503)
+    if (!object) return json({ error: 'Alpha build unavailable' }, 503)
 
     const headers = {
       'Content-Type': 'application/vnd.microsoft.portable-executable',

@@ -5,27 +5,27 @@ export default function RoadmapPage() {
   return (
     <LabChrome active="roadmap">
       <header className="lab-hero">
-        <p className="v2-specimen">PUBLIC QUEUE · ALPHA</p>
-        <h1>Roadmap.<br /><em>What’s on the rack.</em></h1>
+        <p className="v2-specimen">PUBLIC ROADMAP · ALPHA</p>
+        <h1>Roadmap.<br /><em>What we are building next.</em></h1>
         <p className="lab-lede">
-          Working queue for MechLab—not a promise calendar. Things move when the loop proves out, not when a slide says they should.
+          This is the working list for MechLab, not a promise calendar. Items move when the product proves out.
         </p>
-        <p className="lab-updated">Last updated · 12 Sep 2026</p>
+        <p className="lab-updated">Last updated · 15 Sep 2026</p>
       </header>
 
       <section className="v2-section lab-queue">
         <div className="v2-heading">
-          <p>01 / STATE</p>
-          <h2>Shipped, under test, queued.</h2>
-          <span>Same buckets as the home Lab notes. Unfinished work stays labeled unfinished.</span>
+          <p>01 / STATUS</p>
+          <h2>Shipping, under test, not done yet.</h2>
+          <span>Same buckets as the home page. Unfinished work stays labeled unfinished.</span>
         </div>
 
         <div className="v2-status-block live">
           <header>
             <span>●</span>
             <div>
-              <b>ON THE BENCH NOW</b>
-              <small>shipping in the desktop UI</small>
+              <b>SHIPPING NOW</b>
+              <small>in the desktop app</small>
             </div>
           </header>
           <div className="v2-status-grid">
@@ -44,7 +44,7 @@ export default function RoadmapPage() {
               <span>◆</span>
               <div>
                 <b>BUILT · UNDER TEST</b>
-                <small>don’t treat as finished</small>
+                <small>do not treat as finished</small>
               </div>
             </header>
             {underTest.map(([title, text]) => (
@@ -58,7 +58,7 @@ export default function RoadmapPage() {
             <header>
               <span>○</span>
               <div>
-                <b>QUEUE · NOT DONE</b>
+                <b>NOT DONE YET</b>
                 <small>planned or incomplete</small>
               </div>
             </header>
@@ -74,14 +74,14 @@ export default function RoadmapPage() {
 
       <section className="v2-section">
         <div className="v2-heading">
-          <p>02 / HORIZONS</p>
-          <h2>Order of attack.</h2>
-          <span>H1 before H2 before H3 before H4. We widen the mechanic rack only after the first three protocols hold up.</span>
+          <p>02 / PHASES</p>
+          <h2>Order of work.</h2>
+          <span>We harden the first three mechanics before we add a big library of drills.</span>
         </div>
         <div className="lab-horizon-grid">
           {horizons.map((h) => (
             <article className="lab-horizon" key={h.id}>
-              <p>{h.id}</p>
+              <p>PHASE {h.id}</p>
               <h3>{h.title}</h3>
               <span>{h.summary}</span>
               <ul>

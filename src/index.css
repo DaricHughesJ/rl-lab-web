@@ -1,1 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');:root{font-family:Manrope,sans-serif;color:#f7f4fb;background:#07080d;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px}a{color:inherit}button{font:inherit;cursor:pointer}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#05080c;
+  --panel:#0f1820;
+  --line:#243240;
+  --muted:#8496a7;
+  --accent:#2fd4c8;
+  --accent-hi:#7aefe6;
+  --lime:#4ade9a;
+  --purple:var(--accent);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  color:#e8eef2;
+  background:var(--bg);
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:320px}
+a{color:inherit}
+button{font:inherit;cursor:pointer}

@@ -1,0 +1,46 @@
+name: Bug report
+description: Reproducible MechLab Web defect
+title: "bug: "
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and user impact.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Include route, account/entitlement state, browser/device, and exact steps when relevant.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Public site
+        - Authentication
+        - Dashboard
+        - Supabase data
+        - Worker/API
+        - Release/download
+        - Mobile/responsive
+        - Accessibility
+        - Build/deploy
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Logs, screenshots, request IDs, release/build version, or other non-secret evidence. Never paste tokens or credentials.

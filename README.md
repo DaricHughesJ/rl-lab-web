@@ -4,8 +4,8 @@ Marketing site, beta onboarding, Supabase authentication, and player dashboard f
 
 ## Account setup
 
-1. Create or select a Supabase project and enable Email authentication.
-2. Add the local and production website URLs under Authentication → URL Configuration.
+1. Create or select a Supabase project, enable Email authentication, and require email confirmation. Auto-confirm must stay disabled.
+2. Set the production website as the Site URL and add local development URLs under Authentication → URL Configuration.
 3. Copy `.env.example` to `.env.local` and fill in the project URL and **publishable** browser key.
 4. Run `pnpm install` and `pnpm dev`.
 

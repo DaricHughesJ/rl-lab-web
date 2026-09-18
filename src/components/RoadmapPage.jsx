@@ -100,7 +100,7 @@ export default function RoadmapPage() {
           <h2>Help us reorder this list.</h2>
           <span>If something queued is blocking you more than something under test, tell us. Send the broken sessions.</span>
         </div>
-        <a className="v2-button primary" href="/signup">Request access <span>→</span></a>
+        <a className="v2-button primary" href="/waitlist">Get early access <span>→</span></a>
       </section>
     </LabChrome>
   )

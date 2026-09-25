@@ -92,6 +92,14 @@ Current selected fields:
 
 The dashboard currently fetches the most recent 250 ordered by `created_at` descending and derives latest-per-mechanic data in browser memory.
 
+### `launch_survey_responses`
+
+- one row per authenticated account, keyed by `user_id` referencing `auth.users(id)`;
+- stores the account's launch-feedback survey answers as JSONB and a server-default submission timestamp;
+- RLS permits authenticated users to read and insert only their own row;
+- the primary key makes a second submission for the same account impossible, including concurrent attempts;
+- survey answers may include free-text feedback and are private to the submitting user under the browser role.
+
 ## Worker trust boundary
 
 `src/worker.js` currently owns two `/api/*` endpoints and otherwise delegates to the static asset binding.

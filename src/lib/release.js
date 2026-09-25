@@ -1,0 +1,7 @@
+export const BETA_VERSION = 'Latest Windows beta'
+export const BETA_RELEASE_VERSION = '0.1.1'
+export const BETA_FILE_NAME = 'MechLab-Windows-Installer.exe'
+export const BETA_OBJECT_KEY = 'desktop-updates/installers/MechLab_0.1.1_x64-setup.exe'
+export const BETA_METADATA_KEY = 'releases/current/latest.json'
+export const BETA_DOWNLOAD_URL = '/api/beta-download'
+export const BETA_LATEST_URL = '/api/latest'

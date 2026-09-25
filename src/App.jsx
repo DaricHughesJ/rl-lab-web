@@ -95,7 +95,7 @@ function App() {
     ? <LaunchSurvey user={user}/>
     : <UserDashboard user={user} onExit={() => setUser(null)} />
 
-  if (isLaunchSurvey) return <div className="app-loading"><p>Sign in to access the MechLab launch survey.</p><AuthModal initialMode="login" onClose={() => { window.location.href = '/' }}/></div>
+  if (isLaunchSurvey) return <div className="app-loading"><p>Sign in to access the MechLab launch survey.</p><AuthModal initialMode="login" onClose={() => { supabase?.auth.getSession().then(({ data }) => { if (!data.session) window.location.href = '/' }) }}/></div>
 
   return (
     <>

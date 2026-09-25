@@ -89,7 +89,12 @@ export default function LaunchSurvey({ user }: { user: User }) {
         setExisting(true)
         setError('A response has already been submitted for this account.')
       } else {
-        setError(err instanceof Error ? err.message : 'Your response could not be saved. Please try again.')
+        const message = err instanceof Error
+          ? err.message
+          : err && typeof err === 'object' && 'message' in err && typeof err.message === 'string'
+            ? err.message
+            : ''
+        setError(message || 'Your response could not be saved. Please try again.')
       }
     } finally {
       setBusy(false)

@@ -168,9 +168,15 @@ export async function getDashboardData(): Promise<DashboardData> {
 }
 
 export async function getLaunchSurveyResponse(): Promise<boolean> {
-  const { data, error } = await requireSupabase()
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) return false
+
+  const { data, error } = await client
     .from('launch_survey_responses')
     .select('submitted_at')
+    .eq('user_id', auth.user.id)
     .maybeSingle()
 
   if (error) throw error

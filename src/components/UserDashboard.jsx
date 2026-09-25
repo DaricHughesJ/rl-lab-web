@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   changePassword,
   getBetaProfile,
@@ -82,7 +82,7 @@ export default function UserDashboard({ user, onExit }) {
 
       {error && <div className="account-alert"><span>{error}</span><button onClick={refresh}>Retry</button></div>}
       {loading ? <DashboardLoading/> : <>
-        {tab === 'overview' && <Overview profile={profile} dashboard={dashboard} approved={approved} onDownload={downloadBeta}/>} 
+        {tab === 'overview' && <Overview profile={profile} dashboard={dashboard} approved={approved}/>} 
         {tab === 'mechanics' && <Mechanics progress={dashboard.progress}/>} 
         {tab === 'sessions' && <Sessions sessions={dashboard.sessions}/>} 
         {tab === 'profile' && <Profile user={user} profile={profile} settings={settings} onProfile={setProfile} onSettings={setSettings}/>} 
@@ -92,12 +92,12 @@ export default function UserDashboard({ user, onExit }) {
   </main>
 }
 
-function Overview({ profile, dashboard, approved, onDownload }) {
+function Overview({ profile, dashboard, approved }) {
   const summary = useMemo(() => summarize(dashboard), [dashboard])
   return <>
     <div className={`beta-banner ${approved ? 'approved' : ''}`}>
       <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Alpha access requested'}</b><span>{approved ? 'Download the Windows alpha, sign in with this account, then sync your first training session.' : "Your account is in the approval queue. We'll email you when access is granted."}</span></div>
-      {approved ? <button onClick={onDownload}>Download for Windows ↓</button> : <em>IN REVIEW</em>}
+      {approved ? <DownloadBetaButton/> : <em>IN REVIEW</em>}
     </div>
 
     <div className="account-metrics live-metrics">
@@ -203,26 +203,155 @@ function formatDuration(seconds = 0) { const total = Math.max(0, Math.round(seco
 function clamp(v) { return Math.max(0, Math.min(100, Number(v) || 0)) }
 function initials(name) { return name.trim().split(/\s+/).slice(0, 2).map(x => x[0]).join('').toUpperCase() || 'PL' }
 
-async function downloadBeta() {
-  const { data } = await supabase.auth.getSession()
-  const token = data.session?.access_token
-  if (!token) return
-  const response = await fetch(BETA_DOWNLOAD_URL, { headers: { Authorization: `Bearer ${token}` } })
-  if (!response.ok) {
-    window.alert(response.status === 403 ? 'Your account does not have alpha download access yet.' : 'The alpha download is temporarily unavailable. Please try again shortly.')
-    return
+function DownloadBetaButton() {
+  const [phase, setPhase] = useState('idle')
+  const [detail, setDetail] = useState('')
+  const [progress, setProgress] = useState(0)
+  const lock = useRef(false)
+
+  async function onClick() {
+    if (lock.current) return
+    lock.current = true
+    setPhase('preparing')
+    setDetail('')
+    setProgress(0)
+
+    let handle = null
+    if (typeof window.showSaveFilePicker === 'function') {
+      try {
+        handle = await window.showSaveFilePicker({
+          suggestedName: 'MechLab.exe',
+          types: [{ description: 'Windows application', accept: { 'application/octet-stream': ['.exe'] } }],
+        })
+      } catch (err) {
+        if (err && err.name === 'AbortError') {
+          setPhase('idle')
+          lock.current = false
+          return
+        }
+        handle = null
+      }
+    }
+
+    try {
+      const { data } = await supabase.auth.getSession()
+      const token = data.session?.access_token
+      if (!token) {
+        setPhase('error')
+        setDetail('Sign in again, then retry the download.')
+        return
+      }
+      const response = await fetch(BETA_DOWNLOAD_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
+      })
+      if (!response.ok) {
+        setPhase('error')
+        setDetail(response.status === 403
+          ? 'Your account does not have alpha download access yet.'
+          : 'The alpha download is temporarily unavailable. Please try again shortly.')
+        return
+      }
+      setPhase('saving')
+      if (handle && response.body) {
+        await writeDownloadStream(handle, response, setProgress)
+        setPhase('done')
+        setDetail('Saved MechLab.exe')
+        return
+      }
+      const blob = await readDownloadBlob(response, setProgress)
+      triggerBrowserDownload(blob, 'MechLab.exe')
+      setPhase('done')
+      setDetail('Download started. Check your downloads for MechLab.exe.')
+    } catch {
+      setPhase('error')
+      setDetail('The alpha download is temporarily unavailable. Please try again shortly.')
+    } finally {
+      lock.current = false
+    }
   }
-  const blob = await response.blob()
+
+  const busy = phase === 'preparing' || phase === 'saving'
+  const label = phase === 'preparing'
+    ? 'Preparing…'
+    : phase === 'saving'
+      ? (progress > 0 ? `Downloading ${Math.round(progress * 100)}%` : 'Downloading…')
+      : phase === 'done'
+        ? 'Download again'
+        : 'Download for Windows'
+
+  return (
+    <div className="download-beta-wrap">
+      <button type="button" className="download-beta" onClick={onClick} disabled={busy} aria-busy={busy}>
+        {label}
+      </button>
+      <p className="download-beta-status" role="status" aria-live="polite">{detail}</p>
+    </div>
+  )
+}
+
+async function writeDownloadStream(handle, response, onProgress) {
+  const total = Number(response.headers.get('Content-Length')) || 0
+  const writable = await handle.createWritable()
+  const reader = response.body.getReader()
+  let received = 0
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      await writable.write(value)
+      received += value.byteLength
+      if (total) onProgress(Math.min(1, received / total))
+    }
+    await writable.close()
+    onProgress(1)
+  } catch (err) {
+    try { await writable.abort() } catch { /* already finished */ }
+    throw err
+  }
+}
+
+async function readDownloadBlob(response, onProgress) {
+  if (!response.body) {
+    const blob = await response.blob()
+    onProgress(1)
+    return blob
+  }
+  const total = Number(response.headers.get('Content-Length')) || 0
+  const reader = response.body.getReader()
+  const chunks = []
+  let received = 0
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    chunks.push(value)
+    received += value.byteLength
+    if (total) onProgress(Math.min(1, received / total))
+  }
+  onProgress(1)
+  return new Blob(chunks, { type: response.headers.get('Content-Type') || 'application/octet-stream' })
+}
+
+function triggerBrowserDownload(blob, filename) {
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
-  link.href = url; link.download = 'MechLab.exe'; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url)
+  link.href = url
+  link.download = filename
+  link.rel = 'noopener'
+  document.body.appendChild(link)
+  link.click()
+  // Revoking in the same turn cancels the save. Keep the blob alive until the browser has it.
+  window.setTimeout(() => {
+    link.remove()
+    URL.revokeObjectURL(url)
+  }, 60000)
 }
 
 function Logo(){return <a className="brand" href="/"><i/><b>MECH<span>LAB</span></b></a>}
 
 const dashboardCss = `
-.account-v2{overflow:visible}.account-sidebar-v2{z-index:20}.account-sidebar-v2>div{margin-bottom:12px}.account-nav-link{border:0;background:none;color:#737583;text-align:left;padding:12px;font-size:11px;display:flex;gap:13px;text-decoration:none;margin-top:auto}.account-nav-link:hover{color:#fff}.account-signout{margin-top:4px!important}.account-main-v2{min-width:0}.account-topbar{position:relative}.account-header-actions{display:flex;align-items:center;gap:10px}.account-menu-button,.account-mobile-menu{display:none}.account-alert{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:12px 15px;margin:18px 0;border:1px solid #7d4652;background:#351923;color:#f0a4b4;font-size:11px}.account-alert button{border:1px solid #884b58;background:none;color:#ffd2db;padding:8px 12px}.beta-banner button{margin-left:auto;border:1px solid #a873ff55;background:#a873ff17;color:#d9c3f7;padding:10px 12px;font:8px var(--mono);cursor:pointer}.live-metrics{margin-top:12px}.live-metrics article>b{display:none}.live-card{min-height:260px}.live-grid{grid-template-columns:1.5fr .8fr}.live-bars{height:160px;margin-top:18px}.dashboard-section{margin-top:34px}.dashboard-section.no-top{margin-top:18px}.section-title{margin-bottom:18px}.section-title>span{font:7px var(--mono);letter-spacing:.12em;color:var(--purple)}.section-title h2{font-size:24px;margin:7px 0}.section-title p{font-size:11px;color:#858692;margin:6px 0}.section-title.compact h2{font-size:20px}.dashboard-empty-v2{margin-top:22px}.account-footnote{color:#696b77;font-size:9px;line-height:1.6;margin-top:22px}.mechanic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mechanic-card{border:1px solid var(--line);background:#10121a;padding:20px}.mechanic-card header{display:flex;justify-content:space-between;gap:20px}.mechanic-card header small,.mechanic-card .muted{font:7px var(--mono);color:#737481}.mechanic-card h3{margin:6px 0 0;font-size:17px}.mechanic-card header strong{font-size:26px}.mechanic-card header strong small{font-size:8px;color:#777}.score-track{height:4px;background:#292b35;margin:18px 0}.score-track i{display:block;height:100%;background:linear-gradient(90deg,#754cab,var(--purple))}.mechanic-card dl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 16px}.mechanic-card dl div{background:#151720;padding:10px}.mechanic-card dt{font:6px var(--mono);color:#747582}.mechanic-card dd{margin:7px 0 0;font-size:13px}.mechanic-card dd.good{color:var(--lime)}.mechanic-card dd.bad{color:#ff9cae}.session-list{display:grid;gap:8px}.session-list article{display:grid;grid-template-columns:1fr 150px 100px;gap:20px;align-items:center;border:1px solid var(--line);background:#10121a;padding:17px 18px}.session-list article>div{display:grid}.session-list b{font-size:12px}.session-list small{font:7px var(--mono);color:#747582;margin-top:5px}.session-list article>span{display:grid;font-size:14px}.profile-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px}.settings-card{border:1px solid var(--line);background:#10121a;padding:22px}.settings-card.wide{grid-column:1/-1}.settings-card form{display:grid;gap:14px}.settings-card label{display:grid;gap:7px;font:7px var(--mono);color:#858692}.settings-card input,.settings-card select{width:100%;padding:12px;border:1px solid #30323d;background:#0b0d14;color:#f3eff7;font:11px Manrope}.settings-card input:disabled{color:#6d6e79}.settings-card .button{border:0;cursor:pointer;margin-top:4px}.settings-card .button:disabled{opacity:.5}.profile-message{grid-column:1/-1;border:1px solid #637b43;background:#1a2515;color:#caff9e;padding:11px 13px;font-size:10px}.profile-message.error{border-color:#7d4652;background:#351923;color:#f0a4b4}.setting-list{display:grid}.setting-toggle{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 0;border:0;border-top:1px solid var(--line);background:none;color:white;text-align:left;cursor:pointer}.setting-toggle:first-child{border-top:0}.setting-toggle>div{display:grid;gap:5px}.setting-toggle b{font-size:11px}.setting-toggle small{font-size:9px;color:#777986;line-height:1.5}.setting-toggle>i{flex:0 0 42px;width:42px;height:23px;border-radius:20px;background:#292b35;padding:3px;transition:.2s}.setting-toggle>i span{display:block;width:17px;height:17px;border-radius:50%;background:#767784;transition:.2s}.setting-toggle>i.on{background:#a873ff66}.setting-toggle>i.on span{transform:translateX(19px);background:#dec6ff}.dashboard-loading{min-height:50vh;display:grid;place-items:center;align-content:center;gap:14px;color:#7d7e89;font-size:10px}.dashboard-loading i{width:32px;height:32px;border:2px solid #2c2e38;border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite}.account-legal{display:flex;gap:16px;align-items:center;margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font:7px var(--mono);color:#646672}.account-legal a{color:#8d8e99;text-decoration:none}.account-legal span{margin-left:auto}
+.account-v2{overflow:visible}.account-sidebar-v2{z-index:20}.account-sidebar-v2>div{margin-bottom:12px}.account-nav-link{border:0;background:none;color:#737583;text-align:left;padding:12px;font-size:11px;display:flex;gap:13px;text-decoration:none;margin-top:auto}.account-nav-link:hover{color:#fff}.account-signout{margin-top:4px!important}.account-main-v2{min-width:0}.account-topbar{position:relative}.account-header-actions{display:flex;align-items:center;gap:10px}.account-menu-button,.account-mobile-menu{display:none}.account-alert{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:12px 15px;margin:18px 0;border:1px solid #7d4652;background:#351923;color:#f0a4b4;font-size:11px}.account-alert button{border:1px solid #884b58;background:none;color:#ffd2db;padding:8px 12px}.download-beta-wrap{margin-left:auto;display:grid;justify-items:end;gap:6px;min-width:min(100%,280px);position:relative;z-index:3}.download-beta{border:0;background:#caff4a;color:#11160a;font:700 13px/1.2 var(--mono);min-height:48px;min-width:48px;padding:0 16px;cursor:pointer;touch-action:manipulation;position:relative;z-index:3}.download-beta:disabled{cursor:progress;opacity:.72}.download-beta:active:not(:disabled){transform:translateY(1px)}.download-beta-status{margin:0;max-width:280px;text-align:right;font:11px/1.4 var(--mono);color:#d5dec4;min-height:1.2em}.live-metrics{margin-top:12px}.live-metrics article>b{display:none}.live-card{min-height:260px}.live-grid{grid-template-columns:1.5fr .8fr}.live-bars{height:160px;margin-top:18px}.dashboard-section{margin-top:34px}.dashboard-section.no-top{margin-top:18px}.section-title{margin-bottom:18px}.section-title>span{font:7px var(--mono);letter-spacing:.12em;color:var(--purple)}.section-title h2{font-size:24px;margin:7px 0}.section-title p{font-size:11px;color:#858692;margin:6px 0}.section-title.compact h2{font-size:20px}.dashboard-empty-v2{margin-top:22px}.account-footnote{color:#696b77;font-size:9px;line-height:1.6;margin-top:22px}.mechanic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mechanic-card{border:1px solid var(--line);background:#10121a;padding:20px}.mechanic-card header{display:flex;justify-content:space-between;gap:20px}.mechanic-card header small,.mechanic-card .muted{font:7px var(--mono);color:#737481}.mechanic-card h3{margin:6px 0 0;font-size:17px}.mechanic-card header strong{font-size:26px}.mechanic-card header strong small{font-size:8px;color:#777}.score-track{height:4px;background:#292b35;margin:18px 0}.score-track i{display:block;height:100%;background:linear-gradient(90deg,#754cab,var(--purple))}.mechanic-card dl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 16px}.mechanic-card dl div{background:#151720;padding:10px}.mechanic-card dt{font:6px var(--mono);color:#747582}.mechanic-card dd{margin:7px 0 0;font-size:13px}.mechanic-card dd.good{color:var(--lime)}.mechanic-card dd.bad{color:#ff9cae}.session-list{display:grid;gap:8px}.session-list article{display:grid;grid-template-columns:1fr 150px 100px;gap:20px;align-items:center;border:1px solid var(--line);background:#10121a;padding:17px 18px}.session-list article>div{display:grid}.session-list b{font-size:12px}.session-list small{font:7px var(--mono);color:#747582;margin-top:5px}.session-list article>span{display:grid;font-size:14px}.profile-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px}.settings-card{border:1px solid var(--line);background:#10121a;padding:22px}.settings-card.wide{grid-column:1/-1}.settings-card form{display:grid;gap:14px}.settings-card label{display:grid;gap:7px;font:7px var(--mono);color:#858692}.settings-card input,.settings-card select{width:100%;padding:12px;border:1px solid #30323d;background:#0b0d14;color:#f3eff7;font:11px Manrope}.settings-card input:disabled{color:#6d6e79}.settings-card .button{border:0;cursor:pointer;margin-top:4px}.settings-card .button:disabled{opacity:.5}.profile-message{grid-column:1/-1;border:1px solid #637b43;background:#1a2515;color:#caff9e;padding:11px 13px;font-size:10px}.profile-message.error{border-color:#7d4652;background:#351923;color:#f0a4b4}.setting-list{display:grid}.setting-toggle{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 0;border:0;border-top:1px solid var(--line);background:none;color:white;text-align:left;cursor:pointer}.setting-toggle:first-child{border-top:0}.setting-toggle>div{display:grid;gap:5px}.setting-toggle b{font-size:11px}.setting-toggle small{font-size:9px;color:#777986;line-height:1.5}.setting-toggle>i{flex:0 0 42px;width:42px;height:23px;border-radius:20px;background:#292b35;padding:3px;transition:.2s}.setting-toggle>i span{display:block;width:17px;height:17px;border-radius:50%;background:#767784;transition:.2s}.setting-toggle>i.on{background:#a873ff66}.setting-toggle>i.on span{transform:translateX(19px);background:#dec6ff}.dashboard-loading{min-height:50vh;display:grid;place-items:center;align-content:center;gap:14px;color:#7d7e89;font-size:10px}.dashboard-loading i{width:32px;height:32px;border:2px solid #2c2e38;border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite}.account-legal{display:flex;gap:16px;align-items:center;margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font:7px var(--mono);color:#646672}.account-legal a{color:#8d8e99;text-decoration:none}.account-legal span{margin-left:auto}
 .auth-text-action{justify-self:end;border:0;background:none;color:#b899e3;font-size:10px;cursor:pointer;padding:0}
 @media(max-width:900px){.mechanic-grid{grid-template-columns:1fr}.profile-layout{grid-template-columns:1fr}.settings-card.wide{grid-column:auto}.session-list article{grid-template-columns:1fr 100px 75px}.live-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.account-sidebar-v2{display:none!important}.account-main-v2{padding:20px 15px 35px!important}.account-topbar{gap:10px;align-items:flex-start!important}.account-header-actions{margin-left:auto}.account-user div{display:none!important}.account-menu-button{display:grid;width:42px;height:42px;place-items:center;border:1px solid #30323d;background:#11131c;color:#f5f2fa;font-size:20px;line-height:1;cursor:pointer}.account-mobile-menu{display:grid;position:absolute;z-index:40;top:55px;right:0;width:min(280px,calc(100vw - 30px));background:#0d0f16;border:1px solid #343641;box-shadow:0 18px 50px #000c;padding:8px}.account-mobile-menu button,.account-mobile-menu a{display:block;width:100%;padding:14px 12px;border:0;border-bottom:1px solid #ffffff0d;background:none;color:#d8d5de;text-decoration:none;text-align:left;font:11px var(--mono);cursor:pointer}.account-mobile-menu button.active{color:#d5b9ff;background:#a873ff10}.account-mobile-menu .signout{border-bottom:0;color:#ff9cae}.beta-banner{display:grid;grid-template-columns:36px 1fr;gap:12px}.beta-banner button{grid-column:1/-1;margin:0;width:100%}.account-metrics{grid-template-columns:1fr 1fr!important}.live-metrics strong{font-size:22px}.mechanic-card dl{grid-template-columns:1fr 1fr}.session-list article{grid-template-columns:1fr 1fr}.session-list article>div{grid-column:1/-1}.session-list article>span:last-child{text-align:right}.profile-layout{display:grid}.settings-card{padding:18px}.setting-toggle{align-items:flex-start}.section-title h2{font-size:22px}.beta-setup{display:grid!important}.beta-setup article{min-width:0}.dashboard-empty{padding-inline:18px}.account-legal{flex-wrap:wrap}.account-legal span{width:100%;margin-left:0}}
+@media(max-width:700px){.account-sidebar-v2{display:none!important}.account-main-v2{padding:20px 15px 35px!important}.account-topbar{gap:10px;align-items:flex-start!important}.account-header-actions{margin-left:auto}.account-user div{display:none!important}.account-menu-button{display:grid;width:42px;height:42px;place-items:center;border:1px solid #30323d;background:#11131c;color:#f5f2fa;font-size:20px;line-height:1;cursor:pointer}.account-mobile-menu{display:grid;position:absolute;z-index:40;top:55px;right:0;width:min(280px,calc(100vw - 30px));background:#0d0f16;border:1px solid #343641;box-shadow:0 18px 50px #000c;padding:8px}.account-mobile-menu button,.account-mobile-menu a{display:block;width:100%;padding:14px 12px;border:0;border-bottom:1px solid #ffffff0d;background:none;color:#d8d5de;text-decoration:none;text-align:left;font:11px var(--mono);cursor:pointer}.account-mobile-menu button.active{color:#d5b9ff;background:#a873ff10}.account-mobile-menu .signout{border-bottom:0;color:#ff9cae}.beta-banner{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}.download-beta-wrap{grid-column:1/-1;justify-items:stretch;width:100%;min-width:0}.download-beta{width:100%}.download-beta-status{max-width:none;text-align:left}.account-metrics{grid-template-columns:1fr 1fr!important}.live-metrics strong{font-size:22px}.mechanic-card dl{grid-template-columns:1fr 1fr}.session-list article{grid-template-columns:1fr 1fr}.session-list article>div{grid-column:1/-1}.session-list article>span:last-child{text-align:right}.profile-layout{display:grid}.settings-card{padding:18px}.setting-toggle{align-items:flex-start}.section-title h2{font-size:22px}.beta-setup{display:grid!important}.beta-setup article{min-width:0}.dashboard-empty{padding-inline:18px}.account-legal{flex-wrap:wrap}.account-legal span{width:100%;margin-left:0}}
 `

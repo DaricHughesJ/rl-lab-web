@@ -70,9 +70,15 @@ export async function changePassword(password: string) {
 }
 
 export async function getBetaProfile(): Promise<BetaProfile> {
-  const { data, error } = await requireSupabase()
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
+  const { data, error } = await client
     .from('profiles')
     .select('display_name, rank_bucket, beta_access')
+    .eq('user_id', auth.user.id)
     .single()
 
   if (error) throw error
@@ -143,10 +149,15 @@ export async function updateUserSettings(settings: UserSettings): Promise<UserSe
 
 export async function getDashboardData(): Promise<DashboardData> {
   const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
   const [sessionsResult, progressResult] = await Promise.all([
     client
       .from('sessions')
       .select('id, recorded_at, duration_seconds, total_attempts, summary')
+      .eq('user_id', auth.user.id)
       .order('recorded_at', { ascending: false })
       .limit(50),
     client
@@ -154,6 +165,7 @@ export async function getDashboardData(): Promise<DashboardData> {
       .select(
         'id, session_id, mechanic, attempts, mean_score, consistency, best_score, trend, metrics, created_at',
       )
+      .eq('user_id', auth.user.id)
       .order('created_at', { ascending: false })
       .limit(250),
   ])

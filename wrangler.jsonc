@@ -24,5 +24,17 @@
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"],
     "not_found_handling": "single-page-application"
+  },
+  "previews": {
+    "placement": { "mode": "smart" },
+    "vars": {
+      "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co"
+    },
+    "r2_buckets": [
+      {
+        "binding": "BETA_DOWNLOADS",
+        "bucket_name": "mechlab-web-preview"
+      }
+    ]
   }
 }

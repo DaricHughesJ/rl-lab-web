@@ -28,6 +28,7 @@ lerna-debug.log*
 .env
 .env.*
 !.env.example
+!.env.production
 *.local
 
 # Local runtime/download artifacts

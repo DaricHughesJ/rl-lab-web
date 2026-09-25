@@ -4,6 +4,7 @@ import './MarketingV2.css'
 import './ReplayCoach.css'
 import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
+import LaunchSurvey from './components/LaunchSurvey'
 import { supabase } from './lib/supabase'
 import { shipped as current, underTest as validation, queued as next } from './lib/labQueue'
 import homeScreen from './assets/mechlab-home.webp'
@@ -61,6 +62,7 @@ function App() {
   const [authMode, setAuthMode] = useState(null)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(Boolean(supabase))
+  const isLaunchSurvey = window.location.pathname.replace(/\/+$/, '') === '/launch-survey'
 
   useEffect(() => {
     setResult(authResult())
@@ -89,7 +91,11 @@ function App() {
     )
   }
 
-  if (user) return <UserDashboard user={user} onExit={() => setUser(null)} />
+  if (user) return isLaunchSurvey
+    ? <LaunchSurvey user={user}/>
+    : <UserDashboard user={user} onExit={() => setUser(null)} />
+
+  if (isLaunchSurvey) return <div className="app-loading"><p>Sign in to access the MechLab launch survey.</p><AuthModal initialMode="login" onClose={() => { window.location.href = '/' }}/></div>
 
   return (
     <>

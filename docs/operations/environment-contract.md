@@ -1,6 +1,6 @@
 # Environment Contract
 
-Status: W1 baseline verified from `.env.example`, `wrangler.jsonc`, and current Worker/browser source. Values/secrets are intentionally not duplicated here except the non-secret project URL already committed in Wrangler configuration.
+Status: W1 baseline verified from `.env.example`, `.env.production`, `wrangler.jsonc`, and current Worker/browser source. Secret values are intentionally not duplicated here. Browser-safe Supabase public configuration is committed in `.env.production` so production builds do not depend on an external build-environment setting being present.
 
 ## Rule
 
@@ -13,7 +13,7 @@ Every environment value/binding has an owning runtime and trust classification. 
 | `VITE_SUPABASE_URL` | PUBLIC CONFIG | Supabase project URL consumed by the browser client. |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | PUBLIC/PUBLISHABLE CREDENTIAL | Supabase browser key. It is not a service-role secret and is expected to be visible in the built frontend. |
 
-`.env.example` exposes only these browser-safe names. A privileged key must never be introduced with a `VITE_*` prefix.
+`.env.example` documents the browser variable contract. `.env.production` contains only the production project's browser-safe URL and publishable key so Vite production builds always initialize Supabase. A privileged key must never be introduced with a `VITE_*` prefix.
 
 ## Cloudflare Worker
 
@@ -29,7 +29,8 @@ Current Wrangler routing runs Worker code first for `/api/*` and otherwise allow
 ## Local files
 
 - `.env.example` is committed and contains names/placeholders only.
-- `.env`, `.env.*`, and `*.local` are ignored, with `.env.example` explicitly allowed.
+- `.env.production` is committed and contains only browser-safe Supabase public configuration.
+- Other `.env`, `.env.*`, and `*.local` files remain ignored.
 - Developers must not place service-role, Worker, signing, webhook, or other privileged secrets in frontend environment variables.
 
 ## Target environment separation

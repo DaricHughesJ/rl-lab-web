@@ -87,7 +87,7 @@ export default function UserDashboard({ user, onExit }) {
         {tab === 'sessions' && <Sessions sessions={dashboard.sessions}/>} 
         {tab === 'profile' && <Profile user={user} profile={profile} settings={settings} onProfile={setProfile} onSettings={setSettings}/>} 
       </>}
-      <footer className="account-legal"><a href="/privacy">Privacy</a><a href="/terms">Alpha Terms</a><span>© 2026 MechLab</span></footer>
+      <footer className="account-legal"><a href="/launch-survey">Launch survey</a><a href="/privacy">Privacy</a><a href="/terms">Alpha Terms</a><span>© 2026 MechLab</span></footer>
     </section>
   </main>
 }

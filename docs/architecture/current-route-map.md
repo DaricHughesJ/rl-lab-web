@@ -25,6 +25,7 @@ The current homepage is one long document with anchor navigation rather than ind
 | `/#devlog` | `DevelopmentRoadmap.jsx` | `/changelog` or `/roadmap`, decision required |
 | `/privacy` | manual dispatch + `LegalDocs.jsx` | stable `/privacy` route |
 | `/terms` | manual dispatch + `LegalDocs.jsx` | stable `/terms` route |
+| `/launch-survey` | `App.jsx` renders `LaunchSurvey` for a signed-in account; signed-out visitors get the sign-in modal and stay on this path after login | private one-response account survey |
 
 Existing anchor URLs should continue to resolve or redirect during migration so public links are not broken unnecessarily.
 

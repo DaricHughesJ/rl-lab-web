@@ -10,6 +10,7 @@ import {
   type SignInInput,
   type UserSettings,
 } from '../contracts/account'
+import type { LaunchSurveyAnswers } from '../contracts/launchSurvey'
 
 const url = import.meta.env.VITE_SUPABASE_URL
 const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
@@ -69,13 +70,29 @@ export async function changePassword(password: string) {
 }
 
 export async function getBetaProfile(): Promise<BetaProfile> {
-  const { data, error } = await requireSupabase()
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
+  const { data, error } = await client
     .from('profiles')
     .select('display_name, rank_bucket, beta_access')
-    .single()
+    .eq('user_id', auth.user.id)
+    .limit(1)
 
   if (error) throw error
-  return data as BetaProfile
+  const row = data?.[0]
+  if (row) return row as BetaProfile
+
+  const metadata = auth.user.user_metadata ?? {}
+  const displayName = metadata.display_name
+  const rank = metadata.rocket_league_rank
+  return {
+    display_name: typeof displayName === 'string' ? displayName : null,
+    rank_bucket: typeof rank === 'string' ? rank : null,
+    beta_access: false,
+  }
 }
 
 export async function updateProfile({
@@ -164,4 +181,34 @@ export async function getDashboardData(): Promise<DashboardData> {
     sessions: (sessionsResult.data ?? []) as DashboardSession[],
     progress: (progressResult.data ?? []) as MechanicProgress[],
   }
+}
+
+export async function getLaunchSurveyResponse(): Promise<boolean> {
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) return false
+
+  const { data, error } = await client
+    .from('launch_survey_responses')
+    .select('submitted_at')
+    .eq('user_id', auth.user.id)
+    .maybeSingle()
+
+  if (error) throw error
+  return Boolean(data)
+}
+
+export async function submitLaunchSurvey(answers: LaunchSurveyAnswers): Promise<void> {
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
+  const { error } = await client.from('launch_survey_responses').insert({
+    user_id: auth.user.id,
+    answers,
+  })
+
+  if (error) throw error
 }

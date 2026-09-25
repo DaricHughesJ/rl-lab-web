@@ -69,13 +69,29 @@ export async function changePassword(password: string) {
 }
 
 export async function getBetaProfile(): Promise<BetaProfile> {
-  const { data, error } = await requireSupabase()
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
+  const { data, error } = await client
     .from('profiles')
     .select('display_name, rank_bucket, beta_access')
-    .single()
+    .eq('user_id', auth.user.id)
+    .limit(1)
 
   if (error) throw error
-  return data as BetaProfile
+  const row = data?.[0]
+  if (row) return row as BetaProfile
+
+  const metadata = auth.user.user_metadata ?? {}
+  const displayName = metadata.display_name
+  const rank = metadata.rocket_league_rank
+  return {
+    display_name: typeof displayName === 'string' ? displayName : null,
+    rank_bucket: typeof rank === 'string' ? rank : null,
+    beta_access: false,
+  }
 }
 
 export async function updateProfile({

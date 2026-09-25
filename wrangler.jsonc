@@ -3,6 +3,13 @@
   "name": "rl-lab-web",
   "main": "./src/worker.js",
   "compatibility_date": "2026-08-12",
+  "workers_dev": false,
+  "preview_urls": false,
+  "placement": { "mode": "smart" },
+  "routes": [
+    { "pattern": "mechlab.gg", "custom_domain": true },
+    { "pattern": "www.mechlab.gg", "custom_domain": true }
+  ],
   "vars": {
     "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co"
   },

@@ -10,6 +10,7 @@ import {
   type SignInInput,
   type UserSettings,
 } from '../contracts/account'
+import type { LaunchSurveyAnswers } from '../contracts/launchSurvey'
 
 const url = import.meta.env.VITE_SUPABASE_URL
 const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
@@ -180,4 +181,34 @@ export async function getDashboardData(): Promise<DashboardData> {
     sessions: (sessionsResult.data ?? []) as DashboardSession[],
     progress: (progressResult.data ?? []) as MechanicProgress[],
   }
+}
+
+export async function getLaunchSurveyResponse(): Promise<boolean> {
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) return false
+
+  const { data, error } = await client
+    .from('launch_survey_responses')
+    .select('submitted_at')
+    .eq('user_id', auth.user.id)
+    .maybeSingle()
+
+  if (error) throw error
+  return Boolean(data)
+}
+
+export async function submitLaunchSurvey(answers: LaunchSurveyAnswers): Promise<void> {
+  const client = requireSupabase()
+  const { data: auth, error: authError } = await client.auth.getUser()
+  if (authError) throw authError
+  if (!auth.user) throw new Error('Your session expired. Sign in again.')
+
+  const { error } = await client.from('launch_survey_responses').insert({
+    user_id: auth.user.id,
+    answers,
+  })
+
+  if (error) throw error
 }

@@ -22,9 +22,6 @@ export const queued = [
   ['Replay review', 'A review screen exists. Full coaching and measurement there is not done yet.'],
   ['Progress history', 'The page exists. History only matters once sessions are reliable.'],
   ['3D path view', 'Basic 3D review is in. Drawing, compare, and polish are not.'],
-  ['Speed Flip', 'Next mechanic once Fast Aerial, Wave Dash, and Half Flip hold up in real use.'],
-  ['Air dribble touch', 'Aerial control drill. Planned, not live.'],
-  ['Ground to air', 'Transition timing drill. Sketched, not built.'],
   ['Compare sessions', 'Diff two runs of the same mechanic on one timeline.'],
   ['Shareable report', 'A short report with inputs, notes, and key frames. Not the full raw capture.'],
 ]
@@ -54,10 +51,11 @@ export const horizons = [
   },
   {
     id: '3',
-    title: 'Add more mechanics',
-    summary: 'More drills only after the first three hold up in real use.',
+    title: 'Deepen the training library',
+    summary: 'The 15-mechanic training library is available. Next work improves the practice and review loop around it.',
     items: [
-      'Speed Flip, air dribble touch, ground to air',
+      'Improve evidence coverage across mechanics',
+      'Tune cue and review quality from real sessions',
       'Compare two sessions of the same mechanic',
       'Progress that only counts finished, trusted reps',
       'Export packs for coaches and training partners',

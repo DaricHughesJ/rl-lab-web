@@ -113,7 +113,7 @@ function Overview({ profile, dashboard, approved }) {
     </div>}
 
     <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Alpha setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows alpha build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Train + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
-    {profile && <p className="account-footnote">Windows 10/11 · Alpha build may trigger SmartScreen · BakkesMod telemetry is optional and intended for supported offline/freeplay workflows.</p>}
+    {profile && <p className="account-footnote">Windows 10/11 · Alpha build may trigger SmartScreen · Capture and telemetry availability depends on the supported workflow shown in the app.</p>}
   </>
 }
 

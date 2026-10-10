@@ -2,6 +2,19 @@
 
 export const posts = [
   {
+    slug: 'fifteen-mechanics-one-practice-loop',
+    date: '2026-10-10',
+    title: 'Fifteen mechanics. One practice loop.',
+    summary: 'MechLab brings measured mechanics, aligned coaching, controller heatmaps and corrected replays into the desktop workflow.',
+    tags: ['product', 'training', 'replay'],
+    body: [
+      'MechLab now brings all 15 measured mechanics into one desktop practice loop. Pick a mechanic, follow a cue alongside the game, then open the attempt in Replay Coach.',
+      'Replay Coach keeps the moment and the inputs together. Stick heatmaps show where recorded movement spent time; controller-aware labels and FAR/DAR controls carry through the replay and its simulation view.',
+      'Corrected replays let you explore a bounded input change in simulation. MechLab starts with the original recorded controls, changes only the selected window, then resumes the recorded inputs. The original rep stays there as your baseline.',
+      'You can also shape the data flow. Account settings expose progress sync, usage analytics, and training-data contribution, with queue recovery and account-data erasure tools alongside them.',
+    ],
+  },
+  {
     slug: 'stop-guessing-the-miss',
     date: '2026-09-12',
     title: 'Stop guessing the miss',
@@ -10,7 +23,7 @@ export const posts = [
     body: [
       'Most mechanic practice ends the same way. You miss, guess why, and try again on feel. Was the jump early? Boost late? Air roll dirty? You pick an answer that sounds right and hope the next one sticks.',
       'MechLab is a Windows desktop app for Rocket League mechanics. You pick a drill, we record the rep, then you look at timing, inputs, and path. Not a rank badge. Not a vibe score. Numbers you can check.',
-      'We start with three drills on purpose: Fast Aerial, Wave Dash, and Half Flip. Same capture path for each, so Tuesday and Friday mean the same thing. When those three hold up in messy freeplay, we add more.',
+      'MechLab brings all 15 measured mechanics into one practice workflow. Each attempt has a live cue and a review path so you can make an adjustment and run the rep again.',
       'Alpha is for people who will break the detector and tell us where the numbers are wrong. Request access, run sessions, send the ugly ones. The public roadmap is at /roadmap.',
     ],
   },
@@ -18,11 +31,11 @@ export const posts = [
     slug: 'lab-theme-and-honest-labels',
     date: '2026-09-12',
     title: 'Clearer site, honest labels',
-    summary: 'We cleaned up the marketing site and kept unfinished work labeled unfinished.',
+    summary: 'A clearer look at the full MechLab practice loop, from first drill to replay review.',
     tags: ['site', 'alpha'],
     body: [
       'MechLab is a desktop app for Rocket League mechanics. The site should say what the product does, not dress it up as finished SaaS.',
-      'We updated the look and kept the home page honest about what ships, what is under test, and what is still queued. Alpha means unfinished. We say that out loud.',
+      'The product story now starts with the full training loop: all 15 mechanics, live coaching, replay inputs, heatmaps, and corrected replays.',
       'We also fixed mobile bugs: a clipped nav brand, badges covering mechanic titles, and a Replay Coach image that did not match the rest of the site.',
       'Roadmap and this blog are public. If you are in alpha, keep sending broken sessions.',
     ],
@@ -35,21 +48,21 @@ export const posts = [
     tags: ['train', 'mechanics'],
     body: [
       'A MechLab drill is a fixed test: the mechanic you run, the signals we capture, and the timing windows we care about. It is not a freeplay map pack with a cool name.',
-      'Fast Aerial measures launch timing, boost start, and how clean the path stays. Wave Dash measures the land, the cancel, and whether you keep the ball. Half Flip measures the flip cancel, the recovery turn, and the first useful input after.',
-      'Because capture is the same each time, you can compare Tuesday Fast Aerial to Friday Fast Aerial without translating between two different training modes.',
-      'Speed Flip, air dribble touch, and ground to air are planned for later. They stay queued until the first three survive real binds and messy reps.',
+      'Each mechanic focuses on the actions that make that rep distinct, while MechLab keeps coaching and scoring aligned to the same active window.',
+      'Replay Coach helps you compare what you did with the moment you want to improve, including the recorded controller inputs.',
+      'The library spans movement, aerial control, resets, and shots, so you can follow the mechanic that matters to your game.',
     ],
   },
   {
     slug: 'three-mechanics-first',
     date: '2026-08-28',
-    title: 'Three mechanics first',
-    summary: 'Fast Aerial, Wave Dash, and Half Flip are the drills we harden first.',
+    title: 'One practice loop, fifteen mechanics',
+    summary: 'The training library now covers all 15 mechanics in one desktop workflow.',
     tags: ['train', 'mechanics'],
     body: [
-      'We are not shipping a huge mechanic library on day one. Three drills is enough to prove the loop: pick a mechanic, run the rep, capture timing and inputs, look at what happened.',
-      'Fast Aerial covers launch and path. Wave Dash covers land and cancel. Half Flip covers recovery and the first useful input after.',
-      'More drills stay planned until these three survive messy freeplay and bind edge cases.',
+      'A practice loop should feel the same whichever mechanic you choose: pick the rep, work with a live cue, capture your inputs, and review what happened.',
+      'MechLab now offers all 15 measured mechanics, from movement and dashes to advanced aerial plays, resets, and shots.',
+      'Replay Coach and its corrected-replay simulations carry that loop into the next attempt.',
     ],
   },
   {
@@ -59,10 +72,10 @@ export const posts = [
     summary: 'Missing frames stay missing. Notes sit on the same clock as the input that failed.',
     tags: ['replay', 'product'],
     body: [
-      'A lot of coaching UIs invent motion between samples and call it polish. MechLab replay does not. If we did not capture a frame, we do not draw it.',
-      'Review lines up inputs, telemetry, and notes on one clock. You scrub a finished attempt, mark where it broke, and take one change into the next run.',
-      'That workflow is still unfinished. It is listed on the public roadmap. Honest playback comes before a pretty lie.',
-      'When session save and reopen is solid, offline reports come next. Open the session without Rocket League running.',
+      'Replay Coach brings controller inputs, session timing, and game context together so you can return to a specific moment in a finished attempt.',
+      'Stick heatmaps show where your recorded movement spent time. Controller labels and FAR/DAR inputs stay available through replay and simulation.',
+      'Corrected replays let you apply a bounded input change in simulation and then resume the controls from your original recording.',
+      'Use the original attempt as a baseline, explore one change, and carry the next cue back into training.',
     ],
   },
   {
@@ -74,19 +87,19 @@ export const posts = [
     body: [
       'Before a train session, MechLab reads your real Rocket League binds. That is boring work, and it is required.',
       'If we guess your jump or boost, every launch window and cancel time is fiction. Better to fail the bind check than invent a score.',
-      'If bind reading fails on your setup, tell us. That is a blocker, not a polish item.',
+      'MechLab uses the bindings it detects to make live guides and controller labels match your setup.',
     ],
   },
   {
-    slug: 'alpha-means-unfinished',
+    slug: 'what-to-expect-from-mechlab',
     date: '2026-07-30',
-    title: 'Alpha means unfinished',
+    title: 'What to expect from MechLab',
     summary: 'What open alpha actually means if you join.',
     tags: ['alpha'],
     body: [
-      'Alpha access is for people who will break the loop and say where the numbers are wrong. Features will move. Scoring will move. Some days the detector will miss a clean rep. Some days it will score a messy one too kindly.',
-      'We keep a public list of what ships, what is under test, and what is not done yet. Prefer that over a fake complete checklist.',
-      'Thanks for running sessions. Support is support@mechlab.gg.',
+      'The MechLab beta is for players who want a clearer practice loop: fifteen mechanics, cues beside the game, controller heatmaps, and replay-based input experiments.',
+      'Account settings put progress sync, analytics, and training-data contribution in your hands, with tools to recover uploads and erase account data.',
+      'Thanks for training with MechLab. Support is support@mechlab.gg.',
     ],
   },
 ]
@@ -96,6 +109,7 @@ export function getPost(slug) {
     'what-a-protocol-actually-is': 'what-a-mechlab-drill-is',
     'three-protocols-on-the-rack': 'three-mechanics-first',
     'replay-without-the-theater': 'replay-without-fake-motion',
+    'alpha-means-unfinished': 'what-to-expect-from-mechlab',
   }
   const resolved = aliases[slug] || slug
   return posts.find((p) => p.slug === resolved) || null

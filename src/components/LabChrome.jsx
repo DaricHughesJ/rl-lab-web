@@ -24,14 +24,17 @@ export default function LabChrome({ active, children }) {
       <nav className="v2-nav">
         <Brand />
         <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
-          <a href="/#app" onClick={() => setMenu(false)}>The app</a>
+          <a href="/#app" onClick={() => setMenu(false)}>Product</a>
           <a href="/#mechanics" onClick={() => setMenu(false)}>Mechanics</a>
+          <a className={active === 'pricing' ? 'active' : undefined} href="/pricing" onClick={() => setMenu(false)}>Pricing</a>
+          <a className={active === 'docs' ? 'active' : undefined} href="/docs" onClick={() => setMenu(false)}>Guide</a>
+          <a className={active === 'faq' ? 'active' : undefined} href="/faq" onClick={() => setMenu(false)}>FAQ</a>
           <a
             className={active === 'roadmap' ? 'active' : undefined}
             href="/roadmap"
             onClick={() => setMenu(false)}
           >
-            Roadmap
+            What’s ahead
           </a>
           <a
             className={active === 'blog' ? 'active' : undefined}
@@ -65,6 +68,9 @@ export default function LabChrome({ active, children }) {
         <Brand />
         <p>Windows app for Rocket League mechanics.</p>
         <div>
+          <a href="/pricing">Pricing</a>
+          <a href="/docs">Guide</a>
+          <a href="/faq">FAQ</a>
           <a href="/roadmap">Roadmap</a>
           <a href="/blog">Blog</a>
           <a href="mailto:support@mechlab.gg">Support</a>

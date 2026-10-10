@@ -1,25 +1,5 @@
 import LabChrome from './LabChrome'
 import { withUtms } from '../lib/utm'
-import { track } from '../lib/waitlist'
-
-const plans = [
-  {
-    name: 'Free',
-    price: '$0',
-    detail: '20 to 40 reps per week, 1 mechanic, local history',
-  },
-  {
-    name: 'Pro',
-    price: '$12/mo',
-    detail: 'Unlimited reps, all live mechanics, full Replay Coach',
-    featured: true,
-  },
-  {
-    name: 'Founders',
-    price: '$79 lifetime',
-    detail: 'First 500 players, early price locked, private feedback channel',
-  },
-]
 
 export default function PricingPage() {
   const early = withUtms('/waitlist')
@@ -27,38 +7,30 @@ export default function PricingPage() {
     <LabChrome active="pricing">
       <header className="lab-hero">
         <p className="v2-specimen">PRICING · ALPHA</p>
-        <h1>Start free.<br /><em>Pay when you need more.</em></h1>
+        <h1>One beta plan.<br /><em>Built for the practice loop.</em></h1>
         <p className="lab-lede">
-          Price follows trusted diagnosis, not feature count. Free unlocks the loop. Pro unlocks volume.
+          Planned beta price: $5.99 per month. Checkout is not open yet, and requesting access will not charge you.
         </p>
       </header>
 
       <section className="v2-section dbg-plans">
-        <div className="dbg-plan-grid">
-          {plans.map((p) => (
-            <article className={`dbg-plan${p.featured ? ' featured' : ''}`} key={p.name}>
-              <p>{p.name.toUpperCase()}</p>
-              <h2>{p.price}</h2>
-              <span>{p.detail}</span>
-              <a
-                className={`v2-button${p.featured ? ' primary' : ''}`}
-                href={early}
-                onClick={() => track('cta_click', { href: early, place: `pricing_${p.name}` })}
-              >
-                Get early access <span>→</span>
-              </a>
-            </article>
-          ))}
-        </div>
+        <article className="dbg-plan featured beta-plan">
+          <p>MECHLAB BETA</p>
+          <h2>$5.99 <small>/ month</small></h2>
+          <span>Planned beta subscription. The full feature set and billing terms will be shown before checkout opens.</span>
+          <ul><li>Windows desktop app with all 15 measured mechanics</li><li>Live coaching, overlay, Replay Coach and corrected-input simulations</li><li>Cancel terms shown clearly before you pay</li></ul>
+          <a className="v2-button primary" href={early}>Request beta access <span>→</span></a>
+        </article>
+        <p className="lab-lede beta-note">No payment is collected by this page. $5.99/month is the planned beta price, not an active offer.</p>
       </section>
 
       <section className="v2-cta lab-cta">
         <div>
           <p>ALPHA</p>
-          <h2>Founders opens with public alpha.</h2>
-          <span>Join the waitlist first. We email when seats open.</span>
+          <h2>Know what you’re signing up for.</h2>
+          <span>Read how the app works and what its current limits are before requesting access.</span>
         </div>
-        <a className="v2-button primary" href={early}>Join waitlist <span>→</span></a>
+        <a className="v2-button primary" href="/docs">Read the guide <span>→</span></a>
       </section>
     </LabChrome>
   )

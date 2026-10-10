@@ -6,6 +6,7 @@ import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
 import LaunchSurvey from './components/LaunchSurvey'
 import { supabase } from './lib/supabase'
+import replayScene from './assets/replay-coach-rapid-reset-smoke.png'
 
 const mechanics = [
   'Fast Aerial', 'Flip Cancel', 'Speed Flip', 'Half Flip', 'Stall', 'Zap Dash',
@@ -185,6 +186,10 @@ function App() {
             <span>Scrub a finished attempt and compare its recorded inputs with available game telemetry. Gaps stay visible; playback does not invent missing motion.</span>
             <p className="replay-note">Replay Coach · Rocket League session review</p>
           </div>
+          <figure className="v2-replay-shot">
+            <img src={replayScene} alt="MechLab Replay Coach showing a Rapid Reset car, ball, goal, and replay timeline." loading="lazy" width="834" height="379" />
+            <figcaption>Replay Coach · Rapid Reset · sample replay</figcaption>
+          </figure>
         </section>
 
         <section className="v2-section v2-details-section" aria-labelledby="details-heading">

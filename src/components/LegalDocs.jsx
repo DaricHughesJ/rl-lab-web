@@ -4,9 +4,9 @@ export default function LegalDocs({ type }) {
   const privacy = type === 'privacy'
   return <main className="legal-shell">
     <style>{css}</style>
-    <header><a className="brand" href="/"><i/><b>MECH<span>LAB</span></b></a><a href="/">← Back to MechLab</a></header>
+    <header><a className="brand" href="/" aria-label="MechLab home"><img src="/brand/mechlab-wordmark-nav.webp" alt="MechLab" width="155" height="56"/></a><nav aria-label="Site navigation"><a href="/pricing">Pricing</a><a href="/docs">Guide</a><a href="/faq">FAQ</a><a href="/roadmap">What’s ahead</a></nav></header>
     <article>
-      <p className="eyebrow">MECHLAB ALPHA · LAST UPDATED AUGUST 17, 2026</p>
+      <p className="eyebrow">MECHLAB ALPHA · LAST UPDATED {privacy ? 'AUGUST 17, 2026' : 'OCTOBER 10, 2026'}</p>
       <h1>{privacy ? 'Privacy Policy' : 'Alpha Terms'}</h1>
       {privacy ? <Privacy/> : <Terms/>}
       <footer>Questions: <a href={`mailto:${supportEmail}`}>{supportEmail}</a></footer>
@@ -26,8 +26,8 @@ function Privacy() { return <>
 
 function Terms() { return <>
   <h2>Alpha software</h2><p>MechLab is pre-release software provided for testing. Features, scoring thresholds, availability, and data formats may change, and the alpha may contain defects.</p>
-  <h2>Scoring</h2><p>Current mechanic scoring thresholds are provisional while MechLab is calibrated with real training reps. Relative changes across sessions can be useful, but absolute scores should not be treated as an official Rocket League skill rating.</p>
-  <h2>Supported use</h2><p>Use the alpha only in supported workflows. Some telemetry features may require optional tooling such as BakkesMod and may be limited to freeplay or offline environments. Do not use MechLab to bypass Rocket League, Psyonix, Epic Games, tournament, or anti-cheat rules.</p>
+  <h2>Scoring</h2><p>MechLab scores are training feedback for your mechanics practice. They are not an official Rocket League rating or a promise of match results.</p>
+  <h2>Supported use</h2><p>Use the alpha only in supported workflows described in the app. Capture and telemetry availability can vary by mechanic and setup. Do not use MechLab to bypass Rocket League, Psyonix, Epic Games, tournament, or anti-cheat rules.</p>
   <h2>Account responsibility</h2><p>You are responsible for maintaining the security of your account credentials and for activity performed through your account.</p>
   <h2>No affiliation</h2><p>MechLab is an independent project and is not affiliated with, endorsed by, or sponsored by Psyonix or Epic Games.</p>
   <h2>Availability</h2><p>Alpha access can be changed, suspended, or discontinued as needed for testing, security, abuse prevention, or product changes.</p>
@@ -35,5 +35,5 @@ function Terms() { return <>
 </> }
 
 const css = `
-.legal-shell{min-height:100vh;background:radial-gradient(circle at 70% 0,#43236633,transparent 28%),#08090e;color:#f5f2f8;padding-bottom:70px}.legal-shell>header{height:72px;display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:auto;padding:0 24px;border-bottom:1px solid #292b36}.legal-shell>header>a:last-child{font-size:11px;color:#aaaab6;text-decoration:none}.legal-shell article{max-width:760px;margin:70px auto 0;padding:0 24px}.legal-shell .eyebrow{font:8px var(--mono);letter-spacing:.12em;color:#a873ff}.legal-shell h1{font-size:clamp(44px,7vw,72px);margin:16px 0 45px}.legal-shell h2{font-size:20px;margin:32px 0 10px}.legal-shell p{font-size:13px;line-height:1.8;color:#a9a9b4}.legal-shell footer{margin-top:50px;padding-top:22px;border-top:1px solid #292b36;color:#777986;font-size:11px}.legal-shell footer a{color:#c7a9ef}
+.legal-shell{min-height:100vh;background:radial-gradient(circle at 70% 0,#2fd4c822,transparent 28%),#05080c;color:#e8eef2;padding-bottom:70px}.legal-shell>header{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1160px;margin:auto;padding:10px 24px;border-bottom:1px solid rgba(160,200,210,.12)}.legal-shell>header .brand img{display:block;width:auto;height:32px}.legal-shell>header nav{display:flex;gap:20px;flex-wrap:wrap}.legal-shell>header nav a{font:500 10px var(--mono);letter-spacing:.04em;color:#9aabba;text-decoration:none;text-transform:uppercase}.legal-shell>header nav a:hover{color:#7aefe6}.legal-shell article{max-width:760px;margin:70px auto 0;padding:0 24px}.legal-shell .eyebrow{font:8px var(--mono);letter-spacing:.12em;color:#2fd4c8}.legal-shell h1{font-size:clamp(44px,7vw,72px);margin:16px 0 45px}.legal-shell h2{font-size:20px;margin:32px 0 10px}.legal-shell p{font-size:13px;line-height:1.8;color:#9aabba}.legal-shell footer{margin-top:50px;padding-top:22px;border-top:1px solid rgba(160,200,210,.12);color:#7a8b99;font-size:11px}.legal-shell footer a{color:#7aefe6}
 `

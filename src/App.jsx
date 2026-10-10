@@ -6,29 +6,16 @@ import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
 import LaunchSurvey from './components/LaunchSurvey'
 import { supabase } from './lib/supabase'
-import { shipped as current, underTest as validation, queued as next } from './lib/labQueue'
 import homeScreen from './assets/mechlab-home.webp'
 import trainScreen from './assets/mechlab-train.webp'
+import homeCapture from './assets/mechlab-home-actual.png'
+import overlayCapture from './assets/mechlab-live-overlay-example.png'
+import stickHeatmap from './assets/mechlab-stick-heatmap-example.png'
 
 const mechanics = [
-  {
-    id: 'FA-01',
-    name: 'Fast Aerial',
-    description: 'Jump, boost, air roll. We measure launch timing and how clean the flight path stays.',
-    image: '/mechanics/fast-aerial.svg',
-  },
-  {
-    id: 'WD-02',
-    name: 'Wave Dash',
-    description: 'Dodge into the ground for speed. We track the land, the cancel, and whether you keep the ball.',
-    image: '/mechanics/wave-dash.svg',
-  },
-  {
-    id: 'HF-03',
-    name: 'Half Flip',
-    description: 'Flip cancel, recover, face upfield. We time the turn and the first useful input after.',
-    image: '/mechanics/half-flip.svg',
-  },
+  'Fast Aerial', 'Flip Cancel', 'Speed Flip', 'Half Flip', 'Stall', 'Zap Dash',
+  'Air Dribble', 'Flip Reset', 'Pop Reset', 'Rapid Reset', 'Wave Dash',
+  'Ceiling Play', 'Musty Flick', 'Chain Dash', 'Double Tap',
 ]
 
 function Brand() {
@@ -103,9 +90,12 @@ function App() {
         <nav className="v2-nav">
           <Brand />
           <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
-            <a href="#app" onClick={() => setMenu(false)}>The app</a>
+            <a href="#app" onClick={() => setMenu(false)}>Product</a>
             <a href="#mechanics" onClick={() => setMenu(false)}>Mechanics</a>
-            <a href="/roadmap" onClick={() => setMenu(false)}>Roadmap</a>
+            <a href="/pricing" onClick={() => setMenu(false)}>Pricing</a>
+            <a href="/docs" onClick={() => setMenu(false)}>Guide</a>
+            <a href="/faq" onClick={() => setMenu(false)}>FAQ</a>
+            <a href="/roadmap" onClick={() => setMenu(false)}>What’s ahead</a>
             <a href="/blog" onClick={() => setMenu(false)}>Blog</a>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Sign in</button>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Join alpha</button>
@@ -137,11 +127,7 @@ function App() {
           </section>
         )}
 
-        <section className="v2-hero" aria-label="MechLab introduction">
-          <div className="v2-hero-media" aria-hidden="true">
-            <img src={homeScreen} alt="" />
-            <div className="v2-hero-shade" />
-          </div>
+        <section className="v2-hero site-hero" aria-label="MechLab introduction">
           <div className="v2-hero-copy">
             <p className="v2-specimen">WINDOWS DESKTOP · ALPHA</p>
             <img
@@ -153,7 +139,7 @@ function App() {
             />
             <h1>Train mechanics.<br /><em>See what actually happened.</em></h1>
             <p className="v2-lede">
-              MechLab is a Windows app for Rocket League mechanics. You run a drill, we record the rep, then you review timing, inputs, and path.
+              Practice a mechanic, capture the rep, then inspect the inputs and game-state evidence MechLab actually saw.
             </p>
             <div className="v2-actions">
               <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
@@ -161,19 +147,16 @@ function App() {
               </button>
               <a href="#app">See the app <span>↓</span></a>
             </div>
-            <dl className="v2-readouts">
-              <div><dt>PLATFORM</dt><dd>Windows 10/11</dd></div>
-              <div><dt>APP</dt><dd>Desktop</dd></div>
-              <div><dt>STATUS</dt><dd>Alpha</dd></div>
-            </dl>
+            <dl className="v2-readouts"><div><dt>PLATFORM</dt><dd>Windows</dd></div><div><dt>PRODUCT</dt><dd>Desktop app</dd></div><div><dt>STAGE</dt><dd>Alpha</dd></div></dl>
           </div>
+          <figure className="site-hero-capture"><img src={homeCapture} alt="Screenshot of the MechLab desktop app Home screen"/><figcaption>Actual MechLab build · Home screen</figcaption></figure>
         </section>
 
         <section className="v2-section v2-app-section" id="app">
           <div className="v2-heading">
             <p>01 / THE APP</p>
             <h2>Real screens from the build.</h2>
-            <span>Screenshots from the current Windows desktop app. No fake charts. No sample ranks.</span>
+            <span>Actual screenshots from the Windows app. The overlay and controller examples below use sample session data.</span>
           </div>
           <div className="v2-screen-grid">
             <figure className="v2-app-shot">
@@ -191,27 +174,16 @@ function App() {
 
         <section className="v2-section v2-mechanics" id="mechanics">
           <div className="v2-heading centered">
-            <p>MECHANICS · LIVE NOW</p>
-            <h2>Three drills to start.<br /><em>More later.</em></h2>
+            <p>MECHANICS · 15 AVAILABLE</p>
+            <h2>Fifteen mechanics.<br /><em>One practice loop.</em></h2>
             <span>
-              Each drill is a repeatable test: same mechanic, same capture, numbers you can compare between sessions.
+              Fifteen distinct mechanics are ready to train, from movement fundamentals to aerial plays, resets, and shots.
             </span>
           </div>
-          <div className="v2-mechanic-grid">
-            {mechanics.map((m) => (
-              <article className="v2-mechanic" key={m.name}>
-                <div className="v2-mechanic-art">
-                  <img src={m.image} alt="" loading="lazy" />
-                  <span className="v2-specimen-tag">{m.id}</span>
-                </div>
-                <div className="v2-mechanic-copy">
-                  <h3>{m.name}</h3>
-                  <p>{m.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <p className="v2-mechanics-note">3 mechanics live · more in development</p>
+          <ul className="mechanic-list">
+            {mechanics.map((name, index) => <li key={name}><span>{String(index + 1).padStart(2, '0')}</span>{name}<b>AVAILABLE</b></li>)}
+          </ul>
+          <p className="v2-mechanics-note">Pick your next mechanic. Build the rep. Run it again.</p>
         </section>
 
         <section className="v2-section v2-replay" id="replay">
@@ -237,79 +209,44 @@ function App() {
             </ul>
           </div>
           <figure className="v2-replay-shot">
-            <img
-              src="/replay-coach-product-v1.webp"
-              alt="Replay Coach preview with path, readouts, and timeline."
+              <img
+              src={stickHeatmap}
+              alt="Actual MechLab controller input replay screen with recorded stick-density heatmap."
               loading="lazy"
               width="1600"
               height="900"
             />
-            <figcaption>Replay Coach preview</figcaption>
+            <figcaption>Actual controller replay capture · example session data</figcaption>
           </figure>
+        </section>
+
+        <section className="v2-section overlay-proof">
+          <div className="v2-heading"><p>INPUT OVERLAY</p><h2>See the cue while you train.</h2><span>A real capture from the MechLab overlay. Example session data shown; this is not a live feed.</span></div>
+          <figure className="overlay-proof-image"><img src={overlayCapture} alt="MechLab training overlay with a Fast Aerial cue and example session status" loading="lazy"/><figcaption>MechLab overlay · sample session</figcaption></figure>
         </section>
 
         <section className="v2-section v2-status" id="status">
           <div className="v2-heading">
-            <p>02 / STATUS</p>
-            <h2>What works now.<br /><em>What is still unfinished.</em></h2>
-            <span>This is alpha. Unfinished features stay labeled unfinished.</span>
+            <p>THE MECHLAB LOOP</p>
+            <h2>From first input<br /><em>to the next clean rep.</em></h2>
+            <span>MechLab brings your mechanic, live cue, captured inputs and session review into one Windows training flow.</span>
           </div>
-          <div className="v2-status-block live">
-            <header>
-              <span>●</span>
-              <div>
-                <b>SHIPPING NOW</b>
-                <small>in the desktop app</small>
-              </div>
-            </header>
-            <div className="v2-status-grid">
-              {current.map(([title, text]) => (
-                <article key={title}>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
-            </div>
+          <div className="capability-grid">
+            <article><span>01 / TRAIN</span><h3>Fifteen mechanics, ready to run.</h3><p>Choose the mechanic you want to work on and get straight into focused practice.</p></article>
+            <article><span>02 / COACH</span><h3>One cue, matched to the moment.</h3><p>Scoring and coaching share the active attempt window. Keybind-aware guides use your controls, and input references appear when the rep is ready for comparison.</p></article>
+            <article><span>03 / PLAY</span><h3>Keep the cue beside the game.</h3><p>Start with a guided first run, then keep the MechLab overlay and optional official match context close to the play.</p></article>
+            <article><span>04 / READ</span><h3>See your sticks, not a guess.</h3><p>Replay Coach lines up the attempt, stick heatmaps, controller-specific labels, and faithful FAR/DAR input during review and simulation.</p></article>
+            <article><span>05 / EXPERIMENT</span><h3>Try a small change safely.</h3><p>Corrected replays test a bounded input change in simulation, then continue with your original recorded controls.</p></article>
+            <article><span>06 / YOUR DATA</span><h3>You choose what leaves your PC.</h3><p>Control progress sync, analytics, and training-data contribution. Review queued uploads, retry when you choose, or erase account data.</p></article>
           </div>
-          <div className="v2-status-split">
-            <div className="v2-status-block validation">
-              <header>
-                <span>◆</span>
-                <div>
-                  <b>BUILT · UNDER TEST</b>
-                  <small>do not treat as finished</small>
-                </div>
-              </header>
-              {validation.map(([title, text]) => (
-                <article key={title}>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
-            </div>
-            <div className="v2-status-block next" id="next">
-              <header>
-                <span>○</span>
-                <div>
-                  <b>NOT DONE YET</b>
-                  <small>planned or incomplete</small>
-                </div>
-              </header>
-              {next.map(([title, text]) => (
-                <article key={title}>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+          <a className="ahead-link" href="/roadmap">See what we’re building next <span>→</span></a>
         </section>
 
         <section className="v2-cta">
           <div>
             <p>ALPHA</p>
             <h2>Need players who will break it.</h2>
-            <span>Run sessions and tell us where the numbers are wrong. We are still hardening launch, train, detect, score, save, and review.</span>
+            <span>Fifteen mechanics, live cues, controller heatmaps and replay review. Get in and shape what MechLab becomes next.</span>
           </div>
           <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
             Request access <span>→</span>
@@ -320,6 +257,9 @@ function App() {
           <Brand />
           <p>Windows app for Rocket League mechanics.</p>
           <div>
+            <a href="/pricing">Pricing</a>
+            <a href="/docs">Guide</a>
+            <a href="/faq">FAQ</a>
             <button onClick={() => setAuthMode('login')}>Sign in</button>
             <a href="/roadmap">Roadmap</a>
             <a href="/blog">Blog</a>

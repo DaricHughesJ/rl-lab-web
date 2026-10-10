@@ -1,7 +1,7 @@
 import LabChrome from './LabChrome'
 import { posts, getPost } from '../content/devBlog'
 
-export default function DevBlogPage({ slug }) {
+export default function DevBlogPage({ slug = '' }) {
   const post = slug ? getPost(slug) : null
 
   if (slug && !post) {

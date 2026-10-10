@@ -28,7 +28,7 @@ const content = path === '/privacy'
               : path === '/blog'
                 ? <DevBlogPage />
                 : blogMatch
-                  ? <DevBlogPage slug={decodeURIComponent(blogMatch[1])} />
+                  ? <DevBlogPage slug={decodeURIComponent(blogMatch[1] ?? '')} />
                   : ['/signin', '/signup', '/account'].includes(path)
                     ? <AuthPage path={path} />
                     : path === '/waitlist'

@@ -128,7 +128,8 @@ export default function AuthModal({ initialMode = 'signup', onClose }: AuthModal
                 <div className="form-row">
                   <label>
                     CURRENT RANK
-                    <select name="rank" defaultValue="Champion">
+                    <select name="rank" defaultValue="" required>
+                      <option value="" disabled>Pick your rank</option>
                       <option>Bronze–Gold</option>
                       <option>Platinum</option>
                       <option>Diamond</option>

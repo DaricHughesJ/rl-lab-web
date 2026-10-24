@@ -300,7 +300,6 @@
 .mechanic-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--ml-hair);border-left:1px solid var(--ml-hair)}
 .mechanic-list li{min-height:64px;display:flex;align-items:center;gap:12px;padding:12px 15px;color:#d9e3e9;border-right:1px solid var(--ml-hair);border-bottom:1px solid var(--ml-hair);font-size:14px}
 .mechanic-list li>span{color:var(--ml-accent);font:500 10px var(--mono)}
-.mechanic-list li>b{margin-left:auto;color:#7e919e;font:500 8px var(--mono);letter-spacing:.08em}
 .capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .capability-grid article{min-height:216px;padding:24px;background:linear-gradient(145deg,rgba(14,25,31,.92),rgba(7,12,17,.86));border:1px solid var(--ml-hair)}
 .capability-grid article>span{font:500 9px var(--mono);letter-spacing:.13em;color:var(--ml-accent)}
@@ -324,12 +323,11 @@
 .v2-mechanic-art{height:156px;display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(47,212,200,.08),transparent 65%)}
 .v2-replay-shot img{display:block;width:100%;height:auto;background:#07101b}
 .overlay-proof{padding-top:35px}
-.overlay-proof-image{width:min(920px,100%);margin:0 auto;background:#05080c;border:1px solid var(--ml-hair)}
+.overlay-proof-image{width:min(560px,100%);margin:0 auto;background:#05080c;border:1px solid var(--ml-hair)}
 .overlay-proof-image img{display:block;width:100%;height:auto}
 .beta-plan{max-width:680px;margin:0 auto}
 .beta-plan h2 small{font:500 15px var(--mono);color:var(--ml-body)}
 .beta-plan ul{margin:0;padding-left:18px;color:var(--ml-body);font-size:14px;line-height:1.8}
-.beta-note{max-width:680px;margin:18px auto 0}
 .guide-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:60px;align-items:start}
 .guide-toc{position:sticky;top:24px;display:grid;gap:12px;padding:18px;background:rgba(8,14,20,.8);border:1px solid var(--ml-hair)}
 .guide-toc b{font:600 10px var(--mono);letter-spacing:.12em;color:var(--ml-accent);margin-bottom:6px}

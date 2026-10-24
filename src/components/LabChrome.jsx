@@ -44,11 +44,11 @@ export default function LabChrome({ active, children }) {
             Blog
           </a>
           <a className="v2-mobile-login" href="/signin" onClick={() => setMenu(false)}>Sign in</a>
-          <a className="v2-mobile-login" href="/signup" onClick={() => setMenu(false)}>Join alpha</a>
+          <a className="v2-mobile-login" href="/signup" onClick={() => setMenu(false)}>Join the beta</a>
         </div>
         <div className="v2-nav-actions">
           <a className="v2-login" href="/signin">Sign in</a>
-          <a className="v2-button compact" href="/signup">Join alpha</a>
+          <a className="v2-button compact" href="/signup">Join the beta</a>
           <button
             type="button"
             className="v2-menu"

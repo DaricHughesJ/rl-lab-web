@@ -70,7 +70,7 @@ export default function UserDashboard({ user, onExit }) {
       <header className="account-topbar">
         <div><p>PLAYER DASHBOARD</p><h1>{tab === 'overview' ? `Welcome, ${name}.` : tabs.find(x => x[0] === tab)?.[2]}</h1></div>
         <div className="account-header-actions">
-          <div className="account-user"><span>{initials(name)}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Alpha player'}</small></div></div>
+          <div className="account-user"><span>{initials(name)}</span><div><b>{name}</b><small>{profile?.rank_bucket || meta.rocket_league_rank || 'Beta player'}</small></div></div>
           <button className="account-menu-button" aria-label="Open account menu" aria-expanded={mobileMenu} onClick={() => setMobileMenu(v => !v)}>{mobileMenu ? '×' : '☰'}</button>
         </div>
         {mobileMenu && <div className="account-mobile-menu">
@@ -96,7 +96,7 @@ function Overview({ profile, dashboard, approved }) {
   const summary = useMemo(() => summarize(dashboard), [dashboard])
   return <>
     <div className={`beta-banner ${approved ? 'approved' : ''}`}>
-      <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Alpha access requested'}</b><span>{approved ? 'Download the Windows alpha, sign in with this account, then sync your first training session.' : "Your account is in the approval queue. We'll email you when access is granted."}</span></div>
+      <i>✦</i><div><b>{approved ? `${BETA_VERSION} is ready` : 'Beta access requested'}</b><span>{approved ? 'Download the Windows beta, sign in with this account, then sync your first training session.' : "Your account is in the approval queue. We'll email you when access is granted."}</span></div>
       {approved ? <DownloadBetaButton/> : <em>IN REVIEW</em>}
     </div>
 
@@ -109,11 +109,11 @@ function Overview({ profile, dashboard, approved }) {
 
     {dashboard.sessions.length === 0 ? <Empty title="No sessions synced yet" text="Your real mechanic scores, reps, and progress will appear here after the desktop app syncs your first training session."/> : <div className="account-grid live-grid">
       <article className="performance-card live-card"><header><div><span>RECENT ACTIVITY</span><b>Last {Math.min(7, dashboard.sessions.length)} sessions</b></div><strong>{summary.attempts}<small> attempts</small></strong></header><SessionBars sessions={dashboard.sessions.slice(0, 7).reverse()}/></article>
-      <article className="focus-card live-card"><span>NEXT STEP</span><i>✦</i><h3>{summary.weakest ? prettyMechanic(summary.weakest.mechanic) : 'Complete a session'}</h3><p>{summary.weakest ? `Your current average is ${Math.round(summary.weakest.mean_score)}/100. Use the desktop app to focus your next session.` : 'Open the desktop Train screen, run a session, then sync to see progress here.'}</p><div><span>DATA SOURCE</span><b>YOUR SYNCED REPS</b></div></article>
+      <article className="focus-card live-card"><span>NEXT STEP</span><i>✦</i><h3>{summary.weakest ? prettyMechanic(summary.weakest.mechanic) : 'Complete a session'}</h3><p>{summary.weakest ? `Your current average is ${Math.round(summary.weakest.mean_score)}/100. Use the desktop app to focus your next session.` : 'Open Practice in the desktop app, run a session, then sync to see progress here.'}</p><div><span>DATA SOURCE</span><b>YOUR SYNCED REPS</b></div></article>
     </div>}
 
-    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Alpha setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the official Windows alpha build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Train + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
-    {profile && <p className="account-footnote">Windows 10/11 · Alpha build may trigger SmartScreen · Capture and telemetry availability depends on the supported workflow shown in the app.</p>}
+    <section className="dashboard-section"><div className="section-title"><span>GET STARTED</span><h2>Beta setup</h2></div><div className="beta-setup"><article><span>01</span><div><b>Download MechLab</b><p>{approved ? 'Use the Windows beta build above.' : 'The download unlocks after approval.'}</p></div></article><article><span>02</span><div><b>Sign in</b><p>Use this same account in the desktop app.</p></div></article><article><span>03</span><div><b>Practice + sync</b><p>Your sessions and mechanic progress appear here after sync.</p></div></article></div></section>
+    {profile && <p className="account-footnote">Windows 10/11 · Beta build may trigger SmartScreen · Capture and telemetry availability depends on the supported workflow shown in the app.</p>}
   </>
 }
 
@@ -248,8 +248,8 @@ function DownloadBetaButton() {
       if (!response.ok) {
         setPhase('error')
         setDetail(response.status === 403
-          ? 'Your account does not have alpha download access yet.'
-          : 'The alpha download is temporarily unavailable. Please try again shortly.')
+          ? 'Your account does not have beta download access yet.'
+          : 'The beta download is temporarily unavailable. Please try again shortly.')
         return
       }
       setPhase('saving')
@@ -265,7 +265,7 @@ function DownloadBetaButton() {
       setDetail('Download started. Check your downloads for MechLab.exe.')
     } catch {
       setPhase('error')
-      setDetail('The alpha download is temporarily unavailable. Please try again shortly.')
+      setDetail('The beta download is temporarily unavailable. Please try again shortly.')
     } finally {
       lock.current = false
     }

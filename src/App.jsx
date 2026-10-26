@@ -6,11 +6,9 @@ import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
 import LaunchSurvey from './components/LaunchSurvey'
 import { supabase } from './lib/supabase'
-import homeCapture from './assets/mechlab-home-beta.webp'
+import replayCoach from './assets/mechlab-replay-coach-real.webp'
+import replayInputs from './assets/mechlab-replay-inputs-real.webp'
 import practiceScreen from './assets/mechlab-practice-beta.webp'
-import progressScreen from './assets/mechlab-progress-beta.webp'
-import overlayCapture from './assets/mechlab-live-overlay-example.png'
-import stickHeatmap from './assets/mechlab-stick-heatmap-example.png'
 
 const mechanics = [
   'Fast Aerial', 'Flip Cancel', 'Speed Flip', 'Half Flip', 'Stall', 'Zap Dash',
@@ -148,14 +146,14 @@ function App() {
               <a href="#app">See the app <span>↓</span></a>
             </div>
           </div>
-          <figure className="site-hero-capture"><img src={homeCapture} alt="MechLab Home screen: the selected mechanic with its steps, the last session's score, and recent attempts" width="1600" height="1000"/><figcaption>MechLab beta · Home · sample sessions</figcaption></figure>
+          <figure className="site-hero-capture"><img src={replayCoach} alt="Replay Coach on a real Fast Aerial rep: the car and ball at the key moment, the jump timeline, and the coach naming the stick position at the second jump" width="1600" height="900"/><figcaption>Replay Coach · a real Fast Aerial rep</figcaption></figure>
         </section>
 
         <section className="v2-section v2-app-section" id="app">
           <div className="v2-heading">
             <p>01 / THE APP</p>
             <h2>Real screens from the app.</h2>
-            <span>Screenshots from the current Windows beta. The scores in them come from sample sessions, not a real player.</span>
+            <span>Pick a mechanic, play it, then see exactly what your hands did.</span>
           </div>
           <div className="v2-screen-grid">
             <figure className="v2-app-shot">
@@ -164,9 +162,9 @@ function App() {
               <figcaption>Practice: pick a mechanic and see how the rep is done.</figcaption>
             </figure>
             <figure className="v2-app-shot">
-              <div className="v2-windowbar"><i /><i /><i /><span>PROGRESS</span></div>
-              <img src={progressScreen} alt="MechLab Progress screen: score trend, skill ladder and results per mechanic" loading="lazy" width="1600" height="1000" />
-              <figcaption>Progress: your scores over time, per mechanic.</figcaption>
+              <div className="v2-windowbar"><i /><i /><i /><span>REPLAY COACH · INPUTS</span></div>
+              <img src={replayInputs} alt="Replay Coach inputs tab on a real Fast Aerial rep: left stick path, buttons pressed, and the jump timeline" loading="lazy" width="1366" height="768" />
+              <figcaption>Replay Coach: your stick and buttons on the same clock as the car.</figcaption>
             </figure>
           </div>
         </section>
@@ -206,21 +204,17 @@ function App() {
               </li>
             </ul>
           </div>
-          <figure className="v2-replay-shot">
-              <img
-              src={stickHeatmap}
-              alt="Actual MechLab controller input replay screen with recorded stick-density heatmap."
-              loading="lazy"
-              width="1600"
-              height="900"
-            />
-            <figcaption>Actual controller replay capture · example session data</figcaption>
+          <figure className="v2-replay-finding" aria-label="Coaching from a real Fast Aerial rep">
+            <header><b>FAST AERIAL · ATTEMPT 1</b><span>Second-jump stick</span></header>
+            <p className="v2-finding-lead">At jump 2 the stick was 0.99 deflected. The dodge deadzone needs it at 0.40 or less, so the second press became a dodge instead of a straight jump.</p>
+            <dl>
+              <div><dt>You</dt><dd>0.99 deflected at the second press</dd></div>
+              <div><dt>Target</dt><dd>0.40 or less</dd></div>
+              <div><dt>Timing</dt><dd>Jump 2 came 349 ms after jump 1, 49 ms late</dd></div>
+            </dl>
+            <p className="v2-finding-next"><b>Next rep:</b> ease the stick toward centre for the second press, then pull back.</p>
+            <figcaption>From a real rep in Replay Coach. The same fix shows on the in-game overlay right after the rep.</figcaption>
           </figure>
-        </section>
-
-        <section className="v2-section overlay-proof">
-          <div className="v2-heading"><p>INPUT OVERLAY</p><h2>See the cue while you train.</h2><span>The overlay sits on top of Rocket League and shows your score and the next fix after every rep. Capture from the overlay with sample data.</span></div>
-          <figure className="overlay-proof-image"><img src={overlayCapture} alt="MechLab training overlay with a Fast Aerial cue and example session status" loading="lazy"/><figcaption>MechLab overlay · sample session</figcaption></figure>
         </section>
 
         <section className="v2-section v2-status" id="status">

@@ -145,7 +145,7 @@
 .v2-heading>span{display:block;max-width:560px;font-size:14px;line-height:1.65;color:var(--ml-body)}
 .v2-heading.centered>span{margin-inline:auto}
 
-.v2-screen-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;align-items:start}
+.v2-screen-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 .v2-screen-grid .v2-app-shot:nth-child(2){margin-top:40px}
 .v2-app-shot{
   margin:0;position:relative;background:rgba(6,12,18,.92);overflow:hidden;border:1px solid var(--ml-hair);
@@ -165,7 +165,7 @@
 .v2-windowbar i{width:6px;height:6px;background:#3a4a56}
 .v2-windowbar i:nth-child(3){background:var(--ml-accent)}
 .v2-windowbar span{margin-left:auto;font:500 8px var(--mono);letter-spacing:.12em;color:#6a7d8c}
-.v2-app-shot img{display:block;width:100%;height:auto;background:#07101b}
+.v2-app-shot img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top left;background:#07101b}
 .v2-app-shot figcaption{
   padding:12px 14px 14px;font:500 11px var(--mono);letter-spacing:.02em;color:#8496a7;
   background:rgba(7,12,18,.95);border-top:1px solid var(--ml-hair);
@@ -296,7 +296,7 @@
 .site-hero .v2-readouts{grid-template-columns:repeat(3,max-content);gap:18px}
 .site-hero-capture{margin:0;padding:8px;background:#05080c;border:1px solid rgba(160,200,210,.2);box-shadow:0 28px 80px rgba(0,0,0,.36);transform:rotate(1deg)}
 .site-hero-capture img{display:block;width:100%;height:auto}
-.site-hero-capture figcaption,.overlay-proof-image figcaption{padding:10px 12px;color:#7f929e;font:500 10px var(--mono);letter-spacing:.06em}
+.site-hero-capture figcaption{padding:10px 12px;color:#7f929e;font:500 10px var(--mono);letter-spacing:.06em}
 .mechanic-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--ml-hair);border-left:1px solid var(--ml-hair)}
 .mechanic-list li{min-height:64px;display:flex;align-items:center;gap:12px;padding:12px 15px;color:#d9e3e9;border-right:1px solid var(--ml-hair);border-bottom:1px solid var(--ml-hair);font-size:14px}
 .mechanic-list li>span{color:var(--ml-accent);font:500 10px var(--mono)}
@@ -321,10 +321,6 @@
 .roadmap-card li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--ml-accent);box-shadow:0 0 10px rgba(47,212,200,.35)}
 .roadmap-cta{margin-top:10px}
 .v2-mechanic-art{height:156px;display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(47,212,200,.08),transparent 65%)}
-.v2-replay-shot img{display:block;width:100%;height:auto;background:#07101b}
-.overlay-proof{padding-top:35px}
-.overlay-proof-image{width:min(560px,100%);margin:0 auto;background:#05080c;border:1px solid var(--ml-hair)}
-.overlay-proof-image img{display:block;width:100%;height:auto}
 .beta-plan{max-width:680px;margin:0 auto}
 .beta-plan h2 small{font:500 15px var(--mono);color:var(--ml-body)}
 .beta-plan ul{margin:0;padding-left:18px;color:var(--ml-body);font-size:14px;line-height:1.8}

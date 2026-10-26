@@ -12,13 +12,15 @@
 .v2-replay-points li{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid rgba(160,200,210,.08)}
 .v2-replay-points b{font:600 12px var(--mono);letter-spacing:.02em}
 .v2-replay-points span{font-size:12px;line-height:1.5;color:var(--ml-dim)}
-.v2-replay-shot{margin:0;position:relative;overflow:hidden;border:1px solid var(--ml-hair);background:rgba(6,12,18,.95)}
-.v2-replay-shot::before,.v2-replay-shot::after{
-  content:"";position:absolute;width:14px;height:14px;z-index:3;pointer-events:none;border:1px solid rgba(47,212,200,.5);
-}
-.v2-replay-shot::before{top:8px;left:8px;border-right:0;border-bottom:0}
-.v2-replay-shot::after{right:8px;bottom:8px;border-left:0;border-top:0}
-.v2-replay-shot img{display:block;width:100%;height:auto}
-.v2-replay-shot figcaption{padding:11px 13px 13px;color:var(--ml-dim);font:500 10px var(--mono);background:rgba(7,12,18,.95);border-top:1px solid var(--ml-hair)}
 @media(max-width:1050px){.marketing-v2 .v2-replay{grid-template-columns:1fr}}
 @media(max-width:760px){.marketing-v2 .v2-replay{padding:64px 14px}.v2-replay-copy h2{font-size:32px}}
+.v2-replay-finding{margin:0;padding:28px;display:grid;gap:18px;background:var(--ml-panel);border:1px solid var(--ml-hair);border-left:3px solid var(--ml-warn)}
+.v2-replay-finding header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:600 10px var(--mono);letter-spacing:.12em;color:var(--ml-dim)}
+.v2-replay-finding header span{color:var(--ml-warn);letter-spacing:.04em}
+.v2-finding-lead{margin:0;font-size:clamp(18px,1.7vw,22px);font-weight:600;line-height:1.4;color:var(--ml-accent-hi);text-wrap:pretty}
+.v2-replay-finding dl{margin:0;display:grid;gap:8px}
+.v2-replay-finding dl>div{display:grid;grid-template-columns:80px 1fr;gap:12px;font-size:14px;line-height:1.5}
+.v2-replay-finding dt{color:var(--ml-dim)}
+.v2-replay-finding dd{margin:0;color:var(--ml-text)}
+.v2-finding-next{margin:0;font-size:15px;line-height:1.5;color:var(--ml-warn)}
+.v2-replay-finding figcaption{padding-top:14px;border-top:1px solid var(--ml-hair);font-size:12px;line-height:1.5;color:var(--ml-dim)}

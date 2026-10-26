@@ -6,11 +6,9 @@ import AuthModal from './components/AuthModal'
 import UserDashboard from './components/UserDashboard'
 import LaunchSurvey from './components/LaunchSurvey'
 import { supabase } from './lib/supabase'
-import homeScreen from './assets/mechlab-home.webp'
-import trainScreen from './assets/mechlab-train.webp'
-import homeCapture from './assets/mechlab-home-actual.png'
-import overlayCapture from './assets/mechlab-live-overlay-example.png'
-import stickHeatmap from './assets/mechlab-stick-heatmap-example.png'
+import replayCoach from './assets/mechlab-replay-coach-real.webp'
+import replayInputs from './assets/mechlab-replay-inputs-real.webp'
+import practiceScreen from './assets/mechlab-practice-beta.webp'
 
 const mechanics = [
   'Fast Aerial', 'Flip Cancel', 'Speed Flip', 'Half Flip', 'Stall', 'Zap Dash',
@@ -98,11 +96,11 @@ function App() {
             <a href="/roadmap" onClick={() => setMenu(false)}>What’s ahead</a>
             <a href="/blog" onClick={() => setMenu(false)}>Blog</a>
             <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('login') }}>Sign in</button>
-            <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Join alpha</button>
+            <button className="v2-mobile-login" onClick={() => { setMenu(false); setAuthMode('signup') }}>Join the beta</button>
           </div>
           <div className="v2-nav-actions">
             <button className="v2-login" onClick={() => setAuthMode('login')}>Sign in</button>
-            <button className="v2-button compact" onClick={() => setAuthMode('signup')}>Join alpha</button>
+            <button className="v2-button compact" onClick={() => setAuthMode('signup')}>Join the beta</button>
             <button
               type="button"
               className="v2-menu"
@@ -129,7 +127,7 @@ function App() {
 
         <section className="v2-hero site-hero" aria-label="MechLab introduction">
           <div className="v2-hero-copy">
-            <p className="v2-specimen">WINDOWS DESKTOP · ALPHA</p>
+            <p className="v2-specimen">WINDOWS DESKTOP APP · BETA</p>
             <img
               className="v2-hero-brand"
               src="/brand/mechlab-wordmark.webp"
@@ -139,51 +137,49 @@ function App() {
             />
             <h1>Train mechanics.<br /><em>See what actually happened.</em></h1>
             <p className="v2-lede">
-              Practice a mechanic, capture the rep, then inspect the inputs and game-state evidence MechLab actually saw.
+              Pick a mechanic and play a rep in Rocket League. MechLab scores it from the game itself, shows you what went wrong, and gives you one thing to change on the next one.
             </p>
             <div className="v2-actions">
               <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
-                Join the alpha <span>→</span>
+                Join the beta <span>→</span>
               </button>
               <a href="#app">See the app <span>↓</span></a>
             </div>
-            <dl className="v2-readouts"><div><dt>PLATFORM</dt><dd>Windows</dd></div><div><dt>PRODUCT</dt><dd>Desktop app</dd></div><div><dt>STAGE</dt><dd>Alpha</dd></div></dl>
           </div>
-          <figure className="site-hero-capture"><img src={homeCapture} alt="Screenshot of the MechLab desktop app Home screen"/><figcaption>Actual MechLab build · Home screen</figcaption></figure>
+          <figure className="site-hero-capture"><img src={replayCoach} alt="Replay Coach on a real Fast Aerial rep: the car and ball at the key moment, the jump timeline, and the coach naming the stick position at the second jump" width="1600" height="900"/><figcaption>Replay Coach · a real Fast Aerial rep</figcaption></figure>
         </section>
 
         <section className="v2-section v2-app-section" id="app">
           <div className="v2-heading">
             <p>01 / THE APP</p>
-            <h2>Real screens from the build.</h2>
-            <span>Actual screenshots from the Windows app. The overlay and controller examples below use sample session data.</span>
+            <h2>Real screens from the app.</h2>
+            <span>Pick a mechanic, play it, then see exactly what your hands did.</span>
           </div>
           <div className="v2-screen-grid">
             <figure className="v2-app-shot">
-              <div className="v2-windowbar"><i /><i /><i /><span>HOME · STATUS + LAUNCH</span></div>
-              <img src={homeScreen} alt="Current MechLab Home screen" loading="lazy" />
-              <figcaption>Home: system checks and overlay control.</figcaption>
+              <div className="v2-windowbar"><i /><i /><i /><span>PRACTICE</span></div>
+              <img src={practiceScreen} alt="MechLab Practice screen: the list of 15 mechanics and how the selected one is done" loading="lazy" width="1600" height="1000" />
+              <figcaption>Practice: pick a mechanic and see how the rep is done.</figcaption>
             </figure>
             <figure className="v2-app-shot">
-              <div className="v2-windowbar"><i /><i /><i /><span>TRAIN · PICK A MECHANIC</span></div>
-              <img src={trainScreen} alt="Current MechLab Train screen" loading="lazy" />
-              <figcaption>Train: pick a mechanic after bind check.</figcaption>
+              <div className="v2-windowbar"><i /><i /><i /><span>REPLAY COACH · INPUTS</span></div>
+              <img src={replayInputs} alt="Replay Coach inputs tab on a real Fast Aerial rep: left stick path, buttons pressed, and the jump timeline" loading="lazy" width="1366" height="768" />
+              <figcaption>Replay Coach: your stick and buttons on the same clock as the car.</figcaption>
             </figure>
           </div>
         </section>
 
         <section className="v2-section v2-mechanics" id="mechanics">
           <div className="v2-heading centered">
-            <p>MECHANICS · 15 AVAILABLE</p>
+            <p>MECHANICS · 15</p>
             <h2>Fifteen mechanics.<br /><em>One practice loop.</em></h2>
             <span>
-              Fifteen distinct mechanics are ready to train, from movement fundamentals to aerial plays, resets, and shots.
+              From movement basics to aerials, resets and shots. Each one is scored from game data and coached step by step.
             </span>
           </div>
           <ul className="mechanic-list">
-            {mechanics.map((name, index) => <li key={name}><span>{String(index + 1).padStart(2, '0')}</span>{name}<b>AVAILABLE</b></li>)}
+            {mechanics.map((name, index) => <li key={name}><span>{String(index + 1).padStart(2, '0')}</span>{name}</li>)}
           </ul>
-          <p className="v2-mechanics-note">Pick your next mechanic. Build the rep. Run it again.</p>
         </section>
 
         <section className="v2-section v2-replay" id="replay">
@@ -191,7 +187,7 @@ function App() {
             <p>REPLAY</p>
             <h2>Review the session.<br /><em>See where it broke.</em></h2>
             <span>
-              Replay Coach lines up inputs, telemetry, and notes on one timeline. Scrub a finished attempt, mark the miss, and take one change into the next run.
+              Replay Coach puts your stick, buttons and the car on one timeline. Scrub to the miss, see what your hands did, and take one change into the next rep.
             </span>
             <ul className="v2-replay-points">
               <li>
@@ -208,48 +204,44 @@ function App() {
               </li>
             </ul>
           </div>
-          <figure className="v2-replay-shot">
-              <img
-              src={stickHeatmap}
-              alt="Actual MechLab controller input replay screen with recorded stick-density heatmap."
-              loading="lazy"
-              width="1600"
-              height="900"
-            />
-            <figcaption>Actual controller replay capture · example session data</figcaption>
+          <figure className="v2-replay-finding" aria-label="Coaching from a real Fast Aerial rep">
+            <header><b>FAST AERIAL · ATTEMPT 1</b><span>Second-jump stick</span></header>
+            <p className="v2-finding-lead">At jump 2 the stick was 0.99 deflected. The dodge deadzone needs it at 0.40 or less, so the second press became a dodge instead of a straight jump.</p>
+            <dl>
+              <div><dt>You</dt><dd>0.99 deflected at the second press</dd></div>
+              <div><dt>Target</dt><dd>0.40 or less</dd></div>
+              <div><dt>Timing</dt><dd>Jump 2 came 349 ms after jump 1, 49 ms late</dd></div>
+            </dl>
+            <p className="v2-finding-next"><b>Next rep:</b> ease the stick toward centre for the second press, then pull back.</p>
+            <figcaption>From a real rep in Replay Coach. The same fix shows on the in-game overlay right after the rep.</figcaption>
           </figure>
-        </section>
-
-        <section className="v2-section overlay-proof">
-          <div className="v2-heading"><p>INPUT OVERLAY</p><h2>See the cue while you train.</h2><span>A real capture from the MechLab overlay. Example session data shown; this is not a live feed.</span></div>
-          <figure className="overlay-proof-image"><img src={overlayCapture} alt="MechLab training overlay with a Fast Aerial cue and example session status" loading="lazy"/><figcaption>MechLab overlay · sample session</figcaption></figure>
         </section>
 
         <section className="v2-section v2-status" id="status">
           <div className="v2-heading">
             <p>THE MECHLAB LOOP</p>
             <h2>From first input<br /><em>to the next clean rep.</em></h2>
-            <span>MechLab brings your mechanic, live cue, captured inputs and session review into one Windows training flow.</span>
+            <span>Pick, play, read the cue, fix one thing, go again.</span>
           </div>
           <div className="capability-grid">
-            <article><span>01 / TRAIN</span><h3>Fifteen mechanics, ready to run.</h3><p>Choose the mechanic you want to work on and get straight into focused practice.</p></article>
-            <article><span>02 / COACH</span><h3>One cue, matched to the moment.</h3><p>Scoring and coaching share the active attempt window. Keybind-aware guides use your controls, and input references appear when the rep is ready for comparison.</p></article>
-            <article><span>03 / PLAY</span><h3>Keep the cue beside the game.</h3><p>Start with a guided first run, then keep the MechLab overlay and optional official match context close to the play.</p></article>
-            <article><span>04 / READ</span><h3>See your sticks, not a guess.</h3><p>Replay Coach lines up the attempt, stick heatmaps, controller-specific labels, and faithful FAR/DAR input during review and simulation.</p></article>
-            <article><span>05 / EXPERIMENT</span><h3>Try a small change safely.</h3><p>Corrected replays test a bounded input change in simulation, then continue with your original recorded controls.</p></article>
-            <article><span>06 / YOUR DATA</span><h3>You choose what leaves your PC.</h3><p>Control progress sync, analytics, and training-data contribution. Review queued uploads, retry when you choose, or erase account data.</p></article>
+            <article><span>01 / PICK</span><h3>Fifteen mechanics.</h3><p>Each one comes with how it’s done, where it usually goes wrong, and a clean rep to watch.</p></article>
+            <article><span>02 / PLAY</span><h3>Practice in Free Play or a training pack.</h3><p>MechLab reads the game while you play, so you don’t tab out or log anything.</p></article>
+            <article><span>03 / CUE</span><h3>One fix per rep.</h3><p>After each rep the overlay shows your score and the single change that helps most. A missed rep says Missed, not a fake number.</p></article>
+            <article><span>04 / READ</span><h3>See what your hands did.</h3><p>Replay Coach shows your stick and buttons next to the car, at the moment it went wrong.</p></article>
+            <article><span>05 / TRY</span><h3>Test a fix before you play it.</h3><p>The simulator replays your rep with a small change and shows where the car would have gone. It’s always labelled as a prediction.</p></article>
+            <article><span>06 / YOUR DATA</span><h3>You choose what leaves your PC.</h3><p>Syncing progress and sharing reps are both your call, and you can erase your account data any time.</p></article>
           </div>
           <a className="ahead-link" href="/roadmap">See what we’re building next <span>→</span></a>
         </section>
 
         <section className="v2-cta">
           <div>
-            <p>ALPHA</p>
+            <p>BETA</p>
             <h2>Need players who will break it.</h2>
-            <span>Fifteen mechanics, live cues, controller heatmaps and replay review. Get in and shape what MechLab becomes next.</span>
+            <span>Get in early, tell us what’s wrong, and shape what MechLab becomes.</span>
           </div>
           <button className="v2-button primary" onClick={() => setAuthMode('signup')}>
-            Request access <span>→</span>
+            Join the beta <span>→</span>
           </button>
         </section>
 

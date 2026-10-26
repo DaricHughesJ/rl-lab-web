@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: 'PC only?',
-    a: 'Yes for alpha. Console is out of scope for now.',
+    a: 'Yes, Windows PC only for now. Console is out of scope for now.',
   },
   {
     q: 'Which controllers are supported?',
@@ -29,7 +29,7 @@ const faqs = [
     a: 'The planned beta price is $5.99 per month. Paid checkout is not open, and requesting access does not charge you. Billing and cancellation terms will be shown before you pay.',
   },
   { q: 'Does MechLab guarantee a rank-up?', a: 'No. It is a practice and review tool, not a promise of results. Improvement depends on practice and the quality of the available evidence.' },
-  { q: 'What happens to my sessions?', a: 'Session storage and account handling are described in the privacy notice. Review the current terms and privacy page before using the alpha.' },
+  { q: 'What happens to my sessions?', a: 'Session storage and account handling are described in the privacy notice. Review the current terms and privacy page before using the beta.' },
   { q: 'Can I use it during online matches?', a: 'MechLab is designed around training and review. Do not use it to gain an advantage in online matches; follow Rocket League rules and the app’s current setup guidance.' },
 ]
 

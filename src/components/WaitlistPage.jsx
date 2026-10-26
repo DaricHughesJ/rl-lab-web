@@ -99,7 +99,7 @@ export default function WaitlistPage() {
           <button className="v2-button primary" disabled={busy} type="submit">
             {busy ? 'Saving…' : 'Request access →'}
           </button>
-          <p className="dbg-form-note">No charge to join. We email when alpha seats open. Already have an account? <a href="/signin">Sign in</a>.</p>
+          <p className="dbg-form-note">No charge to join. We email when beta seats open. Already have an account? <a href="/signin">Sign in</a>.</p>
         </form>
       </section>
     </LabChrome>

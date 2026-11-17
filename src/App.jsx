@@ -89,6 +89,7 @@ function App() {
           <Brand />
           <div id="v2-mobile-nav" className={`v2-links${menu ? ' open' : ''}`}>
             <a href="#app" onClick={() => setMenu(false)}>Product</a>
+            <a href="#arcade" onClick={() => setMenu(false)}>Arcade</a>
             <a href="#mechanics" onClick={() => setMenu(false)}>Mechanics</a>
             <a href="/pricing" onClick={() => setMenu(false)}>Pricing</a>
             <a href="/docs" onClick={() => setMenu(false)}>Guide</a>
@@ -166,6 +167,33 @@ function App() {
               <img src={replayInputs} alt="Replay Coach inputs tab on a real Fast Aerial rep: left stick path, buttons pressed, and the jump timeline" loading="lazy" width="1366" height="768" />
               <figcaption>Replay Coach: your stick and buttons on the same clock as the car.</figcaption>
             </figure>
+          </div>
+        </section>
+
+        <section className="v2-section v2-arcade" id="arcade">
+          <div className="arcade-story">
+            <div className="arcade-copy">
+              <p className="arcade-kicker">02 / THE ARCADE</p>
+              <h2>Learn the move.<br /><em>Then run it yourself.</em></h2>
+              <p className="arcade-lede">
+                Take a mechanic into MechLab’s Rocket League physics sandbox. Learn it in small pieces, build up to the full move, and keep the inputs in your hands.
+              </p>
+              <ul className="arcade-points">
+                <li><b>Start with the pieces</b><span>Work through a mechanic step by step, then put the whole move together.</span></li>
+                <li><b>Play your way</b><span>Use your controller, or keyboard controls when one is not connected.</span></li>
+                <li><b>Keep results honest</b><span>Arcade runs are simulated practice. They never count as real-rep scores.</span></li>
+              </ul>
+            </div>
+            <div className="arcade-screens">
+              <figure className="arcade-game-shot">
+                <div className="arcade-image"><img src="/arcade/arcade-gameplay-beta-0.2.0.png" alt="MechLab Arcade gameplay in a lit stadium, with the car, ball, boost gauge and simulated-physics label visible" loading="lazy" width="1280" height="854" /></div>
+                <figcaption>Arcade gameplay · simulated Rocket League physics</figcaption>
+              </figure>
+              <figure className="arcade-menu-shot">
+                <div className="arcade-image"><img src="/arcade/arcade-menu-beta-0.2.0.png" alt="MechLab Arcade menu showing mechanic-specific step ladders, speed targets and repeatable drills" loading="lazy" width="1920" height="1080" /></div>
+                <figcaption>Pick a mechanic, learn its pieces, build toward the full move.</figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 

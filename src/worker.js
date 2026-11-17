@@ -1,9 +1,15 @@
 import {
+  BETA_COMMIT,
   BETA_DOWNLOAD_URL,
+  BETA_FILE_NAME,
+  BETA_GITHUB_DOWNLOAD_URL,
   BETA_LATEST_URL,
   BETA_METADATA_KEY,
   BETA_OBJECT_KEY,
+  BETA_RELEASE_TAG,
   BETA_RELEASE_VERSION,
+  BETA_SHA256,
+  BETA_SIZE,
   BETA_VERSION,
 } from './lib/release.js'
 
@@ -39,17 +45,17 @@ export default {
       const version = release?.version || BETA_RELEASE_VERSION
       const displayVersion = release?.version ? `MechLab ${release.version}` : BETA_VERSION
       const objectKey = safeReleaseObjectKey(release?.object_key) || BETA_OBJECT_KEY
-      const fileName = objectKey.split('/').at(-1)
+      const fileName = objectKey.split('/').at(-1) || BETA_FILE_NAME
       return json(
         {
           version,
           file_name: fileName,
-          tag: release?.tag || null,
-          sha256: release?.sha256 || null,
-          size: release?.size || null,
-          commit: release?.commit || null,
+          tag: release?.tag || BETA_RELEASE_TAG,
+          sha256: release?.sha256 || BETA_SHA256,
+          size: release?.size || BETA_SIZE,
+          commit: release?.commit || BETA_COMMIT,
           build_run_id: release?.build_run_id || null,
-          published_at: release?.published_at || null,
+          published_at: release?.published_at || '2026-11-03T19:07:43Z',
           url: `${url.origin}/`,
           notes: `${displayVersion} is available. Sign in with your approved MechLab beta account to download ${fileName}.`,
         },
@@ -65,13 +71,17 @@ export default {
     if (request.method !== 'GET') return json({ error: 'Method not allowed' }, 405, { Allow: 'GET' })
 
     if (url.pathname === UPDATE_MANIFEST_PATH) {
-      const manifest = await env.BETA_DOWNLOADS.get(UPDATE_MANIFEST_KEY)
-      if (!manifest) return json({ error: 'Desktop updates unavailable' }, 503)
-      return new Response(manifest.body, { headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Cache-Control': 'private, no-store',
-        'X-Content-Type-Options': 'nosniff',
-      } })
+      try {
+        const manifest = await env.BETA_DOWNLOADS?.get?.(UPDATE_MANIFEST_KEY)
+        if (!manifest) return json({ error: 'Desktop updates unavailable' }, 503)
+        return new Response(manifest.body, { headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'private, no-store',
+          'X-Content-Type-Options': 'nosniff',
+        } })
+      } catch {
+        return json({ error: 'Desktop updates unavailable' }, 503)
+      }
     }
 
     if (url.pathname === BETA_DOWNLOAD_URL && url.searchParams.has('ticket')) {
@@ -86,36 +96,52 @@ export default {
     if (isUpdateInstaller) {
       const fileName = url.pathname.slice(UPDATE_INSTALLER_PREFIX.length)
       if (!INSTALLER_NAME.test(fileName)) return json({ error: 'Installer not found' }, 404)
-      const installer = await env.BETA_DOWNLOADS.get(`desktop-updates/installers/${fileName}`)
-      if (!installer) return json({ error: 'Installer not found' }, 404)
-      return new Response(installer.body, { headers: {
-        'Content-Type': 'application/vnd.microsoft.portable-executable',
-        'Content-Disposition': `attachment; filename="${fileName}"`,
-        'Content-Length': String(installer.size),
-        'Cache-Control': 'private, no-store',
-        'X-Content-Type-Options': 'nosniff',
-      } })
+      try {
+        const installer = await env.BETA_DOWNLOADS?.get?.(`desktop-updates/installers/${fileName}`)
+        if (!installer) return json({ error: 'Installer not found' }, 404)
+        return new Response(installer.body, { headers: {
+          'Content-Type': 'application/vnd.microsoft.portable-executable',
+          'Content-Disposition': `attachment; filename="${fileName}"`,
+          'Content-Length': String(installer.size),
+          'Cache-Control': 'private, no-store',
+          'X-Content-Type-Options': 'nosniff',
+        } })
+      } catch {
+        return json({ error: 'Installer not found' }, 404)
+      }
     }
 
     const release = await releaseMetadata(env)
     const objectKey = safeReleaseObjectKey(release?.object_key) || BETA_OBJECT_KEY
-    const object = await env.BETA_DOWNLOADS.get(objectKey)
-    if (!object) return json({ error: 'Beta build unavailable' }, 503)
-    const fileName = objectKey.split('/').at(-1)
-
-    const headers = {
-      'Content-Type': 'application/vnd.microsoft.portable-executable',
-      'Content-Disposition': `attachment; filename="${fileName}"`,
-      'Content-Length': String(object.size),
-      'Cache-Control': 'private, no-store',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'no-referrer',
+    let object = null
+    try {
+      object = await env.BETA_DOWNLOADS?.get?.(objectKey)
+    } catch {
+      object = null
     }
-    if (release?.version) headers['X-MechLab-Version'] = release.version
-    if (release?.sha256) headers['X-MechLab-SHA256'] = release.sha256
-    if (release?.commit) headers['X-MechLab-Commit'] = release.commit
 
-    return new Response(object.body, { headers })
+    if (object) {
+      const fileName = objectKey.split('/').at(-1) || BETA_FILE_NAME
+      const headers = {
+        'Content-Type': 'application/vnd.microsoft.portable-executable',
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Length': String(object.size),
+        'Cache-Control': 'private, no-store',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'no-referrer',
+      }
+      if (release?.version || BETA_RELEASE_VERSION) headers['X-MechLab-Version'] = release?.version || BETA_RELEASE_VERSION
+      if (release?.sha256 || BETA_SHA256) headers['X-MechLab-SHA256'] = release?.sha256 || BETA_SHA256
+      if (release?.commit || BETA_COMMIT) headers['X-MechLab-Commit'] = release?.commit || BETA_COMMIT
+
+      return new Response(object.body, { headers })
+    }
+
+    if (BETA_GITHUB_DOWNLOAD_URL) {
+      return Response.redirect(BETA_GITHUB_DOWNLOAD_URL, 302)
+    }
+
+    return json({ error: 'Beta build unavailable' }, 503)
   },
 }
 
@@ -258,9 +284,9 @@ function safeReleaseObjectKey(value) {
 }
 
 async function releaseMetadata(env) {
-  const object = await env.BETA_DOWNLOADS.get(BETA_METADATA_KEY)
-  if (!object) return null
   try {
+    const object = await env.BETA_DOWNLOADS?.get?.(BETA_METADATA_KEY)
+    if (!object) return null
     return JSON.parse(await object.text())
   } catch {
     return null

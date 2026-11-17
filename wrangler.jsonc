@@ -6,12 +6,6 @@
   "vars": {
     "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co"
   },
-  "r2_buckets": [
-    {
-      "binding": "BETA_DOWNLOADS",
-      "bucket_name": "mechlab-private-beta"
-    }
-  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -21,12 +15,6 @@
   "previews": {
     "vars": {
       "SUPABASE_URL": "https://pdqkrhzjjtixkxgcwzif.supabase.co"
-    },
-    "r2_buckets": [
-      {
-        "binding": "BETA_DOWNLOADS",
-        "bucket_name": "mechlab-web-preview"
-      }
-    ]
+    }
   }
 }

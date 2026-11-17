@@ -8,7 +8,7 @@ import {
   updateProfile,
   updateUserSettings,
 } from '../lib/supabase'
-import { BETA_DOWNLOAD_URL, BETA_VERSION } from '../lib/release'
+import { BETA_DOWNLOAD_URL, BETA_FILE_NAME, BETA_VERSION } from '../lib/release'
 
 const tabs = [
   ['overview', '⌁', 'Overview'],
@@ -220,7 +220,7 @@ function DownloadBetaButton() {
     if (typeof window.showSaveFilePicker === 'function') {
       try {
         handle = await window.showSaveFilePicker({
-          suggestedName: 'MechLab.exe',
+          suggestedName: BETA_FILE_NAME || 'MechLab.exe',
           types: [{ description: 'Windows application', accept: { 'application/octet-stream': ['.exe'] } }],
         })
       } catch (err) {
@@ -256,13 +256,13 @@ function DownloadBetaButton() {
       if (handle && response.body) {
         await writeDownloadStream(handle, response, setProgress)
         setPhase('done')
-        setDetail('Saved MechLab.exe')
+        setDetail(`Saved ${BETA_FILE_NAME || 'MechLab.exe'}`)
         return
       }
       const blob = await readDownloadBlob(response, setProgress)
-      triggerBrowserDownload(blob, 'MechLab.exe')
+      triggerBrowserDownload(blob, BETA_FILE_NAME || 'MechLab.exe')
       setPhase('done')
-      setDetail('Download started. Check your downloads for MechLab.exe.')
+      setDetail(`Download started. Check your downloads for ${BETA_FILE_NAME || 'MechLab.exe'}.`)
     } catch {
       setPhase('error')
       setDetail('The beta download is temporarily unavailable. Please try again shortly.')

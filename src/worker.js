@@ -55,7 +55,7 @@ export default {
           size: release?.size || BETA_SIZE,
           commit: release?.commit || BETA_COMMIT,
           build_run_id: release?.build_run_id || null,
-          published_at: release?.published_at || '2026-11-03T19:07:43Z',
+          published_at: release?.published_at || '2026-11-19T04:25:00Z',
           url: `${url.origin}/`,
           notes: `${displayVersion} is available. Sign in with your approved MechLab beta account to download ${fileName}.`,
         },

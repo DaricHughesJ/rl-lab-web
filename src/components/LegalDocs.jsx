@@ -28,9 +28,12 @@ function Terms() { return <>
   <h2>Alpha software</h2><p>MechLab is pre-release software provided for testing. Features, scoring thresholds, availability, and data formats may change, and the alpha may contain defects.</p>
   <h2>Scoring</h2><p>MechLab scores are training feedback for your mechanics practice. They are not an official Rocket League rating or a promise of match results.</p>
   <h2>Supported use</h2><p>Use the alpha only in supported workflows described in the app. Capture and telemetry availability can vary by mechanic and setup. Do not use MechLab to bypass Rocket League, Psyonix, Epic Games, tournament, or anti-cheat rules.</p>
+  <h2>Licence</h2><p>MechLab is licensed, not sold. Approved beta accounts get a personal, revocable, non-transferable licence to install and use the app for their own practice under the End User Licence Agreement the installer shows. MechLab, its scoring methods, mechanic definitions, physics targets and coaching language remain the owner's property.</p>
+  <h2>What you may not do</h2><p>Do not share, sell, upload or mirror MechLab or its installer. Do not reverse engineer, decompile, unpack or extract its code, scoring logic, thresholds, models or coaching text, except where the law expressly allows it despite this limitation. Do not patch MechLab or get around its sign-in, membership or beta access checks. Do not use MechLab, its scores or its coaching to build, train or test another product that scores or coaches Rocket League mechanics. Do not share your account.</p>
+  <h2>Beta confidentiality</h2><p>Features, scoring and coaching in the beta that have not been made public are confidential. Share your own results, not how MechLab works inside.</p>
   <h2>Account responsibility</h2><p>You are responsible for maintaining the security of your account credentials and for activity performed through your account.</p>
   <h2>No affiliation</h2><p>MechLab is an independent project and is not affiliated with, endorsed by, or sponsored by Psyonix or Epic Games.</p>
-  <h2>Availability</h2><p>Alpha access can be changed, suspended, or discontinued as needed for testing, security, abuse prevention, or product changes.</p>
+  <h2>Availability</h2><p>Alpha access can be changed, suspended, or discontinued as needed for testing, security, abuse prevention, or product changes, including when these terms are broken.</p>
   <h2>Feedback</h2><p>If you submit alpha feedback, you permit MechLab to use that feedback to improve the product without an obligation to compensate you.</p>
 </> }
 
